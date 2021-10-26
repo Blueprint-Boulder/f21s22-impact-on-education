@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>Create account</h2>
+    <form action="create_account" method="POST">
+        {% csrf_token %}
+        <label for="new-user-type">I'm a/an...</label>
+        <select name="user-type" id="new-user-type">
+            <option value="applicant">Applicant</option>
+            <option value="volunteer">Volunteer</option>
+            <option value="admin">Admin</option>
+        </select>
+        <br>
+        <label for="create-username">Username:</label>
+        <input name="username" id="create-username" type="text">
+        <br>
+        <label for="create-password">Password:</label>
+        <input name="password" id="create-password" type="password">
+        <br>
+        <!--ADD CONFIRM PASSWORD-->
+        <input type="submit" value="Submit">
+    </form>
+    <h2>Login</h2>
+    <form action="login" method="POST">
+        {%  csrf_token %}
+        <label for="login-user-type">I'm a/an...</label>
+        <select name="user-type" id="login-user-type">
+            <option value="applicant">Applicant</option>
+            <option value="volunteer">Volunteer</option>
+            <option value="admin">Admin</option>
+        </select>
+        <br>
+        <label for="login-username">Username:</label>
+        <input name="username" id="login-username" type="text">
+        <br>
+        <label for="login-password">Password:</label>
+        <input name="password" id="login-password" type="password">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
