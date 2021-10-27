@@ -1,0 +1,55 @@
+/* change the background color for the navigation bar */
+.navbar{
+    background-color: #096593;
+}
+
+/* Headers have to be poppins font, bold, all caps and 80% grey*/
+.h1
+{
+    font-family:'Poppins',sans-serif;
+    font-weight: bold;
+    color:#3a3a3a;
+    text-align: center;
+
+}
+
+/* Body font has to be poppins regular, 80% grey, line height should be 1.4x the font size */
+.p1
+{
+    font-family:'Poppins',sans-serif;
+    color:#3a3a3a;
+    font-size: 12pt;
+    line-height: 1.4;
+}
+
+/* These are for the buttons on the admin page but we can add these properties to other buttons and change their colors */
+.scholarship{
+    background-color:#db0d3c; 
+    border: none;
+    color: white;
+    padding: 50px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.academic {
+    background-color:#f8542b; 
+    border: none;
+    color: white;
+    padding: 50px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.new{
+    background-color:#fdac13; 
+    border: none;
+    color: white;
+    padding: 50px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
