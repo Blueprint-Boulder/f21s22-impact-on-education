@@ -5,27 +5,32 @@
     <title>Title</title>
 </head>
 <body>
-    <h2>Create account</h2>
-    <form action="create_account" method="POST">
+    <button type="button" id="show-create-account">Create Account</button>
+    <form id="create-account" action="create_account" method="POST">
+        <!--Do not remove this token-->
         {% csrf_token %}
-        <label for="new-user-type">I'm a/an...</label>
-        <select name="user-type" id="new-user-type">
+        <label for="create-account-user-type">I'm a/an...</label>
+        <select name="user-type" id="create-account-user-type">
             <option value="applicant">Applicant</option>
             <option value="volunteer">Volunteer</option>
             <option value="admin">Admin</option>
         </select>
         <br>
-        <label for="create-username">Username:</label>
-        <input name="username" id="create-username" type="text">
+        <label for="create-account-username">Username:</label>
+        <input name="username" id="create-account-username" type="text">
         <br>
-        <label for="create-password">Password:</label>
-        <input name="password" id="create-password" type="password">
+        <label for="create-account-password">Password:</label>
+        <input name="password" id="create-account-password" type="password">
         <br>
-        <!--ADD CONFIRM PASSWORD-->
         <input type="submit" value="Submit">
     </form>
-    <h2>Login</h2>
-    <form action="login" method="POST">
+
+    <br>
+    <br>
+
+    <button type="button" id="show-login">Login</button>
+    <form id="login" action="login" method="POST">
+        <!--Do not remove this token-->
         {%  csrf_token %}
         <label for="login-user-type">I'm a/an...</label>
         <select name="user-type" id="login-user-type">
@@ -42,5 +47,41 @@
         <br>
         <input type="submit" value="Submit">
     </form>
+
+    <script type="text/javascript">
+        function startAsHidden(elementId) {
+            let element = document.getElementById(elementId);
+            element.style.display = "none";
+        }
+        function toggleElementOnClick(buttonId, elementId) {
+            let button = document.getElementById(buttonId);
+            let element = document.getElementById(elementId);
+            button.addEventListener("click", function() {
+                if (element.style.display === "none") {
+                    element.style.display = "block";
+                }
+                else {
+                    element.style.display = "none";
+                }
+            })
+        }
+        // TODO: Make hideElementOnClick work properly
+        // This function currently does not work
+        function hideElementOnClick(buttonId, elementId) {
+            let button = document.getElementById(elementId);
+            let element = document.getElementById(elementId);
+            button.addEventListener("click", function() {
+                element.style.display = "none";
+            })
+        }
+
+        startAsHidden("login");
+        startAsHidden("create-account");
+        toggleElementOnClick("show-login", "login");
+        toggleElementOnClick("show-create-account", "create-account");
+        {#hideElementOnClick("show-login", "create-account");#}
+        {#hideElementOnClick("show-create-account", "login");#}
+    </script>
+
 </body>
 </html>

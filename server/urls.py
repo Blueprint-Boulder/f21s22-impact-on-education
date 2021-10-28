@@ -1,4 +1,4 @@
-"""djangoProject URL Configuration
+"""server URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -20,7 +20,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home),
-    path('get_data', views.get_data),
+    path('account_access', views.account_access),
     path('create_account', views.create_account),
     path('login', views.login)
 ]
