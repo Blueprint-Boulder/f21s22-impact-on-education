@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.models import User, Group
@@ -31,11 +32,16 @@ def create_account(request):
     user_type = request.POST['user-type']
     # TODO: Add restrictions on creating volunteer/admin accounts
     # Used kwargs to make sure that e.g. the username field is not being assigned to password
-    user = User.objects.create_user(username=username,
-                                    email=email,
-                                    password=password,
-                                    first_name=first_name,
-                                    last_name=last_name)
+    try:
+        user = User.objects.create_user(username=username,
+                                        email=email,
+                                        password=password,
+                                        first_name=first_name,
+                                        last_name=last_name)
+    except IntegrityError:
+        # TODO: Give specific message, e.g. "username taken", "email already in use"
+        # TODO: Check password for strength and don't allow weak passwords
+        return render(request, "createAccountFail.html")
     group = Group.objects.get_by_natural_key(user_type)
     user.groups.add(group)
     return render(request, "accountAccess.html")
@@ -61,8 +67,10 @@ def login(request):
     user_type = request.POST['user-type']
     # TODO: If possible, check group membership in authenticate function instead
     user = authenticate(request, username=username, password=password)
-    is_user_type = user.groups.filter(name=user_type).exists()
-    if user is not None and (is_user_type or user.is_superuser):
+    if user is None:
+        return render(request, "loginFail.html")
+    user_is_user_type = user.groups.filter(name=user_type).exists()
+    if user_is_user_type or user.is_superuser:
         auth_login(request, user)
         return render(request, "loginSuccess.html")
     else:
