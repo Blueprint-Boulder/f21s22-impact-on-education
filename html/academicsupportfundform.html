@@ -13,8 +13,8 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <meta name="author" content="Impact on Education">
 
-  <link rel="stylesheet" href="/css/style.css">
   <style>
+    /* Temporary CSS, delete later */
     body {}
     h1   {
       color: #3A3A3A;
@@ -44,10 +44,119 @@
     div    {padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px;}
   </style>
 
+  <script>
+
+    function saveFunction() {
+      alert("Saving...")
+      /*
+      * Add saving code here
+      */
+    }
+
+    //This function checks if the @ character is in the email input.
+    function emailChecker() {
+      var form = document.getElementById("academicsupportfundform");
+      var emailInput = form.elements["email"];
+      var currValue = emailInput.value;
+      var foundAt = false;
+      for(var i = 0; i < currValue.length; i++)
+      {
+        if(currValue.charAt(i)=='@')
+        {
+          foundAt = true;
+        }
+      }
+      if(!foundAt){
+        alert("Not a valid email.");
+        return false;
+      }
+      return true;
+
+    }
+
+    //This function checks that if the "other" option was selected, that an answer was provided.
+    //This is hard-coded so it will not work for other forms
+    function submitCheck() {  
+      
+      if(emailChecker()){
+        var button = document.getElementById('submit_button');
+        var form = document.getElementById("academicsupportfundform");
+
+        /*
+        var elements = form.elements;
+        console.log(elements[0].value);
+        for(var j = 0; j < elements.length;j++)
+        {
+          var formElement = elements[j];
+          for(var k = 0; k < formElement.length;k++)
+          {
+
+            if(formElement[k].value=="Other")
+            {
+              console.log("test");
+            }
+          }
+        }
+        */
+
+        var checkboxes1 = form.elements["role"];
+        console.log(checkboxes1);
+        var bool1 = false;
+        var other1Checked = true;
+        for(var i = 0; i < checkboxes1.length; i++)
+        {
+          if(checkboxes1[i].checked==true)
+          {
+            bool1 = true;
+            if (i==checkboxes1.length-2){
+              if(checkboxes1[checkboxes1.length-1].value == ""){
+                other1Checked = false;
+              } else {
+                other1Checked = true;
+              }
+            }
+          }
+
+        }
+
+        var other2Checked = true;
+        var areasOfNeed = form.elements["areaOfNeed"];
+        if(areasOfNeed[7].checked == true){
+          if(areasOfNeed[8].value == ""){
+            other2Checked = false;
+          }
+        }
+
+        if(bool1 == false || other1Checked == false || other2Checked == false) 
+        {            
+          alert("Missing text fields. Check if you selected 'other' as an option for any question.");
+        } else {
+          
+        }        
+      }
+    }    
+
+    // To be used in conjunction with the form builder
+    window.onload = function(){
+      //Test code
+      /*
+      var form = document.getElementById('academicsupportfundform');
+      console.log(form);
+      const newDiv = document.createElement('div');
+      const newContent = document.createTextNode("Hi there and greetings!");
+      newDiv.appendChild(newContent);
+      form.appendChild(newDiv);
+      */
+
+
+    }
+
+  </script>
+
 </head>
 
 <body>
-  <!-- your content here... -->
+  <div>
   <h1>2021-2022 Student Academic Support Fund</h1>
   <p>
   **Round Three applications are due November 7th.**
@@ -71,8 +180,9 @@
   <p>
   Thank you for allowing us to continue our support of your students! 
   </p>
-  <div>
-  <form>
+  </div>
+  <div id="form">
+  <form id="academicsupportfundform">
     <label for="email"><b>Email:*</b></label>
     <input type="text" id="email" name="email" placeholder="Email" required="required"><br>
     <br>
@@ -96,9 +206,9 @@
     <label for="asstprincipalcheckbox">Assistant Principal</label><br>
     <input type="checkbox" id="educatorcheckbox" name="role" value="Educator">
     <label for="educatorcheckbox">Educator</label><br>
-    <input type="checkbox" id="othercheckbox" name="role" value="Educator">
+    <input type="checkbox" id="othercheckbox" name="role" value="Other">
     <label for="othercheckbox">Other:</label>
-    <input type="text" id="othercheckbox" name="role">
+    <input type="text" id="othertextentry" name="role">
     <br><br>
 
     <label for="deptOrGradeLevel"><b>If you answered "Educator" or "Other" in the previous question, what department and/or grade level are you a member of?</b></label><br>
@@ -149,7 +259,7 @@
     <br>
 
     <h6>If you've reached out to any or all of the above BVSD departments or organizations as appropriate or necessary and your student(s) academic need is still requiring funding, please answer the following brief questions.</h6> 
-
+    <br>
 
     <label for="areaOfNeed"><b>What area of academic need does your request involve?*</b></label><br>
     <br>
@@ -169,11 +279,11 @@
     <label for="materials">Classroom materials or curriculum</label><br>
     <input type="radio" id="academicSupport" name="areaOfNeed" value="accedemicSupport" required="required">
     <label for="academicSupport">Academic support (tutoring, academic intervention work)</label><br>
-    <input type="radio" id="otherAreaOfNeed" name="areaOfNeed" value="other" required="required">
+    <input type="radio" id="otherAreaOfNeed" name="areaOfNeed" value="other" required="required" >
     <label for="otherAreaOfNeed">Other:</label>
     <input type="text" id="otherAreaOfNeedTextEntry" name="areaOfNeed">
 
-    <br>
+    <br><br>
 
     <label for="whoNeedsAssistance"><b>Who needs the assistance you are requesting (no student names please)?*</b></label><br>
     <br>
@@ -201,7 +311,6 @@
     <br>
 
     <label for="itResources"><b>Do you agree to provide quantitative, qualitative, and/or anecdotal post-data should your Academic Opportunity Fund request be approved?*</b></label><br>
-    <br>
 
 
     <input type="radio" id="yesToAgreement" name="agreement" value="yes" required="required">
@@ -210,25 +319,15 @@
     <label for="noToAgreement">No</label><br>
     <br>
 
-
-
     <div class="row">
       <div class="col">
-        <button id="submit" class="btn btn-primary btn-block" onClick="onClick()">Submit</button>
-      </div>
-      <div class="col">
-        <button id="save" class="btn btn-primary btn-block" onClick="">Save</button>
+        <button id="submit_button" class="btn btn-primary btn-block" onClick="submitCheck()">Submit</button>
       </div>
     </div>
-    <br>
   </form>
+  <div class="col">
+    <button id="save_button" class="btn btn-primary btn-block" onClick="saveFunction()">Save</button>
   </div>
-
-    
-
-    
-    
-  </form>
-  <script src="/js/academicsupport.js"></script>
+  </div>
 </body>
 </html>

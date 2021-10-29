@@ -1,0 +1,121 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Academic Support Fund Application Form</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  <meta name="author" content="Impact on Education">
+
+  <style>
+    /* Temporary CSS, delete later */
+    body {}
+    h1   {
+      color: #3A3A3A;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 800;
+      font-size: 64px;
+      line-height: 96px;
+      /* identical to box height */
+
+      text-align: center;
+    }
+    h4   {
+      color: #3A3A3A;
+      font-size:48px;
+      font-family: Poppins;
+      font-style: normal;
+      font-weight: 800;
+      font-size: 48px;
+      line-height: 67.2px;
+      text-align: center;
+    }
+    h5     {color: #3A3A3A;font-size:40px;}
+    p      {color: #3A3A3A;font-size:15px;}
+    h6     {color: #3A3A3A;font-size:20px;}
+    label  {color: #3A3A3A;font-size:15px;}
+    div    {padding-top: 20px; padding-right: 20px; padding-bottom: 20px; padding-left: 20px;}
+  </style>
+
+  <script>
+
+    function saveFunction() {
+      alert("Saving...")
+      /*
+      * Add saving code here
+      */
+    }
+
+    //This function checks if the @ character is in the email input.
+    function emailChecker() {
+      var form = document.getElementById("academicsupportfundform");
+      var emailInput = form.elements["email"];
+      var currValue = emailInput.value;
+      var foundAt = false;
+      for(var i = 0; i < currValue.length; i++)
+      {
+        if(currValue.charAt(i)=='@')
+        {
+          foundAt = true;
+        }
+      }
+      if(!foundAt){
+        alert("Not a valid email.");
+        return false;
+      }
+      return true;
+
+    }
+
+    //This function checks that if the "other" option was selected, that an answer was provided.
+    //This is hard-coded so it will not work for other forms
+    function submitCheck() {  
+      
+    }    
+
+    var appQs = [["radio",["a","b","c"],"This is the question?","required"],["checkbox",["d","e","f"],"This is another question?","required"]]
+    // To be used in conjunction with the form builder
+    window.onload = function(){
+      console.log("test");
+      var form = document.getElementById('scholarshipform');
+      console.log(form);
+      console.log(appQs[0])
+      for(var i = 0; i < appQs.length; i++)
+      {
+        var newFormElement = '';
+        newFormElement+= '<p>' + appQs[i][2] + '</p>';
+        for(var j = 0; j < appQs[i][1].length; j++)
+        {
+          newFormElement += '<label for="yesToReviewedCommResources">'+appQs[i][1][j]+'&nbsp;'+'</label><input type="'+appQs[i][0]+'" id="" name="" value="'+appQs[i][1][j]+'" required="'+appQs[i][3]+'"><br>';
+        }
+        form.innerHTML += newFormElement + '<br>';
+      }
+      form.innerHTML += '<div class="row"><div class="col"><button id="submit_button" class="btn btn-primary btn-block" onClick="">Submit</button></div></div>';
+      
+    }
+
+  </script>
+
+</head>
+
+<body>
+  <div>
+  <h1></h1>
+  
+  <div id="form">
+    <form id="scholarshipform">
+      
+    </form>
+    <div class="col">
+      <button id="save_button" class="btn btn-primary btn-block" onClick="saveFunction()">Save</button>
+    </div>
+  </div>
+</body>
+</html>
