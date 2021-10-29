@@ -62,7 +62,7 @@ def login(request):
     # TODO: If possible, check group membership in authenticate function instead
     user = authenticate(request, username=username, password=password)
     is_user_type = user.groups.filter(name=user_type).exists()
-    if user is not None and is_user_type:
+    if user is not None and (is_user_type or user.is_superuser):
         auth_login(request, user)
         return render(request, "loginSuccess.html")
     else:
