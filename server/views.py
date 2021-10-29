@@ -4,7 +4,6 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth import authenticate
 # Bugfix from https://stackoverflow.com/questions/39316948/typeerror-login-takes-1-positional-argument-but-2-were-given
 from django.contrib.auth import login as auth_login
-import bcrypt
 
 
 def home(request):
@@ -25,12 +24,18 @@ def csv_line(*args):
 
 def create_account(request):
     username = request.POST['username']
-    # TODO: Add user's actual email
-    email = "foo@bar.com"
+    email = request.POST['email']
     password = request.POST['password']
+    first_name = request.POST['first-name']
+    last_name = request.POST['last-name']
     user_type = request.POST['user-type']
+    # TODO: Add restrictions on creating volunteer/admin accounts
     # Used kwargs to make sure that e.g. the username field is not being assigned to password
-    user = User.objects.create_user(username=username, email=email, password=password)
+    user = User.objects.create_user(username=username,
+                                    email=email,
+                                    password=password,
+                                    first_name=first_name,
+                                    last_name=last_name)
     group = Group.objects.get_by_natural_key(user_type)
     user.groups.add(group)
     return render(request, "accountAccess.html")

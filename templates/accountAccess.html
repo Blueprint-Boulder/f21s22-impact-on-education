@@ -5,7 +5,7 @@
     <title>Title</title>
 </head>
 <body>
-    <button type="button" id="show-create-account">Create Account</button>
+<button type="button" id="show-create-account">Create Account</button>
     <form id="create-account" action="create_account" method="POST">
         <!--Do not remove this token-->
         {% csrf_token %}
@@ -19,9 +19,19 @@
         <label for="create-account-username">Username:</label>
         <input name="username" id="create-account-username" type="text">
         <br>
+        <label for="create-account-first-name">First name:</label>
+        <input name="first-name" id="create-account-first-name" type="text">
+        <br>
+        <label for="create-account-last-name">Last name:</label>
+        <input name="last-name" id="create-account-last-name" type="text">
+        <br>
+        <label for="create-account-email">Email:</label>
+        <input name="email" id="create-account-email" type="text">
+        <br>
         <label for="create-account-password">Password:</label>
         <input name="password" id="create-account-password" type="password">
         <br>
+
         <input type="submit" value="Submit">
     </form>
 
@@ -53,6 +63,7 @@
             let element = document.getElementById(elementId);
             element.style.display = "none";
         }
+
         function toggleElementOnClick(buttonId, elementId) {
             let button = document.getElementById(buttonId);
             let element = document.getElementById(elementId);
@@ -65,10 +76,9 @@
                 }
             })
         }
-        // TODO: Make hideElementOnClick work properly
-        // This function currently does not work
+
         function hideElementOnClick(buttonId, elementId) {
-            let button = document.getElementById(elementId);
+            let button = document.getElementById(buttonId);
             let element = document.getElementById(elementId);
             button.addEventListener("click", function() {
                 element.style.display = "none";
@@ -79,8 +89,8 @@
         startAsHidden("create-account");
         toggleElementOnClick("show-login", "login");
         toggleElementOnClick("show-create-account", "create-account");
-        {#hideElementOnClick("show-login", "create-account");#}
-        {#hideElementOnClick("show-create-account", "login");#}
+        hideElementOnClick("show-login", "create-account");
+        hideElementOnClick("show-create-account", "login");
     </script>
 
 </body>
