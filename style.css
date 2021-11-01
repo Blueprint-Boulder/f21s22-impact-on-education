@@ -1,0 +1,102 @@
+/* changed the background color for the navigation bar */
+.navbar{
+    background-color: #096593;
+}
+
+/* Headers have to be poppins font, bold, all caps and 80% grey*/
+.h1
+{
+    font-family:'Poppins',sans-serif;
+    font-weight: bold;
+    color:#3a3a3a;
+    text-align: center;
+
+}
+/* This is incase we want a header with the rainbow background*/
+.header {
+    padding: 60px;
+    text-align: center;
+    background: url(gradient_header.png);     
+    color: white;
+  }
+
+/* Body font has to be poppins regular, 80% grey, line height should be 1.4x the font size */
+.p1
+{
+    font-family:'Poppins',sans-serif;
+    color:#3a3a3a;
+    font-size: 12pt;
+    line-height: 1.4;
+}
+
+/* These are for the buttons on the admin page but we can add these properties to other buttons and change their colors */
+.scholarship{
+    background-color:#db0d3c; 
+    border: none;
+    color: white;
+    padding: 50px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.academic {
+    background-color:#f8542b; 
+    border: none;
+    color: white;
+    padding: 50px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+.new{
+    background-color:#fdac13; 
+    border: none;
+    color: white;
+    padding: 50px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+/* These are for the forms */
+.input{
+    /* These can also be used for the sign up and login pages */
+    width:25%;
+    padding: 12px 20px;
+    margin:8px 0;
+    box-sizing: border-box;
+    border:2px solid #7a1364;
+    
+}
+.submitButton
+{
+    background-color: white;
+    color:#157077;
+
+}
+.saveButton
+{
+    background-color: white;
+    color:#096593;
+}
+
+.dropbtn {
+    background-color:white;
+    color: black;
+    padding: 15px;
+    font-size: 16px;
+    border: none; /*might change this */
+    cursor: pointer;
+  }
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
