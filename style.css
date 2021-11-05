@@ -1,22 +1,30 @@
+/*Notes:
+xyz = tags
+#xyz = id
+.xyz = class
+p.center = ptag, class center
+x,y,z = x, y, and z tags
+*/
+
 /* changed the background color for the navigation bar */
 .navbar{
     background-color: #096593;
 }
 
 /* Headers have to be poppins font, bold, all caps and 80% grey*/
-.h1
+h1, .h1
 {
     font-family:'Poppins',sans-serif;
     font-weight: bold;
     color:#3a3a3a;
     text-align: center;
-
+    padding: 50px 50px 50px 50px; /*top, right, bottom, left */
 }
 /* This is incase we want a header with the rainbow background*/
 .header {
     padding: 60px;
     text-align: center;
-    background: url(gradient_header.png);     
+    background: url(gradient_header.png);
     color: white;
   }
 
@@ -29,19 +37,14 @@
     line-height: 1.4;
 }
 
-/* These are for the buttons on the admin page but we can add these properties to other buttons and change their colors */
-.scholarship{
-    background-color:#db0d3c; 
-    border: none;
-    color: white;
-    padding: 50px 50px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+.center-buttons {
+  display: flex;
+  justify-content: center;
 }
-.academic {
-    background-color:#f8542b; 
+/* Buttons */
+/*Red Button*/
+.red-button{
+    background-color:#db0d3c;
     border: none;
     color: white;
     padding: 50px 50px;
@@ -49,9 +52,12 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    margin-right: 20px;
+
 }
-.new{
-    background-color:#fdac13; 
+/*Orange Button*/
+.orange-button {
+    background-color:#f8542b;
     border: none;
     color: white;
     padding: 50px 50px;
@@ -59,6 +65,19 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    margin-right: 20px;
+}
+/*Yellow Button*/
+.yellow-button{
+    background-color:#fdac13;
+    border: none;
+    color: white;
+    padding: 50px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 20px;
 }
 
 /* These are for the forms */
@@ -69,7 +88,7 @@
     margin:8px 0;
     box-sizing: border-box;
     border:2px solid #7a1364;
-    
+
 }
 .submitButton
 {
@@ -99,4 +118,15 @@
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
   }
-
+  .logout-button {
+    background-color:#096593;
+    border: none;
+    color: white;
+    padding: 20px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    justify-content: right;
+    display: flex;
+  }
