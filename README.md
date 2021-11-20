@@ -91,8 +91,4 @@ It might not be obvious if the view is a class
   - `review.submitted`: A boolean representing whether the volunteer has submitted the review.
 
 
-See `users/templates/users/exampleUserInfo.html` for an example of how you could use all of these features.
-
-
-
 
