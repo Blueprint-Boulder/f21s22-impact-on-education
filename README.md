@@ -14,7 +14,7 @@ This will not run properly without settings.py and db.sqlite3, both of which are
 *(Missing homepages, URLs that don't go where they're supposed to, etc)*
 
 ### Finding where the TODOs are
-#### In Pycharm: 
+#### In PyCharm: 
 CMD+Shift+A, search for "TODO", then click on the one labeled `View | Tool Windows`
 #### From Terminal:
 Make sure your current directory is the project root.
@@ -63,7 +63,7 @@ It might not be obvious if the view is a class
 
 
 ## Making the users table (UNFINISHED)
-### Please make the users table in `users/templates/users/userInfo.html`.
+### Please make the users table in `administrator/templates/administrator/userInfo.html`.
 
 ### API for the users table:
 #### Variables:
@@ -89,7 +89,7 @@ It might not be obvious if the view is a class
   - `review.application`: The `Application` associated with the review.
   - `review.text`: A string representing the full text of the review.
   - `review.submitted`: A boolean representing whether the volunteer has submitted the review.
-#### Some things you can link to:
+
 
 See `users/templates/users/exampleUserInfo.html` for an example of how you could use all of these features.
 
