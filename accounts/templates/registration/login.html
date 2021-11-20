@@ -1,0 +1,28 @@
+<!--Django's auto-generated login view (which is not in the project's source code),
+and views.create_account, use this template-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | Impact on Education</title>
+</head>
+<body>
+<h2>Log In</h2>
+<h2>... or <a href="/accounts/register/">Create Account</a></h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Log In</button>
+</form>
+
+<h3>(For testing) You can log in as any of these users, or create one:</h3>
+username: applicant, password: applicant
+<br>
+username: volunteer, password: volunteer
+<br>
+username: administrator, password: administrator
+<br>
+username: site-admin, password: site-admin
+</body>
+</html>

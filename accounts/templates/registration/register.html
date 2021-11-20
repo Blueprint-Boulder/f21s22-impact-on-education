@@ -1,0 +1,55 @@
+<!--views.register_page uses this template-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Account</title>
+</head>
+<body>
+<h2>Register</h2>
+{% if fail %}
+    <h3>One or more fields were invalid, try again</h3>
+{% endif %}
+<form action="/accounts/create-account/" method="POST">
+    {% csrf_token %}
+
+    <label for="user-type">I'm a/an...</label>
+    <select name="user-type" id="user-type">
+        <option value="applicant">Applicant</option>
+        <option value="volunteer">Volunteer</option>
+        <option value="administrator">Admin</option>
+        <option value="site-admin">Site Admin</option>
+    </select>
+
+    <br>
+
+    <label for="username">Username: </label>
+    <input id="username" name="username" type="text">
+
+    <br>
+
+    <label for="email">Email: </label>
+    <input id="email" name="email" type="text">
+
+    <br>
+
+    <label for="first-name">First Name: </label>
+    <input id="first-name" name="first-name" type="text">
+
+    <br>
+
+    <label for="last-name">Last Name: </label>
+    <input id="last-name" name="last-name" type="text">
+
+    <br>
+
+    <label for="password">Password: </label>
+    <input id="password" name="password" type="password">
+
+    <br>
+
+    <button type="submit">Register</button>
+</form>
+</body>
+</html>

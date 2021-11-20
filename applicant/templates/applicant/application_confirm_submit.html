@@ -1,0 +1,25 @@
+<!--views.confirm_submit uses this template-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+Application ID: {{ application.pk }}
+<h2>Application text:</h2>
+{{ application.text }}
+<br>
+<h2>Are you sure you want to submit the application?</h2>
+<form method="POST" action={% url "applicant:submit-app" pk=application.pk %}>
+    {% csrf_token %}
+    <input type="hidden" name="pk" value={{ application.pk }}>
+    <button type="submit">Yes, submit now</button>
+</form>
+<form action={% url "applicant:edit-app" pk=application.pk %}>
+    {% csrf_token %}
+    <button type="submit">No, go back to editing</button>
+</form>
+</body>
+</html>

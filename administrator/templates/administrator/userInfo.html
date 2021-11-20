@@ -1,0 +1,27 @@
+<!--views.user_info uses this template-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Info</title>
+</head>
+<body>
+{% for user in users %}
+    <h2>{{ user }}</h2>
+    <h3>Applications:</h3>
+    {% if not user.application_set.all.exists %}
+        <h4>This user does not have any applications.</h4>
+    {% endif %}
+    {% for application in user.application_set.all %}
+        <!--TODO (high priority): Change to administrator:view-app once administrator:view-app is implemented-->
+        <a href={% url "applicant:view-app" pk=application.pk %}> ID {{ application.pk }}</a>
+        <br>
+    {% endfor %}
+    {% for application in user.application_set.all %}
+
+    {% endfor %}
+    <br>
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!--views.view_applications uses this template-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% if not applications.exists %}
+    <h2>You don't have any applications yet.</h2>
+{% endif %}
+
+<a href={% url "applicant:new-app" %}><h3>Create new application</h3></a>
+{% for application in applications %}
+    ID: {{ application.pk }}
+    <br>
+    Text: {{ application.text }}
+    <br>
+    {% if application.submitted %}
+        <strong>[SUBMITTED]</strong>
+        <br>
+    {% else %}
+        <a href={% url "applicant:edit-app" pk=application.pk %}>[Edit]</a>
+        <a href={% url "applicant:delete-app" pk=application.pk %}>[Delete]</a>
+        <a href={% url "applicant:confirm-submit-app" pk=application.pk %}>[Submit]</a>
+    {% endif %}
+    <br><br>
+{% endfor %}
+<br>
+
+</body>
+</html>
