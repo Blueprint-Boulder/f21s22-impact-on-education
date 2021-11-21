@@ -23,7 +23,7 @@ from django_root import views
 urlpatterns = [
     path('', views.home),
     path('admin/', admin.site.urls),  # TODO (low priority): Add name='admin' once this file has a functional app_name
-    path('accounts/', include('accounts.urls')),  # TODO (medium priority): Implement the templates for this
+    path('accounts/', include('accounts.urls')),
     path('administrator/', include('administrator.urls')),
     path('applicant/', include('applicant.urls')),
     path('homepage_redirect', views.homepage_redirect),

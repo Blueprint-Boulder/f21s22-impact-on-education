@@ -73,6 +73,7 @@ def home(request):
     return render(request, "applicant/applicant_home.html", {'user': request.user})
 
 
+# TODO (medium priority): Only let user view their own applications
 @user_passes_test(is_applicant)
 def view_application(request, pk: int):
     application = Application.objects.get(pk=pk)
