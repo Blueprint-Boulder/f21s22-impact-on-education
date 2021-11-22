@@ -10,7 +10,7 @@ from django_root.views import is_in_group
 from applicant.models import Application
 
 
-def is_applicant(user: get_user_model()):
+def is_applicant(user: type(get_user_model())):
     return user.groups.filter(name="applicant").exists()
 
 

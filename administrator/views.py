@@ -10,7 +10,7 @@ from applicant.models import Application
 from administrator.models import CustomUser
 
 
-def is_admin(user: get_user_model()):
+def is_admin(user: type(get_user_model())):
     return user.groups.filter(name='administrator').exists()
 
 

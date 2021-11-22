@@ -9,7 +9,9 @@ from administrator.models import CustomUser
 
 
 class Application(models.Model):
-    author: settings.AUTH_USER_MODEL = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    author: type(settings.AUTH_USER_MODEL) = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                                               on_delete=models.CASCADE,
+                                                               null=True)
     text = models.TextField(max_length=5000)
     submitted = models.BooleanField(default=False)
 
