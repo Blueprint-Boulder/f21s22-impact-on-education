@@ -22,7 +22,7 @@ Make sure your current directory is the project root.
 Finding e.g. high priority TODOs:
 `grep -rn "TODO (high priority)" *`
 
-Finding all TODOs: `grep -rn TODO (" *`
+Finding all TODOs: `grep -rn "TODO (" *`
 
 `grep -rn "TODO" *` won't work because there are some TODOs in Django's source code that will appear.
 
