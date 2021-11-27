@@ -7,7 +7,7 @@ from administrator.models import CustomUser
 
 
 def home(request):
-    return redirect("/accounts/login")
+    return redirect(reverse("accounts:login"))
 
 
 # Helper function of homepage_redirect

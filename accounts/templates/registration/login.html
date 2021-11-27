@@ -1,5 +1,4 @@
-<!--Django's auto-generated login view (which is not in the project's source code),
-and views.create_account, use this template-->
+<!--Django's auto-generated login view (which is not in the project's source code) uses this template-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +8,7 @@ and views.create_account, use this template-->
 </head>
 <body>
 <h2>Log In</h2>
-<h2>... or <a href="/accounts/register/">Create Account</a></h2>
+<h2>... or <a href={% url "accounts:register" %}>Create Account</a></h2>
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
