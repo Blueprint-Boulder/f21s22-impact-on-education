@@ -5,7 +5,7 @@ from django.urls import reverse
 
 
 from django_root import settings
-from administrator.models import CustomUser
+from accounts.models import CustomUser
 
 
 class Application(models.Model):

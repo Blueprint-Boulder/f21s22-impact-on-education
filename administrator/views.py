@@ -7,7 +7,7 @@ from django_root.views import is_in_group
 
 # Create your views here.
 from applicant.models import Application
-from administrator.models import CustomUser
+from accounts.models import CustomUser
 
 
 def is_admin(user: type(get_user_model())):

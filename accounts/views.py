@@ -4,8 +4,8 @@ from django.db import IntegrityError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from administrator.forms import CustomUserCreationForm
-from administrator.models import CustomUser
+from accounts.forms import CustomUserCreationForm
+from accounts.models import CustomUser
 
 
 def register(request):

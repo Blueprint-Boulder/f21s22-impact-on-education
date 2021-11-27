@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
-from administrator.models import CustomUser
+from accounts.models import CustomUser
 
 
 def home(request):
