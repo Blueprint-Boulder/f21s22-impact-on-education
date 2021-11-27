@@ -85,7 +85,7 @@ It might not be obvious if the view is a class
 
 
 ## Making the users table (UNFINISHED)
-### Please make the users table in `administrator/templates/administrator/userInfo.html`.
+### Please make the users table in `administrator/templates/administrator/users.html`.
 
 ### API for the users table:
 #### Variables:
