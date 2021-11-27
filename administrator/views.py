@@ -15,8 +15,6 @@ def is_admin(user: type(get_user_model())):
 
 
 # Users table
-# TODO (low priority): Might be worth renaming to users_table so that we have the name user_info
-#  saved for viewing detailed info about a specific user
 @user_passes_test(is_admin)
-def user_info(request):
-    return render(request, "administrator/userInfo.html", {'users': get_user_model().objects.all()})
+def users(request):
+    return render(request, "administrator/users.html", {'users': get_user_model().objects.all()})
