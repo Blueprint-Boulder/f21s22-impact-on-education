@@ -61,6 +61,28 @@ It might not be obvious if the view is a class
 
 
 
+## What to do if the migrations files and/or database are messed up (e.g. if you accidentally refactored stuff in them)
+
+### Removing the problem files
+
+1. Remove all files from all migrations folders except the `__init__.py` files.
+
+2. ***NOTE:** If you stored anything important in the database that you really do not want to lose, try only following Step 1 in* "Removing the problem files" *and Step 1 in* "Setting up the database again". *If that doesn't work, I unfortunately don't know of any way to fix it other than following this step.*
+
+   Delete the database file (`db.sqlite3`). Do not refactor anything when you delete it (in PyCharm, this means unchecking "Safe Delete").
+
+### Setting up the database again
+
+1. Make sure you're in the project's root directory. Run `python manage.py makemigrations`, then run `python manage.py migrate`. If `python manage.py makemigrations` doesn't work, then something is wrong with your code, not just the database or migrations files. If `python manage.py migrate` doesn't work, you likely didn't follow the steps in *Removing the problem files*.
+2. Run `python manage.py createsuperuser` and follow the prompts. This will create a user that can access Django's admin site.
+3. Run your project and go to Django's admin site (located in `/admin`). Login as the user you just created.
+4. Add the following groups (it doesn't matter which permissions you give them): *applicant, volunteer, administrator,* and *site-admin*.
+
+### Testing to make sure this didn't break anything else
+
+1. Make an account of each user type (using the "create account" page at `/accounts/register`). If you get the error `The CustomUser could not be created because the data didn't validate.`, this probably isn't a sign that the site is broken; it means you entered a username that already exists, or the email wasn't valid, or the password was too weak, or the passwords didn't match, etc.
+2. Login as each of those accounts and make sure they work properly. 
+
 
 ## Making the users table (UNFINISHED)
 ### Please make the users table in `administrator/templates/administrator/userInfo.html`.
