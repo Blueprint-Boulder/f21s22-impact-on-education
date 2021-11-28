@@ -76,7 +76,7 @@ It might not be obvious if the view is a class
 1. Make sure you're in the project's root directory. Run `python manage.py makemigrations`, then run `python manage.py migrate`. If `python manage.py makemigrations` doesn't work, then something is wrong with your code, not just the database or migrations files. If `python manage.py migrate` doesn't work, you likely didn't follow the steps in *Removing the problem files*.
 2. Run `python manage.py createsuperuser` and follow the prompts. This will create a user that can access Django's admin site.
 3. Run your project and go to Django's admin site (located in `/admin`). Login as the user you just created.
-4. Add the following groups (it doesn't matter which permissions you give them): *applicant, volunteer, administrator,* and *site-admin*.
+4. Add the following groups: *applicant, volunteer, administrator,* and *site-admin*. Give *site-admin* all permissions. It doesn't matter (for testing purposes) which permissions the other groups have.
 
 ### Testing to make sure this didn't break anything else
 
