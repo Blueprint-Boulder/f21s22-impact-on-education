@@ -1,12 +1,13 @@
 # PyCharm config folder; not needed in project
-.idea/  
-# Local Python virtual environment; not needed in project 
-venv/  
+.idea/
+# Local Python virtual environment; not needed in project
+venv/
 # Python binary files (.pyc); not needed in project
 __pycache__/
 # Security issue if made public
-django_root/settings.py  
+django_root/settings.py
 # Website database; security issue if made public
-db.sqlite3  
+db.sqlite3
 # Config file for macOS Finder; security issue if made public + not needed in project
-.DS_Store  
+.DS_Store
+
