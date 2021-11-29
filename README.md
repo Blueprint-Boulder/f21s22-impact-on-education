@@ -29,7 +29,23 @@ Finding all TODOs: `grep -rn "TODO (" *`
 ## Code style
 
 ### Type hints
-Please add type hints for all variables and functions you create, with the exception of return types and arguments for `views.py` functions or overridden functions.
+Please add type hints for all variables and functions you create, except:
+- Return types and arguments for `views.py` functions
+
+- Return types and arguments for overridden functions
+
+- Overridden attributes
+
+- Variables that may change their type over time
+
+- Variables that:
+
+  - Are obviously a certain type and
+
+  - Will not be referenced anywhere in the code we write
+
+    (Example: `app_name`s in `urls.py` files)
+
 
 [Python documentation for type hints](https://docs.python.org/3/library/typing.html)
 
