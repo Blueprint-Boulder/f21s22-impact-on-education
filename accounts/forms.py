@@ -15,9 +15,10 @@ class CustomUserCreationForm(UserCreationForm):
         user: CustomUser = super().save(commit=False)
         if commit:
             user.save()
+            # This adds the user to the group selected in the form (e.g. applicant, volunteer)
             group: Group = Group.objects.get(name=user.user_type)
             user.groups.add(group)
             if user.user_type == "site-admin":
-                user.is_staff = True
+                user.is_staff = True  # Gives access to Django's admin site
             user.save()
         return user
