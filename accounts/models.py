@@ -4,11 +4,11 @@ from django.db import models
 
 # This is the class that will represent each user on the website, instead of Django's default User model
 class CustomUser(AbstractUser):
-    user_type = models.CharField(choices=(("applicant", "Applicant"),
-                                          ("volunteer", "Volunteer"),
-                                          ("administrator", "Admin"),
-                                          ("site-admin", "Site Admin")),
-                                 max_length=13, null=True)
+    user_type: models.CharField = models.CharField(choices=(("applicant", "Applicant"),
+                                                            ("volunteer", "Volunteer"),
+                                                            ("administrator", "Admin"),
+                                                            ("site-admin", "Site Admin")),
+                                                   max_length=13, null=True)
 
     """ Represents the fields to display when looking at a brief overview of a user.
     This isn't an official Django thing but makes refactoring easier if we end up having multiple pages that

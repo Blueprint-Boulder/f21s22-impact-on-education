@@ -9,11 +9,11 @@ from accounts.models import CustomUser
 
 
 class Application(models.Model):
-    author: type(settings.AUTH_USER_MODEL) = models.ForeignKey(settings.AUTH_USER_MODEL,
+    author: CustomUser = models.ForeignKey(settings.AUTH_USER_MODEL,
                                                                on_delete=models.CASCADE,
                                                                null=True)
-    text = models.TextField(max_length=5000)
-    submitted = models.BooleanField(default=False)
+    text: models.TextField = models.TextField(max_length=5000)
+    submitted: models.BooleanField = models.BooleanField(default=False)
 
     # ApplicationCreateView and ApplicationUpdateView go to this URL after the creation/editing is finished
     def get_absolute_url(self):

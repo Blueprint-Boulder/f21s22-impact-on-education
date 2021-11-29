@@ -1,12 +1,11 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import user_passes_test
-from django.contrib.auth.models import User
+from django.db.models import QuerySet
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, DeleteView
-from django_root.views import is_in_group
 from applicant.models import Application
 
 
@@ -76,21 +75,21 @@ def home(request):
 # TODO (medium priority): Only let user view their own applications
 @user_passes_test(is_applicant)
 def view_application(request, pk: int):
-    application = Application.objects.get(pk=pk)
+    application: Application = Application.objects.get(pk=pk)
     return HttpResponse(application.text)  # TODO (medium priority): Make into actual page
 
 
 # View of all the user's applications
 @user_passes_test(is_applicant)
 def view_applications(request):
-    applications = Application.objects.filter(author=request.user)
+    applications: QuerySet = Application.objects.filter(author=request.user)
     return render(request, "applicant/applications_list.html", {'applications': applications})
 
 
 # TODO (medium priority): Make this inaccessible by users who don't own the application
 @user_passes_test(is_applicant)
 def confirm_submit_application(request, pk: int):
-    application = Application.objects.get(pk=pk)
+    application: Application = Application.objects.get(pk=pk)
     return render(request, "applicant/application_confirm_submit.html", {'application': application})
 
 
@@ -101,7 +100,7 @@ def submit_application(request, pk: int):
     # Attempt at doing the above, not sure if it fully works
     if ('pk' not in request.POST) or (request.POST['pk'] != str(pk)):
         raise Http404("No associated application to submit")
-    application = Application.objects.get(pk=pk)
+    application: Application = Application.objects.get(pk=pk)
     application.submitted = True
     application.save()
     return redirect(reverse("applicant:home"))

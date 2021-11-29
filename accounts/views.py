@@ -9,11 +9,11 @@ from accounts.models import CustomUser
 
 
 def register(request):
-    form = CustomUserCreationForm()
+    form: CustomUserCreationForm = CustomUserCreationForm()
     return render(request, "registration/register.html", {'form': form})
 
 
 def save_user(request):
-    form = CustomUserCreationForm(request.POST)
+    form: CustomUserCreationForm = CustomUserCreationForm(request.POST)
     form.save()
     return HttpResponse("user " + request.POST['username'] + " saved")
