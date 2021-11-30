@@ -6,10 +6,12 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, UpdateView, DeleteView
+
+from accounts.models import CustomUser
 from applicant.models import Application
 
 
-def is_applicant(user: type(get_user_model())):
+def is_applicant(user: CustomUser):
     return user.groups.filter(name="applicant").exists()
 
 

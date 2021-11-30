@@ -11,7 +11,7 @@ def home(request):
 
 
 # Helper function of homepage_redirect
-def is_in_group(user: type(get_user_model()), group: str) -> bool:
+def is_in_group(user: CustomUser, group: str) -> bool:
     return user.groups.filter(name=group).exists()
 
 
