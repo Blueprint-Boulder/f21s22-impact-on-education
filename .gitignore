@@ -10,4 +10,3 @@ django_root/settings.py
 db.sqlite3
 # Config file for macOS Finder; security issue if made public + not needed in project
 .DS_Store
-

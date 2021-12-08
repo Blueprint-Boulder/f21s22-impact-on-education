@@ -34,6 +34,3 @@ def homepage_redirect(request):
     else:
         # TODO (low priority): Redirect to error page
         return HttpResponse("<h1>Your user type is not set.</h1>")
-
-
-

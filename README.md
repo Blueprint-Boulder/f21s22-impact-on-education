@@ -127,6 +127,3 @@ It might not be obvious if the view is a class
   - `review.application`: The `Application` associated with the review.
   - `review.text`: A string representing the full text of the review.
   - `review.submitted`: A boolean representing whether the volunteer has submitted the review.
-
-
-
