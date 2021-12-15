@@ -21,7 +21,7 @@ from django_root import views
 
 # TODO (low priority): Somehow give this file a functional app_name (app_name='name' doesn't work)
 urlpatterns = [
-    path('', views.home),
+    path('', views.index),
     path('admin/', admin.site.urls),  # TODO (low priority): Add name='admin' once this file has a functional app_name
     path('accounts/', include('accounts.urls')),
     path('administrator/', include('administrator.urls')),

@@ -6,7 +6,7 @@ from django.urls import reverse
 from accounts.models import CustomUser
 
 
-def home(request):
+def index(request):
     return redirect(reverse("accounts:login"))
 
 
