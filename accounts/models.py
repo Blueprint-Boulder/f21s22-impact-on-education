@@ -9,10 +9,3 @@ class CustomUser(AbstractUser):
                                                             ("administrator", "Admin"),
                                                             ("site-admin", "Site Admin")),
                                                    max_length=13, null=True)
-
-    """ Represents the fields to display when looking at a brief overview of a user.
-    This isn't an official Django thing but makes refactoring easier if we end up having multiple pages that
-    list brief overviews of users. Currently only used by CustomUserAdmin (which determines how users are
-    displayed in Django's admin site). The fields listed here are inherited from AbstractUser (but the 
-    fields_to_display variable itself is not)."""
-    fields_to_display: tuple = ('username', 'email', 'last_name', 'first_name',)
