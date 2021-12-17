@@ -11,14 +11,16 @@ def index(request):
 
 
 # Helper function of homepage_redirect
-def is_in_group(user: CustomUser, group: str) -> bool:
+def is_in_group(user: User, group: str) -> bool:
     return user.groups.filter(name=group).exists()
 
 
 # Redirects the user to their appropriate homepage depending on
 # whether they're an applicant, volunteer, administrator, or site admin
 def homepage_redirect(request):
-    # request.user is a CustomUser
+    # request.user is a CustomUser. It theoretically could be an AnonymousUser if the user is not logged in, but
+    #  this view is called right after the user logs in, so it should always be a CustomUser.
+
     if is_in_group(request.user, "applicant"):
         return redirect(reverse("applicant:home"))
     # TODO (high priority): Make volunteer app
