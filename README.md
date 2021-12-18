@@ -29,45 +29,14 @@ Finding all TODOs: `grep -rn "TODO (" *`
 ## Code style
 
 ### Type hints
-Please add type hints for all variables and functions you create, except:
-- Return types and arguments for `views.py` functions
+Add type hints for the variables and functions you create, within reason. 
+For example, `views.py` functions probably don't need any typehints. Rule of thumb:
+If it makes the code more readable or your IDE more useful, add the typehint.
 
-- Return types and arguments for overridden functions
+[Type hints cheat sheet](https://mypy.readthedocs.io/en/stable/cheat_sheet_py3.html) (highly recommend this)
 
-- Overridden attributes
+[Official Python documentation for type hints](https://docs.python.org/3/library/typing.html)
 
-- Variables that may change their type over time
-
-- Variables that:
-
-  - Are obviously a certain type and
-
-  - Will not be referenced anywhere in the code we write
-
-    (Example: `app_name`s in `urls.py` files)
-
-
-[Python documentation for type hints](https://docs.python.org/3/library/typing.html)
-
-Example type hints:
-
-```python
-def hi(times):
-    output = ""
-    for i in range(0, times):
-        output += "hi"
-    return output
-```
-
-becomes
-
-```python
-def hi(times: int) -> str:
-    output: str = ""
-    for i in range(0, times):
-        output += "hi"
-    return output
-```
 
 ### Document the relationship between views and templates
 For each template you create, put a comment on the start saying which view(s) use this template. 
