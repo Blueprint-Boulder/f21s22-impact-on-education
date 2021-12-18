@@ -1,6 +1,3 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import Group
-from django.db import IntegrityError
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 

@@ -1,8 +1,6 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
-
 
 from django_root import settings
 from accounts.models import CustomUser
@@ -10,8 +8,8 @@ from accounts.models import CustomUser
 
 class Application(models.Model):
     author: CustomUser = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                                               on_delete=models.CASCADE,
-                                                               null=True)
+                                           on_delete=models.CASCADE,
+                                           null=True)
     text: models.TextField = models.TextField(max_length=5000)
     submitted: models.BooleanField = models.BooleanField(default=False)
 
