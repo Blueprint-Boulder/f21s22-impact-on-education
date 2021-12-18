@@ -23,8 +23,9 @@ class CustomUserCreationForm(UserCreationForm):
             # Adds the user to the group selected in the form (e.g. applicant, volunteer)
             user.groups.add(Group.objects.get(name=user_type))
             if user_type == "site-admin":
-                # Gives the user access to Django's admin site. This line needs to be here because it's seemingly
-                #  not covered by the site-admin group having superuser permissions.
+                # Gives the user access to Django's admin site. This line needs to be here because is_staff is
+                #  seemingly not given as part of superuser permissions (which the site-admin group should
+                #  already have).
                 user.is_staff = True
             user.save()
         return user
