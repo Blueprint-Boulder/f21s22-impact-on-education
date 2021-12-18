@@ -7,7 +7,10 @@ from accounts.models import CustomUser
 
 
 def index(request):
-    return redirect(reverse("accounts:login"))
+    if request.user.is_authenticated:
+        return homepage_redirect(request)
+    else:
+        return redirect(reverse("accounts:login"))
 
 
 # Helper function of homepage_redirect
