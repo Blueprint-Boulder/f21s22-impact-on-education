@@ -19,7 +19,7 @@ class CustomUserCreationForm(UserCreationForm):
         user: CustomUser = super().save(commit=False)
         if commit:
             user.save()  # User has to be saved before giving a group to it
-            user_type = self.cleaned_data["user_type"]
+            user_type: str = self.cleaned_data["user_type"]
             # Adds the user to the group selected in the form (e.g. applicant, volunteer)
             user.groups.add(Group.objects.get(name=user_type))
             if user_type == "site-admin":
