@@ -4,8 +4,9 @@ from django.db import models
 
 # This is the class that will represent each user on the website, instead of Django's default User model
 class CustomUser(AbstractUser):
-    user_type: models.CharField = models.CharField(choices=(("applicant", "Applicant"),
-                                                            ("volunteer", "Volunteer"),
-                                                            ("administrator", "Admin"),
-                                                            ("site-admin", "Site Admin")),
-                                                   max_length=13, null=True)
+    def get_user_type(self):
+        possible_user_types = ["applicant", "volunteer", "administrator", "site-admin"]
+        for possible_user_type in possible_user_types:
+            if self.groups.filter(name=possible_user_type).exists():
+                return possible_user_type
+        return None
