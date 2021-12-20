@@ -7,6 +7,7 @@ from accounts.models import CustomUser
 
 
 class Application(models.Model):
+    """Represents all applications for any type of funding."""
     author: CustomUser = models.ForeignKey(settings.AUTH_USER_MODEL,
                                            on_delete=models.CASCADE,
                                            null=True)

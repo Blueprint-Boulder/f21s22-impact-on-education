@@ -8,15 +8,18 @@ from accounts.models import CustomUser
 
 
 def index(request):
+    """The index page for the website. If the user is logged in, redirects them to their
+    homepage. Otherwise, sends the user to the login page."""
     if request.user.is_authenticated:
         return homepage_redirect(request)
     else:
         return redirect(reverse("accounts:login"))
 
 
-# Redirects the user to their appropriate homepage depending on
-# whether they're an applicant, volunteer, administrator, or site admin
 def homepage_redirect(request):
+    """Redirects the user to their appropriate homepage depending on
+    whether they're an applicant, volunteer, administrator, or site admin"""
+
     # request.user is a CustomUser. It theoretically could be an AnonymousUser if the user is not logged in, but
     #  this view is called right after the user logs in, so it should always be a CustomUser.
 
@@ -25,7 +28,7 @@ def homepage_redirect(request):
     assert isinstance(request.user, CustomUser), "homepage_redirect() was called while the user was not logged in"
 
     def do_if_applicant():
-        return redirect(reverse("applicant:index"))
+        return redirect(reverse("applicant:home"))
 
     def do_if_volunteer():
         # TODO (high priority): Make volunteer app

@@ -4,12 +4,11 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-# This is the class that will represent each user on the website, instead of Django's default User model
 from django.utils.crypto import constant_time_compare
 
 
 class CustomUser(AbstractUser):
-
+    """Represents each user on the website, instead of Django's default "User" model."""
     class AccountTypes:
         """
         Each variable in the AccountTypes class corresponds to an account type:
