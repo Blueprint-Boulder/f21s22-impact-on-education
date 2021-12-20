@@ -11,7 +11,7 @@ from applicant.models import Application
 
 
 def is_applicant(user: CustomUser):
-    return user.groups.filter(name="applicant").exists()
+    return user.get_account_type() == CustomUser.AccountTypes.APPLICANT
 
 
 # View to create application

@@ -6,10 +6,10 @@ from accounts.models import CustomUser
 
 
 class CustomUserCreationForm(UserCreationForm):
-    user_type = forms.ChoiceField(choices=(("applicant", "Applicant"),
-                                           ("volunteer", "Volunteer"),
-                                           ("administrator", "Admin"),
-                                           ("site-admin", "Site Admin")))
+    user_type = forms.ChoiceField(choices=((CustomUser.AccountTypes.APPLICANT, "Applicant"),
+                                           (CustomUser.AccountTypes.VOLUNTEER, "Volunteer"),
+                                           (CustomUser.AccountTypes.ADMINISTRATOR, "Admin"),
+                                           (CustomUser.AccountTypes.SITE_ADMIN, "Site Admin")))
 
     class Meta:
         model = CustomUser
@@ -22,7 +22,7 @@ class CustomUserCreationForm(UserCreationForm):
             user_type: str = self.cleaned_data["user_type"]
             # Adds the user to the group selected in the form (e.g. applicant, volunteer)
             user.groups.add(Group.objects.get(name=user_type))
-            if user_type == "site-admin":
+            if user_type == CustomUser.AccountTypes.SITE_ADMIN:
                 # Gives the user access to Django's admin site. This line needs to be here because is_staff is
                 #  seemingly not given as part of superuser permissions (which the site-admin group should
                 #  already have).

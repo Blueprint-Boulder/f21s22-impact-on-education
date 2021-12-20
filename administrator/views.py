@@ -8,7 +8,7 @@ from accounts.models import CustomUser
 
 
 def is_admin(user: CustomUser):
-    return user.groups.filter(name='administrator').exists()
+    return user.get_account_type() == CustomUser.AccountTypes.ADMINISTRATOR
 
 
 # Users table
