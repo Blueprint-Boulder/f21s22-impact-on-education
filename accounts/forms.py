@@ -12,7 +12,7 @@ class CustomUserCreationForm(UserCreationForm):
 
     user_type = forms.ChoiceField(choices=((CustomUser.AccountTypes.APPLICANT, "Applicant"),
                                            (CustomUser.AccountTypes.VOLUNTEER, "Volunteer"),
-                                           (CustomUser.AccountTypes.ADMINISTRATOR, "Admin"),
+                                           (CustomUser.AccountTypes.ORG_ADMIN, "Org Admin"),
                                            (CustomUser.AccountTypes.SITE_ADMIN, "Site Admin")))
 
     class Meta:
@@ -28,7 +28,7 @@ class CustomUserCreationForm(UserCreationForm):
             user.groups.add(Group.objects.get(name=user_type))
             if user_type == CustomUser.AccountTypes.SITE_ADMIN:
                 # Gives the user access to Django's admin site. This line needs to be here because is_staff is
-                #  seemingly not given as part of superuser permissions (which the site-admin group should
+                #  seemingly not given as part of superuser permissions (which the site_admin group should
                 #  already have).
                 user.is_staff = True
             user.save()

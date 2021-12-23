@@ -18,7 +18,7 @@ def index(request):
 
 def homepage_redirect(request):
     """Redirects the user to their appropriate homepage depending on
-    whether they're an applicant, volunteer, administrator, or site admin."""
+    whether they're an applicant, volunteer, org admin, or site admin."""
 
     # request.user is a CustomUser.
 
@@ -34,10 +34,10 @@ def homepage_redirect(request):
         case CustomUser.AccountTypes.VOLUNTEER:
             # TODO (high priority): Make volunteer app
             return HttpResponse("<h1>Volunteer section has not been created yet.</h1>")
-        case CustomUser.AccountTypes.ADMINISTRATOR:
-            # TODO (high priority): Make rest of administrator app
-            # TODO (medium priority): Redirect to administrator:home instead once that's created
-            return redirect(reverse("administrator:users"))
+        case CustomUser.AccountTypes.ORG_ADMIN:
+            # TODO (high priority): Make rest of org admin app
+            # TODO (medium priority): Redirect to org_admin:home instead once that's created
+            return redirect(reverse("org_admin:users"))
         case CustomUser.AccountTypes.SITE_ADMIN:
             return redirect(reverse("admin:index"))
         case _:  # equivalent to "default" case in other languages

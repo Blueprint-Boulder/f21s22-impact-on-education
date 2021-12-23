@@ -8,12 +8,12 @@ from accounts.models import CustomUser
 
 
 def is_admin(user: CustomUser):
-    """Checks whether a user is an admin (site admins don't count)"""
-    return user.get_account_type() == CustomUser.AccountTypes.ADMINISTRATOR
+    """Checks whether a user is an org admin"""
+    return user.get_account_type() == CustomUser.AccountTypes.ORG_ADMIN
 
 
 # Users table
 @user_passes_test(is_admin)
 def users(request):
     """A view that is a table of every user on the website, and relevant info about them."""
-    return render(request, "administrator/users.html", {'users': get_user_model().objects.all()})
+    return render(request, "org_admin/users.html", {'users': get_user_model().objects.all()})

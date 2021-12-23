@@ -16,8 +16,8 @@ class CustomUser(AbstractUser):
         applicant, volunteer, admin, or site admin. The variable represents the name of the account type's group.
         This exists so that typos in group names become compile-time errors instead of
         runtime errors. For example, without AccountTypes, you would check if a user is a site admin like so:
-            user.get_account_type() == "site-admin"
-        If "site-admin" was mistyped as, say, "site_admin", this could only be caught at runtime, so it would be a pain
+            user.get_account_type() == "site_admin"
+        If "site_admin" was mistyped as, say, "site-admin", this could only be caught at runtime, so it would be a pain
         to debug. This is how you would check if a user is a site admin, with AccountTypes:
             user.get_account_type() == CustomUser.AccountTypes.SITE_ADMIN
         If this was mistyped as, say, "SITE-ADMIN", it would be caught at compile time, and IDEs would catch the error.
@@ -28,12 +28,12 @@ class CustomUser(AbstractUser):
         """
         APPLICANT: str = "applicant"
         VOLUNTEER: str = "volunteer"
-        ADMINISTRATOR: str = "administrator"
-        SITE_ADMIN: str = "site-admin"
-        ALL: tuple[str, ...] = (APPLICANT, VOLUNTEER, ADMINISTRATOR, SITE_ADMIN)
+        ORG_ADMIN: str = "org_admin"  # refers to the admins of the Impact on Education organization
+        SITE_ADMIN: str = "site_admin"  # refers to the admins of the website itself
+        ALL: tuple[str, ...] = (APPLICANT, VOLUNTEER, ORG_ADMIN, SITE_ADMIN)
 
     def get_account_type(self) -> str | None:
-        """Returns the account type (applicant, volunteer, administrator, or site-admin) of a user as a string.
+        """Returns the account type (applicant, volunteer, org_admin, or site_admin) of a user as a string.
         Returns None if the user does not belong to any groups (meaning they don't have an account type).
         Throws a MultipleObjectsReturned exception if the user belongs to more than one group (meaning it's
         unclear what their account type is; users should not belong to multiple groups)."""
@@ -45,7 +45,7 @@ class CustomUser(AbstractUser):
             raise CustomUser.MultipleObjectsReturned(
                 # Just so you know, this is a multiline string, not a multiline comment
                 """User has multiple groups, but should only have one. The one group would 
-                indicate the user's account type (applicant, volunteer, administrator, or site-admin)"""
+                indicate the user's account type (applicant, volunteer, org_admin, or site_admin)"""
             )
         for possible_account_type in CustomUser.AccountTypes.ALL:
             if account_type == possible_account_type:

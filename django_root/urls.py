@@ -24,7 +24,7 @@ urlpatterns = [
     path('', views.index),
     path('admin/', admin.site.urls),  # TODO (low priority): Add name='admin' once this file has a functional app_name
     path('accounts/', include('accounts.urls')),
-    path('administrator/', include('administrator.urls')),
+    path('org-admin/', include('org_admin.urls')),
     path('applicant/', include('applicant.urls')),
     path('homepage_redirect', views.homepage_redirect),
 ]

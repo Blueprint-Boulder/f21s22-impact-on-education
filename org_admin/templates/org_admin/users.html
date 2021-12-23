@@ -14,7 +14,7 @@
         <h4>This user does not have any applications.</h4>
     {% endif %}
     {% for application in user.application_set.all %}
-        <!--TODO (high priority): Change to administrator:view-app once administrator:view-app is implemented-->
+        <!--TODO (high priority): Change to org_admin:view-app once org_admin:view-app is implemented-->
         <a href={% url "applicant:view-app" pk=application.pk %}> ID {{ application.pk }}</a>
         <br>
     {% endfor %}
