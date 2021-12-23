@@ -19,10 +19,9 @@ from django.urls import path, include
 from django_root import views
 
 
-# TODO (low priority): Somehow give this file a functional app_name (app_name='name' doesn't work)
 urlpatterns = [
     path('', views.index),
-    path('admin/', admin.site.urls),  # TODO (low priority): Add name='admin' once this file has a functional app_name
+    path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('org-admin/', include('org_admin.urls')),
     path('applicant/', include('applicant.urls')),
