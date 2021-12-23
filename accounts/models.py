@@ -2,7 +2,8 @@ from enum import Enum
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
+from django.db.models import QuerySet
+from django.core.exceptions import MultipleObjectsReturned
 
 from django.utils.crypto import constant_time_compare
 
@@ -32,13 +33,21 @@ class CustomUser(AbstractUser):
         ALL: tuple[str, ...] = (APPLICANT, VOLUNTEER, ADMINISTRATOR, SITE_ADMIN)
 
     def get_account_type(self) -> str | None:
-        # TODO (medium priority): Handle edge cases (no groups, multiple groups, etc)
-        result = self.groups.get().name
-        valid = False
-        for account_type in CustomUser.AccountTypes.ALL:
-            if constant_time_compare(result, account_type):
-                valid = True
-        if valid:
-            return result
-        else:
+        """Returns the account type (applicant, volunteer, administrator, or site-admin) of a user as a string.
+        Returns None if the user does not belong to any groups (meaning they don't have an account type).
+        Throws a MultipleObjectsReturned exception if the user belongs to more than one group (meaning it's
+        unclear what their account type is; users should not belong to multiple groups)."""
+        try:
+            account_type: str = self.groups.get().name
+        except CustomUser.DoesNotExist:
             return None
+        except CustomUser.MultipleObjectsReturned:
+            raise CustomUser.MultipleObjectsReturned(
+                # Just so you know, this is a multiline string, not a multiline comment
+                """User has multiple groups, but should only have one. The one group would 
+                indicate the user's account type (applicant, volunteer, administrator, or site-admin)"""
+            )
+        for possible_account_type in CustomUser.AccountTypes.ALL:
+            if account_type == possible_account_type:
+                return account_type
+

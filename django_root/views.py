@@ -18,35 +18,28 @@ def index(request):
 
 def homepage_redirect(request):
     """Redirects the user to their appropriate homepage depending on
-    whether they're an applicant, volunteer, administrator, or site admin"""
+    whether they're an applicant, volunteer, administrator, or site admin."""
 
-    # request.user is a CustomUser. It theoretically could be an AnonymousUser if the user is not logged in, but
+    # request.user is a CustomUser.
+
+    # This assertion is needed for IDEs to recognize that request.user is a CustomUser.
+    #  It theoretically could be an AnonymousUser if the user is not logged in, but
     #  this view is called right after the user logs in, so it should always be a CustomUser.
-
-    # This assertion is needed for IDEs to recognize that request.user is a CustomUser. It gives a runtime error if
-    #  request.user is not a CustomUser.
+    #  The assert statement gives a runtime error if request.user is not a CustomUser.
     assert isinstance(request.user, CustomUser), "homepage_redirect() was called while the user was not logged in"
 
-    def do_if_applicant():
-        return redirect(reverse("applicant:home"))
-
-    def do_if_volunteer():
-        # TODO (high priority): Make volunteer app
-        return HttpResponse("<h1>Volunteer section has not been created yet.</h1>")
-
-    def do_if_admin():
-        # TODO (high priority): Make rest of administrator app
-        # TODO (medium priority): Redirect to administrator:home instead once that's created
-        return redirect(reverse("administrator:users"))
-
-    def do_if_site_admin():
-        return redirect(reverse("admin:index"))
-
-    cases = {
-        CustomUser.AccountTypes.APPLICANT: do_if_applicant,
-        CustomUser.AccountTypes.VOLUNTEER: do_if_volunteer,
-        CustomUser.AccountTypes.ADMINISTRATOR: do_if_admin,
-        CustomUser.AccountTypes.SITE_ADMIN: do_if_site_admin,
-    }
-
-    return cases[request.user.get_account_type()]()
+    match request.user.get_account_type():  # Python's version of a switch statement
+        case CustomUser.AccountTypes.APPLICANT:
+            return redirect(reverse("applicant:home"))
+        case CustomUser.AccountTypes.VOLUNTEER:
+            # TODO (high priority): Make volunteer app
+            return HttpResponse("<h1>Volunteer section has not been created yet.</h1>")
+        case CustomUser.AccountTypes.ADMINISTRATOR:
+            # TODO (high priority): Make rest of administrator app
+            # TODO (medium priority): Redirect to administrator:home instead once that's created
+            return redirect(reverse("administrator:users"))
+        case CustomUser.AccountTypes.SITE_ADMIN:
+            return redirect(reverse("admin:index"))
+        case _:  # equivalent to "default" case in other languages
+            # TODO (low priority): Redirect to dedicated error page, and email site admins if this happens
+            return HttpResponse("Your account type either is not set, or was not set to a valid value.")
