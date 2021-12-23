@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from org_admin import views
 
 # org_admin refers to admins of the Impact on Education organization
 #  (as opposed to site admins, i.e. the people that administer the website itself)
