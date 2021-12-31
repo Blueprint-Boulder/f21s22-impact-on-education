@@ -1,35 +1,42 @@
-from enum import Enum
-
 from django.contrib.auth.models import AbstractUser
-from django.db import models
-from django.db.models import QuerySet
-from django.core.exceptions import MultipleObjectsReturned
-
-from django.utils.crypto import constant_time_compare
 
 
 class CustomUser(AbstractUser):
     """Represents each user on the website, instead of Django's default "User" model."""
+
     class AccountTypes:
         """
-        Each variable in the AccountTypes class corresponds to an account type:
-        applicant, volunteer, admin, or site admin. The variable represents the name of the account type's group.
-        This exists so that typos in group names become compile-time errors instead of
-        runtime errors. For example, without AccountTypes, you would check if a user is a site admin like so:
-            user.get_account_type() == "site_admin"
-        If "site_admin" was mistyped as, say, "site-admin", this could only be caught at runtime, so it would be a pain
-        to debug. This is how you would check if a user is a site admin, with AccountTypes:
-            user.get_account_type() == CustomUser.AccountTypes.SITE_ADMIN
-        If this was mistyped as, say, "SITE-ADMIN", it would be caught at compile time, and IDEs would catch the error.
+        The constants in this class are generally used to represent
+        a user's account type (as in, whether a user is an applicant, volunteer, etc).
+        For example, the instance method get_account_type() of CustomUser will return one of these values.
 
-        AccountTypes doesn't inherit from Enum because then, to get the strings, you would have to do:
-           CustomUser.AccountTypes.APPLICANT.value
-        which would be kind of ridiculous.
+        As for what exactly these values represent:
+        For background, users belong to a different group depending on their account type.
+        The value of the APPLICANT constant refers to the name of the group that all applicants belong to.
+        The value of the SITE_ADMIN constant refers to the name of the group that all site admins belong to.
+        Etc.
+        If you don't know what groups are, see:
+        https://docs.djangoproject.com/en/3.2/topics/auth/default/#groups
+
+        One of the reasons for doing this: It makes typos in group names less likely.
+        For example, let's say you accidentally mistyped "site_admin" as "site-admin" at some point.
+        Without the AccountTypes class, your IDE would likely not detect this. You would only catch
+        the error when trying to, for example, log in as a site admin. With the AccountTypes
+        class, your IDE should be able to detect if you mistyped CustomUser.AccountTypes.SITE_ADMIN
+        as CustomUser.AccountTypes.SITE-ADMIN, and immediately underline the error. Your IDE can
+        also probably autocomplete if you just type "CustomUser.AccountTypes.S", and/or display
+        the list of options if you just type "CustomUser.AccountTypes.".
         """
+
         APPLICANT: str = "applicant"
         VOLUNTEER: str = "volunteer"
-        ORG_ADMIN: str = "org_admin"  # refers to the admins of the Impact on Education organization
-        SITE_ADMIN: str = "site_admin"  # refers to the admins of the website itself
+
+        ORG_ADMIN: str = "org_admin"
+        """Refers to the admins of the Impact on Education organization"""
+
+        SITE_ADMIN: str = "site_admin"
+        """Refers to the admins of the website itself"""
+
         ALL: tuple[str, ...] = (APPLICANT, VOLUNTEER, ORG_ADMIN, SITE_ADMIN)
 
     def get_account_type(self) -> str | None:
@@ -37,6 +44,7 @@ class CustomUser(AbstractUser):
         Returns None if the user does not belong to any groups (meaning they don't have an account type).
         Throws a MultipleObjectsReturned exception if the user belongs to more than one group (meaning it's
         unclear what their account type is; users should not belong to multiple groups)."""
+
         try:
             account_type: str = self.groups.get().name
         except CustomUser.DoesNotExist:
@@ -50,4 +58,3 @@ class CustomUser(AbstractUser):
         for possible_account_type in CustomUser.AccountTypes.ALL:
             if account_type == possible_account_type:
                 return account_type
-
