@@ -2,7 +2,7 @@
 
 ## Before you run it
 
-This will not run properly without settings.py and db.sqlite3, both of which are absent from GitHub due to security issues. Check the pins in #f21-s22-ioe in Slack for the files. **WHEN YOU PUSH YOUR CHANGES, KEEP THESE FILES ABSENT.**
+This will not run properly without settings.py and db.sqlite3, both of which are absent from GitHub due to security issues. Check #f21-s22-ioe-missing-files in Slack for the files. **WHEN YOU PUSH YOUR CHANGES, KEEP THESE FILES ABSENT.**
 ## TODOs
 ### There are several TODOs throughout the document, marked as low, medium, or high priority.
 
