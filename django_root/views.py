@@ -28,7 +28,7 @@ def homepage_redirect(request):
     #  The assert statement gives a runtime error if request.user is not a CustomUser.
     assert isinstance(request.user, CustomUser), "homepage_redirect() was called while the user was not logged in"
 
-    match request.user.get_account_type():  # Python's version of a switch statement
+    match request.user.account_type:  # Python's version of a switch statement
         case CustomUser.AccountTypes.APPLICANT:
             return redirect(reverse("applicant:home"))
         case CustomUser.AccountTypes.VOLUNTEER:

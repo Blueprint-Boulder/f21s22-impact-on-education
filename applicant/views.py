@@ -12,7 +12,7 @@ from applicant.models import Application
 
 def is_applicant(user: CustomUser):
     """Checks whether a user is an applicant."""
-    return user.get_account_type() == CustomUser.AccountTypes.APPLICANT
+    return user.account_type == CustomUser.AccountTypes.APPLICANT
 
 
 class ApplicationCreateView(CreateView):

@@ -8,7 +8,7 @@ from accounts.models import CustomUser
 
 def is_admin(user: CustomUser):
     """Checks whether a user is an org admin"""
-    return user.get_account_type() == CustomUser.AccountTypes.ORG_ADMIN
+    return user.account_type == CustomUser.AccountTypes.ORG_ADMIN
 
 
 # Users table
