@@ -98,7 +98,7 @@ class CustomUser(AbstractUser):
 
     @account_type.deleter
     def account_type(self) -> None:
-        account_type_group = Group.objects.get(name=self.account_type)
+        account_type_group: Group = Group.objects.get(name=self.account_type)
         self.groups.remove(account_type_group)
 
     def in_database(self):
