@@ -6,7 +6,9 @@ from django.db.models import QuerySet
 
 
 class CustomUser(AbstractUser):
-    """Represents each user on the website, instead of Django's default "User" model."""
+    """Represents each user on the website, instead of Django's default "User" model.
+    CustomUser inherits from AbstractUser, so it has all the functionality of the default User model,
+    plus some extra."""
 
     class AccountTypes:
         """
@@ -66,9 +68,11 @@ class CustomUser(AbstractUser):
 
     @account_type.setter
     def account_type(self, new_account_type: str) -> None:
-        """Sets the user's account_type to new_account_type, adds the user to the
-         group corresponding to new_account_type, and saves the user. Raises an InvalidAccountType
-         exception if new_account_type is not a value in CustomUser.AccountTypes."""
+        """Sets the user's account_type to new_account_type, adds the user to the group corresponding to
+         new_account_type, and saves the user.
+         If the user already has an account type, removes them from the group corresponding to their old account type
+         before adding the new group.
+         Raises an InvalidAccountType exception if new_account_type is not in CustomUser.AccountTypes.ALL."""
 
         if new_account_type not in self.AccountTypes.ALL:
             raise self.NoSuchAccountType(
@@ -101,7 +105,7 @@ class CustomUser(AbstractUser):
         account_type_group: Group = Group.objects.get(name=self.account_type)
         self.groups.remove(account_type_group)
 
-    def in_database(self):
+    def in_database(self) -> bool:
         try:
             CustomUser.objects.get(pk=self.pk)
             return True
