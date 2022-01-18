@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 
-from applicant.models import Application
+from base_applicant.models import Application
 from accounts.models import CustomUser
 
 

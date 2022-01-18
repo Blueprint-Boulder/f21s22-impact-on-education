@@ -1,0 +1,6 @@
+<!--views.confirm_submit_application uses this template-->
+
+{% extends "applicant/base_application_confirm_submit.html" %}
+
+{% block submit_app_url %}{% url "student:submit-app" pk=application.pk %}{% endblock %}
+{% block view_apps_url %}{% url "student:view-apps" %}{% endblock %}

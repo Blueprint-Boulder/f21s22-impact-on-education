@@ -9,13 +9,14 @@
 <body>
 {% for user in users %}
     <h2>{{ user }}</h2>
+    <h3>Type: {{ user.account_type }}</h3>
     <h3>Applications:</h3>
     {% if not user.application_set.all.exists %}
         <h4>This user does not have any applications.</h4>
     {% endif %}
     {% for application in user.application_set.all %}
-        <!--TODO (high priority): Change to org_admin:view-app once org_admin:view-app is implemented-->
-        <a href={% url "applicant:view-app" pk=application.pk %}> ID {{ application.pk }}</a>
+        <!--TODO (high priority): Make this link to a detailed view of the application-->
+        ID {{ application.pk }}
         <br>
     {% endfor %}
     {% for application in user.application_set.all %}

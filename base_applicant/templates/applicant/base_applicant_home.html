@@ -1,5 +1,3 @@
-<!--views.home uses this template-->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +6,6 @@
 </head>
 <body>
 <h1>Welcome, {{ user }}!</h1>
-<a href={% url "applicant:view-apps" %}><h2>My applications</h2></a>
+<a href={% block view_apps_url %}{% endblock %}><h2>My applications</h2></a>
 </body>
 </html>

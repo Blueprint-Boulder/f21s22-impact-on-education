@@ -40,9 +40,9 @@ If it makes the code more readable or your IDE more useful, add the typehint.
 
 ### Document the relationship between views and templates
 For each template you create, put a comment on the start saying which view(s) use this template. 
-For each view you create, put a comment saying which template it uses, unless it's obvious (e.g. if it calls `render(request, "template.html")` ). 
-It might not be obvious if the view is a class 
-(e.g. `ApplicationUpdateView` in `applicant/views.py`).
+For each view you create, put a comment saying which template it uses, unless it's obvious 
+(e.g. if it calls `render(request, "template.html")` or has `template_name="template.html" `). 
+
 
 
 
@@ -61,7 +61,7 @@ It might not be obvious if the view is a class
 1. Make sure you're in the project's root directory. Run `python manage.py makemigrations`, then run `python manage.py migrate`. If `python manage.py makemigrations` doesn't work, then something is wrong with your code, not just the database or migrations files. If `python manage.py migrate` doesn't work, you likely didn't follow the steps in *Removing the problem files*.
 2. Run `python manage.py createsuperuser` and follow the prompts. This will create a user that can access Django's admin site.
 3. Run your project and go to Django's admin site (located in `/admin`). Login as the user you just created.
-4. Add the following groups: *applicant, volunteer, org_admin,* and *site_admin*. Give *site_admin* all permissions. It doesn't matter (for testing purposes) which permissions the other groups have.
+4. Add the following groups: *student, volunteer, org_admin,* and *site_admin*. Give *site_admin* all permissions. It doesn't matter (for testing purposes) which permissions the other groups have.
 
 ### Testing to make sure this didn't break anything else
 
@@ -86,7 +86,6 @@ It might not be obvious if the view is a class
 `Application`: Represents a user's application. A user can have several applications.
 - Instance variables (for a given instance of `Application` called `app`):
   - `app.author`: The `CustomUser` that `app` was written by.
-  - `app.text`: A string representing the full text of the application. Has a maximum length of 5000 characters.
   - `app.submitted`: A boolean representing whether the user has submitted the application.
   - `app.review`: The `Review` associated with `app`. `None` if it has not been reviewed.
 

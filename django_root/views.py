@@ -18,9 +18,7 @@ def index(request):
 
 def homepage_redirect(request):
     """Redirects the user to their appropriate homepage depending on
-    whether they're an applicant, volunteer, org admin, or site admin."""
-
-    # request.user is a CustomUser.
+    whether they're a student, volunteer, org admin, or site admin."""
 
     # This assertion is needed for IDEs to recognize that request.user is a CustomUser.
     #  It theoretically could be an AnonymousUser if the user is not logged in, but
@@ -28,9 +26,9 @@ def homepage_redirect(request):
     #  The assert statement gives a runtime error if request.user is not a CustomUser.
     assert isinstance(request.user, CustomUser), "homepage_redirect() was called while the user was not logged in"
 
-    match request.user.account_type:  # Python's version of a switch statement
-        case CustomUser.AccountTypes.APPLICANT:
-            return redirect(reverse("applicant:home"))
+    match request.user.account_type:
+        case CustomUser.AccountTypes.STUDENT:
+            return redirect(reverse("student:home"))
         case CustomUser.AccountTypes.VOLUNTEER:
             # TODO (high priority): Make volunteer app
             return HttpResponse("<h1>Volunteer section has not been created yet.</h1>")
@@ -40,6 +38,6 @@ def homepage_redirect(request):
             return redirect(reverse("org_admin:users"))
         case CustomUser.AccountTypes.SITE_ADMIN:
             return redirect(reverse("admin:index"))
-        case _:  # equivalent to "default" case in other languages
+        case _:
             # TODO (low priority): Redirect to dedicated error page, and email site admins if this happens
             return HttpResponse("Your account type either is not set, or was not set to a valid value.")

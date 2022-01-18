@@ -13,7 +13,7 @@ class CustomUser(AbstractUser):
     class AccountTypes:
         """
         The constants in this class are strings that are generally used to represent
-        a user's account type (as in, whether a user is an applicant, volunteer, etc).
+        a user's account type (as in, whether a user is an base_applicant, volunteer, etc).
         For example, the account_type property of CustomUser will always be one of these values.
 
         As for what exactly these values represent:
@@ -34,7 +34,8 @@ class CustomUser(AbstractUser):
         the list of options if you just type "CustomUser.AccountTypes.".
         """
 
-        APPLICANT: Final[str] = "applicant"
+        STUDENT: Final[str] = "student"
+
         VOLUNTEER: Final[str] = "volunteer"
 
         ORG_ADMIN: Final[str] = "org_admin"
@@ -43,7 +44,7 @@ class CustomUser(AbstractUser):
         SITE_ADMIN: Final[str] = "site_admin"
         """Refers to the admins of the website itself"""
 
-        ALL: Final[tuple[str, ...]] = (APPLICANT, VOLUNTEER, ORG_ADMIN, SITE_ADMIN)
+        ALL: Final[tuple[str, ...]] = (STUDENT, VOLUNTEER, ORG_ADMIN, SITE_ADMIN)
 
     class NoSuchAccountType(Exception):
         pass
@@ -60,7 +61,7 @@ class CustomUser(AbstractUser):
         except Group.MultipleObjectsReturned:
             raise CustomUser.MultipleObjectsReturned(
                 """User has multiple groups, but should only have one. The one group would 
-                indicate the user's account type (applicant, volunteer, org_admin, or site_admin)"""
+                indicate the user's account type (base_applicant, volunteer, org_admin, or site_admin)"""
             )
         for possible_account_type in CustomUser.AccountTypes.ALL:
             if account_type == possible_account_type:
