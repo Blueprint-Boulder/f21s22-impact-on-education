@@ -20,17 +20,24 @@ def is_applicant(user: CustomUser):
 
 
 class ApplicationCreateView(CreateView):
-    """View for applicants to create an application. Uses the template base_application_form.html
-    for editing the application. Goes to the URL specified in Application.get_absolute_url() when
-    the application has been saved."""
+    """Base view for applicants to create an application.
+    template_name is the template used for editing the application.
+    Goes to the URL specified in model.get_absolute_url() when the application has been saved."""
+
+    model = Application
+
+    fields = []
+    """The fields that the user can enter into the application.
+    Override this in subclasses like so:
+    fields = ApplicationCreateView.fields + ['some_field', 'another_field', ...]"""
+
+    template_name = "applicant/base_application_form.html"
+    """The template used for editing the application. Make sure to override this in subclasses."""
 
     # Stops view from running if user is not an applicant
     @method_decorator(user_passes_test(is_applicant))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
-
-    model = Application
-    fields = []
 
     # form_valid means "do this thing if the form is valid", not "return whether the form is valid"
     def form_valid(self, form):
@@ -41,24 +48,31 @@ class ApplicationCreateView(CreateView):
 # TODO (medium priority): Make it impossible to edit application once submitted
 # TODO (medium priority): Only let user edit their own applications
 class ApplicationUpdateView(UpdateView):
-    """View for applicants to edit an application. Uses the template base_application_form.html
-    for editing the application. Goes to the URL specified in Application.get_absolute_url()
-    when the application has been saved."""
+    """Base view for applicants to edit an application.
+    template_name is the template used for editing the application.
+    Goes to the URL specified in model.get_absolute_url() when the application has been saved."""
 
-    # Stops view from running if user is not an applicant
+    model = Application
+
+    fields = []
+    """The fields that the user can enter into the application.
+        Override this in subclasses like so:
+        fields = ApplicationUpdateView.fields + ['some_field', 'another_field', ...]"""
+
+    template_name = "applicant/base_application_form.html"
+    """The template used for editing the application. Make sure to override this in subclasses."""
+
+    # This decorator stops the view from running if the user is not an applicant
     @method_decorator(user_passes_test(is_applicant))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
-
-    model = Application
-    fields = []
 
 
 # TODO (medium priority): Make it impossible to delete application once submitted
 # TODO (medium priority): Only let user delete their own applications
 class ApplicationDeleteView(DeleteView):
-    """View for applicants to delete an application. Uses the template
-    base_application_confirm_delete.html."""
+    """Base view for applicants to delete an application.
+    template_name is the confirmation page (e.g. "are you sure you want to delete this?")"""
 
     # Stops view from running if user is not an applicant
     @method_decorator(user_passes_test(is_applicant))
@@ -66,6 +80,10 @@ class ApplicationDeleteView(DeleteView):
         return super().dispatch(request, *args, **kwargs)
 
     model = Application
+
+    template_name = "applicant/base_application_confirm_delete.html"
+    """The delete confirmation page ("are you sure you want to delete this?").
+    Make sure to override this in subclasses."""
 
 
 @user_passes_test(is_applicant)
@@ -85,7 +103,7 @@ def base_submit_application(request, pk: int, application_class: type[Applicatio
     return redirect(success_url)
 
 
-# T0D0 (medium priority): Make this inaccessible by users who don't own the application
+# TODO (medium priority): Make this inaccessible by users who don't own the application
 @user_passes_test(is_applicant)
 def base_confirm_submit_application(request, pk: int, application_class: type[Application], template_name: str):
     """Confirmation page before submitting an application."""
@@ -127,41 +145,3 @@ def base_confirm_submit_application(request, pk: int, application_class: type[Ap
 #     """Confirmation page before submitting an application."""
 #     application: Application = Application.objects.get(pk=pk)
 #     return render(request, "applicant/base_application_confirm_submit.html", {'application': application})
-
-# --------------------------------------------------------------------------------------------------
-# End of old functions
-# --------------------------------------------------------------------------------------------------
-
-
-def do_not_call_this_function__ide_hacking():
-    """DO NOT USE THIS FUNCTION OR ANYTHING IN IT.
-    This function does not affect, and is not used by, any other code or website functionality.
-
-    Contains stuff designed to give an IDE information about the variables passed into templates.
-    The reason it's in a function is to prevent namespace pollution."""
-
-    class ApplicationQuerySet(QuerySet):
-        def __iter__(self) -> Iterator[Application]:
-            pass
-
-    def variable_info_base_applicant_home():
-        render(None, "applicant/base_applicant_home.html", {'user': CustomUser()})
-
-    def variable_info_base_application_confirm_delete():
-        render(None, "applicant/base_application_confirm_delete.html", {'form': ModelForm(instance=Application())})
-
-    def variable_info_base_application_confirm_submit():
-        render(None, "applicant/base_application_confirm_submit.html", {'application': Application()})
-
-    def variable_info_base_application_form():
-        render(None, "applicant/base_application_form.html", {'form': ModelForm(instance=Application())})
-
-    def variable_info_base_applications_list():
-        render(None, "applicant/base_applications_list.html", {'applications': ApplicationQuerySet()})
-
-    # These calls are to avoid warnings about unused functions
-    variable_info_base_applicant_home()
-    variable_info_base_application_confirm_delete()
-    variable_info_base_application_confirm_submit()
-    variable_info_base_application_form()
-    variable_info_base_applications_list()
