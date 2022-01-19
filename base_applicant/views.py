@@ -86,10 +86,25 @@ class ApplicationDeleteView(DeleteView):
     Make sure to override this in subclasses."""
 
 
+def base_view_applications(request, application_class: type[Application], template_name: str):
+    """Base view for applicants to see all of their applications, in a read-only format."""
+    applications: QuerySet = application_class.objects.filter(author=request.user)
+    return render(request, template_name, {'applications': applications})
+
+
+# TODO (medium priority): Make this inaccessible by users who don't own the application
+@user_passes_test(is_applicant)
+def base_confirm_submit_application(request, pk: int, application_class: type[Application], template_name: str):
+    """Base page for confirming whether to submit an application."""
+    application: application_class = application_class.objects.get(pk=pk)
+    return render(request, template_name, {'application': application})
+
+
 @user_passes_test(is_applicant)
 def base_submit_application(request, pk: int, application_class: type[Application], success_url: str):
-    """Submits the application. This function is called after the user confirms
-    they want to submit it."""
+    """Base function that submits the application corresponding to pk.
+    Goes to success_url after the application is submitted.
+    This function is called after the user confirms they want to submit it."""
 
     # TODO (medium priority): Make this function inaccessible except after submit confirmation,
     #  and inaccessible by users who don't own the application
@@ -101,14 +116,6 @@ def base_submit_application(request, pk: int, application_class: type[Applicatio
     application.submitted = True
     application.save()
     return redirect(success_url)
-
-
-# TODO (medium priority): Make this inaccessible by users who don't own the application
-@user_passes_test(is_applicant)
-def base_confirm_submit_application(request, pk: int, application_class: type[Application], template_name: str):
-    """Confirmation page before submitting an application."""
-    application: application_class = application_class.objects.get(pk=pk)
-    return render(request, template_name, {'application': application})
 
 
 # --------------------------------------------------------------------------------------------------

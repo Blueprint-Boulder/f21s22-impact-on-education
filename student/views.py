@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 
 from base_applicant.views import ApplicationCreateView, ApplicationUpdateView, ApplicationDeleteView, \
-    base_submit_application, base_confirm_submit_application
+    base_submit_application, base_confirm_submit_application, base_view_applications
 from student.models import ScholarshipApplication
 
 
@@ -48,8 +48,9 @@ def view_application(request, pk: int):
 
 def view_applications(request):
     """View for students to see all of their applications, in a read-only format."""
-    applications: QuerySet = ScholarshipApplication.objects.filter(author=request.user)
-    return render(request, "student/applications_list.html", {'applications': applications})
+    return base_view_applications(request,
+                                  application_class=ScholarshipApplication,
+                                  template_name="student/applications_list.html")
 
 
 def confirm_submit_application(request, pk: int):
