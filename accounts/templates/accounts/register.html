@@ -10,7 +10,7 @@
 <form method="POST" action={% url "accounts:save-user" %}>
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" name="save" value="Submit">
+    <input type="submit" value="Submit">
 </form>
 </body>
 </html>
