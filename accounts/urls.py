@@ -1,10 +1,12 @@
 from django.contrib.auth.views import PasswordChangeView, LoginView, LogoutView, PasswordChangeDoneView
-from django.urls import include, path, reverse_lazy
+from django.urls import path, reverse_lazy
 from accounts import views
 
 app_name = "accounts"
 urlpatterns = [
-    # Most URLs here are copied from django.contrib.auth.urls, with minor differences.
+    # Most URLs here are copied from the URLs in django.contrib.auth.urls
+    #  (see https://docs.djangoproject.com/en/3.2/topics/auth/default/#module-django.contrib.auth.views).
+    #  The URLs 'register/' and 'save_user/' are not copied from there.
 
     path('login/', LoginView.as_view(template_name="accounts/login.html"), name='login'),
 
