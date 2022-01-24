@@ -84,7 +84,9 @@ class CustomUser(AbstractUser):
 
         # This saves the user if it's not already in the database, because a model must be saved to the database
         #  before a group can be added to it.
-        # TODO (low priority): If possible, refactor so that the model doesn't have to be saved here
+        # TODO (high priority): If possible, refactor so that the model doesn't have to be saved here.
+        #  Changed to high priority because this means that users are always saved to the database
+        #  even if they entered invalid data in the account creation form.
         if not self.in_database():
             self.save()
 
