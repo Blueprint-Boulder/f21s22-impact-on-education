@@ -4,8 +4,10 @@ from accounts import views
 
 app_name = "accounts"
 urlpatterns = [
-    # Most URLs here are copied from the URLs in django.contrib.auth.urls
-    #  (see https://docs.djangoproject.com/en/3.2/topics/auth/default/#module-django.contrib.auth.views).
+    # Most URLs here are copied from the URLs in django.contrib.auth.urls, with slight changes
+    #  (e.g. the URLs here separated by dashes instead of underscores)
+    #  Django's documentation for django.contrib.auth.urls:
+    #  https://docs.djangoproject.com/en/3.2/topics/auth/default/#module-django.contrib.auth.views
     #  The URLs 'register/' and 'save_user/' are not copied from there.
 
     path('login/', LoginView.as_view(template_name="accounts/login.html"), name='login'),
