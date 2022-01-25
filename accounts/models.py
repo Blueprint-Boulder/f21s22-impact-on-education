@@ -10,6 +10,8 @@ class CustomUser(AbstractUser):
     CustomUser inherits from AbstractUser, so it has all the functionality of the default User model,
     plus some extra."""
 
+    account_type = models.CharField(max_length=20)
+
     class AccountTypes:
         """
         The constants in this class are strings that are generally used to represent
@@ -49,68 +51,40 @@ class CustomUser(AbstractUser):
     class NoSuchAccountType(Exception):
         pass
 
-    @property
-    def account_type(self) -> str | None:
-        """The user's account type. Its value will be one of the string constants in CustomUser.AccountTypes."""
-        if not self.in_database():
-            raise CustomUser.DoesNotExist("User must be saved to the database before its account_type can be accessed.")
-        try:
-            account_type: str = self.groups.get().name
-        except Group.DoesNotExist:
-            return None
-        except Group.MultipleObjectsReturned:
-            raise CustomUser.MultipleObjectsReturned(
-                """User has multiple groups, but should only have one. The one group would 
-                indicate the user's account type (base_applicant, volunteer, org_admin, or site_admin)"""
-            )
-        for possible_account_type in CustomUser.AccountTypes.ALL:
-            if account_type == possible_account_type:
-                return account_type
+    def in_database(self):
+        # TODO (low priority): Make this cleaner somehow? This feels a little sketchy because self.pk could be None.
+        return CustomUser.objects.filter(pk=self.pk).exists()
 
-    @account_type.setter
-    def account_type(self, new_account_type: str) -> None:
-        """Sets the user's account_type to new_account_type, adds the user to the group corresponding to
-         new_account_type, and saves the user.
-         If the user already has an account type, removes them from the group corresponding to their old account type
-         before adding the new group.
-         Raises an InvalidAccountType exception if new_account_type is not in CustomUser.AccountTypes.ALL."""
+    def save(self, *args, **kwargs):
+        if (self.account_type not in self.AccountTypes.ALL) and (self.account_type != ""):
+            raise CustomUser.NoSuchAccountType(
+                f"""self.account_type ("{self.account_type}") is not set to a valid value.
+                It should be in CustomUser.AccountTypes.ALL, or be an empty string.""")
 
-        if new_account_type not in self.AccountTypes.ALL:
-            raise self.NoSuchAccountType(
-                f"""You tried to set account_type to an invalid value (\"{new_account_type}\").
-                The only valid values are the string constants in CustomUser.AccountTypes.
-                """
-            )
+        found_old_account_type = False
+        old_account_type_group = None
+        # TODO (low priority): Make this more readable
+        if self.in_database():
+            for possible_account_type in self.AccountTypes.ALL:
+                if self.groups.filter(name=possible_account_type).exists() and not found_old_account_type:
+                    found_old_account_type = True
+                    old_account_type_group = self.groups.get(name=possible_account_type)
+                elif self.groups.filter(name=possible_account_type).exists():
+                    raise CustomUser.MultipleObjectsReturned(
+                        "User appears to have multiple account types. A user can only have one account type.")
 
-        # This saves the user if it's not already in the database, because a model must be saved to the database
-        #  before a group can be added to it.
-        # TODO (high priority): If possible, refactor so that the model doesn't have to be saved here.
-        #  Changed to high priority because this means that users are always saved to the database
-        #  even if they entered invalid data in the account creation form.
-        if not self.in_database():
-            self.save()
+        super().save(*args, **kwargs)
 
-        if new_account_type == CustomUser.AccountTypes.SITE_ADMIN:
-            # This line needs to be here because even though the site_admin group
-            #  should already have superuser permissions, is_staff is seemingly
-            #  not given as part of those permissions.
-            self.is_staff = True
-        if self.account_type is None:
-            new_account_type_group = Group.objects.get(name=new_account_type)
+        if found_old_account_type:
+            self.groups.remove(old_account_type_group)
+        if self.account_type != "":
+            new_account_type_group = Group.objects.get(name=self.account_type)
             self.groups.add(new_account_type_group)
-        else:
-            del self.account_type
-            self.account_type = new_account_type
-        self.save()
 
-    @account_type.deleter
-    def account_type(self) -> None:
-        account_type_group: Group = Group.objects.get(name=self.account_type)
-        self.groups.remove(account_type_group)
+        if self.account_type == self.AccountTypes.SITE_ADMIN:
+            # This line needs to be here because is_staff is seemingly not given to the site admin group,
+            #  even though the group was granted all permissions
+            self.is_staff = True
 
-    def in_database(self) -> bool:
-        try:
-            CustomUser.objects.get(pk=self.pk)
-            return True
-        except CustomUser.DoesNotExist:
-            return False
+        super().save(*args, **kwargs)
+
