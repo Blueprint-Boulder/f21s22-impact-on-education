@@ -15,7 +15,7 @@ class CustomUser(AbstractUser):
     class AccountTypes:
         """
         The constants in this class are strings that are generally used to represent
-        a user's account type (as in, whether a user is an base_applicant, volunteer, etc).
+        a user's account type (as in, whether a user is a base_applicant, volunteer, etc).
         For example, the account_type property of CustomUser will always be one of these values.
 
         As for what exactly these values represent:
@@ -39,6 +39,7 @@ class CustomUser(AbstractUser):
         STUDENT: Final[str] = "student"
 
         VOLUNTEER: Final[str] = "volunteer"
+        """Refers to volunteers that review applications."""
 
         ORG_ADMIN: Final[str] = "org_admin"
         """Refers to the admins of the Impact on Education organization"""
@@ -47,6 +48,8 @@ class CustomUser(AbstractUser):
         """Refers to the admins of the website itself"""
 
         ALL: Final[tuple[str, ...]] = (STUDENT, VOLUNTEER, ORG_ADMIN, SITE_ADMIN)
+        """A tuple of all possible account types that a user could be. 
+        Each element is a string used to represent an account type."""
 
     class NoSuchAccountType(Exception):
         pass
@@ -56,6 +59,9 @@ class CustomUser(AbstractUser):
         return CustomUser.objects.filter(pk=self.pk).exists()
 
     def save(self, *args, **kwargs):
+        """Saves the user to the database. Adds the user to the group that corresponds to its account_type.
+        Removes the user from groups that were added by an older account_type."""
+
         if (self.account_type not in self.AccountTypes.ALL) and (self.account_type != ""):
             raise CustomUser.NoSuchAccountType(
                 f"""self.account_type ("{self.account_type}") is not set to a valid value.
