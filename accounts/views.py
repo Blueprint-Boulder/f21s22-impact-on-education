@@ -68,6 +68,7 @@ def save_user(request):
     is submitted in the "register" view."""
 
     form: CustomUserCreationForm = CustomUserCreationForm(request.POST)
-    form.save()
+    if form.is_valid():
+        form.save()
 
     return HttpResponse("user " + request.POST['username'] + " saved")  # TODO (high priority): Make into full page
