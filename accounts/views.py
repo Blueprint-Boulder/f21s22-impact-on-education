@@ -70,5 +70,8 @@ def save_user(request):
     form: CustomUserCreationForm = CustomUserCreationForm(request.POST)
     if form.is_valid():
         form.save()
-
-    return HttpResponse("user " + request.POST['username'] + " saved")  # TODO (high priority): Make into full page
+        return render(request, "accounts/user_created.html")
+    else:
+        # TODO (high priority): Make this error into a full page
+        return HttpResponse("""The account could not be created. The data entered into the form was invalid
+        (for example, the passwords may not have matched, or the username was taken).""")
