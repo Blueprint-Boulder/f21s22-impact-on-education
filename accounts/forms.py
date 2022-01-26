@@ -21,7 +21,6 @@ class CustomUserCreationForm(UserCreationForm):
     def save(self, commit=True):
         user: CustomUser = super().save(commit=False)
         if commit:
-            user.save()
             user.account_type = self.cleaned_data["account_type"]
             user.save()
         return user
