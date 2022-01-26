@@ -19,6 +19,7 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ("account_type", "username", "email", "first_name", "last_name", "password1", "password2")
 
     def save(self, commit=True):
+        # TODO (medium priority): Force the email to be unique
         user: CustomUser = super().save(commit=False)
         if commit:
             user.account_type = self.cleaned_data["account_type"]
