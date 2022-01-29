@@ -7,7 +7,7 @@ urlpatterns = [
     #  (e.g. the URLs here separated by dashes instead of underscores)
     #  Django's documentation for django.contrib.auth.urls:
     #  https://docs.djangoproject.com/en/3.2/topics/auth/default/#module-django.contrib.auth.views
-    #  The URLs 'register/' and 'save_user/' are not copied from there.
+    #  The URLs 'register/' and 'account-created/' are not copied from there.
 
     path('login/', views.LoginView.as_view(), name='login'),
 

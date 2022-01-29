@@ -1,8 +1,7 @@
 import django.contrib.auth.views as django_auth_views
-from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, FormView
+from django.views.generic import CreateView
 
 from accounts.forms import CustomUserCreationForm
 
@@ -57,6 +56,7 @@ class PasswordResetCompleteView(django_auth_views.PasswordResetCompleteView):
 
 
 class CustomUserCreateView(CreateView):
+    """View for creating a CustomUser."""
     template_name = "accounts/register.html"
     form_class = CustomUserCreationForm
     success_url = reverse_lazy("accounts:account-created")

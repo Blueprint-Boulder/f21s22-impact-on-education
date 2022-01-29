@@ -14,12 +14,12 @@ class CustomUser(AbstractUser):
     class AccountTypes:
         """
         The constants in this class are strings that are generally used to represent
-        a user's account type (as in, whether a user is a base_applicant, volunteer, etc).
+        a user's account type (as in, whether a user is a student, volunteer, etc).
         For example, the account_type property of CustomUser will always be one of these values.
 
         As for what exactly these values represent:
         For background, users belong to a different group depending on their account type.
-        The value of the APPLICANT constant refers to the name of the group that all applicants belong to.
+        The value of the STUDENT constant refers to the name of the group that all students belong to.
         The value of the SITE_ADMIN constant refers to the name of the group that all site admins belong to.
         Etc.
         If you don't know what groups are, see:
