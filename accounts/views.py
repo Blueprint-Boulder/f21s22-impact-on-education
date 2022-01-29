@@ -59,9 +59,9 @@ class PasswordResetCompleteView(django_auth_views.PasswordResetCompleteView):
 class CustomUserCreationView(CreateView):
     template_name = "accounts/register.html"
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy("accounts:user-saved")
+    success_url = reverse_lazy("accounts:account-created")
 
 
-def user_saved(request):
+def account_created(request):
     """Displays a success message after creating a user."""
-    return render(request, "accounts/user_created.html")
+    return render(request, "accounts/account_created.html")
