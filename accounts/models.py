@@ -59,37 +59,57 @@ class CustomUser(AbstractUser):
 
     def save(self, *args, **kwargs):
         """Saves the user to the database. Adds the user to the group that corresponds to its account_type.
-        Removes the user from groups that were added by an older account_type."""
+        Removes the user from groups that were added by an older account_type.
+        """
 
-        if (self.account_type not in self.AccountTypes.ALL) and (self.account_type != ""):
+        # 1) Raises an exception if account_type is set to an invalid value.
+        #    Doesn't raise an exception if account_type is an empty string, so that Django's createsuperuser command
+        #    (which only sets username, password, and email) works.
+        if self.account_type and (self.account_type not in self.AccountTypes.ALL):
             raise CustomUser.NoSuchAccountType(
                 f"""self.account_type ("{self.account_type}") is not set to a valid value.
                 It should be in CustomUser.AccountTypes.ALL, or be an empty string.""")
 
-        found_old_account_type = False
-        old_account_type_group = None
-        # TODO (low priority): Make this more readable
-        if self.in_database():
-            for possible_account_type in self.AccountTypes.ALL:
-                if self.groups.filter(name=possible_account_type).exists() and not found_old_account_type:
-                    found_old_account_type = True
-                    old_account_type_group = self.groups.get(name=possible_account_type)
-                elif self.groups.filter(name=possible_account_type).exists():
-                    raise CustomUser.MultipleObjectsReturned(
-                        "User appears to have multiple account types. A user can only have one account type.")
+        # self.AccountTypes.ALL is just CustomUser.AccountTypes.ALL, but can't be written like the latter
+        #  because it would be circular (referencing the CustomUser class in the definition of the CustomUser class).
+        #  It's misleading to think of self.AccountTypes.ALL as an attribute of "self".
+        possible_account_types = self.AccountTypes.ALL
 
+        # 2) Checks if the user already has an account type.
+        #    If it does, sets old_account_type_group to the group corresponding to that account type.
+        #    If not, sets old_account_type_group to None.
+        if self.in_database():
+            user_account_types = [account_type for account_type in possible_account_types
+                                  if self.groups.filter(name=account_type).exists()]
+            if len(user_account_types) == 0:
+                old_account_type_group = None
+            elif len(user_account_types) == 1:
+                old_account_type_group = self.groups.get(name=user_account_types[0])
+            else:
+                raise CustomUser.MultipleObjectsReturned(
+                    "User appears to have multiple account types. A user can only have one account type.")
+        else:
+            old_account_type_group = None
+
+        # 3) Saves the user to the database.
+        #    This does everything we need, except handling the group stuff for account_type.
+        #    This step is necessary because in order to add or remove groups
+        #    (which will be done in the following steps), the user needs to be in the database.
         super().save(*args, **kwargs)
 
-        if found_old_account_type:
+        # 4) Fairly self-explanatory: Removes the user from their old account type group, if they have one.
+        if old_account_type_group is not None:
             self.groups.remove(old_account_type_group)
-        if self.account_type != "":
+
+        # 5) Adds the user to the group corresponding to their new account type.
+        if self.account_type:
             new_account_type_group = Group.objects.get(name=self.account_type)
             self.groups.add(new_account_type_group)
 
+        # 6) Self-explanatory. Needs to be here because is_staff is seemingly not given to the site admin group,
+        #     even though the group was granted all permissions.
         if self.account_type == self.AccountTypes.SITE_ADMIN:
-            # This line needs to be here because is_staff is seemingly not given to the site admin group,
-            #  even though the group was granted all permissions
             self.is_staff = True
 
+        # 7) Finally, saves the user to the database again, in order to save the changes that were made in steps 4-6.
         super().save(*args, **kwargs)
-
