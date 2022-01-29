@@ -64,7 +64,8 @@ class CustomUser(AbstractUser):
 
         # 1) Raises an exception if account_type is set to an invalid value.
         #    Doesn't raise an exception if account_type is an empty string, so that Django's createsuperuser command
-        #    (which only sets username, password, and email) works.
+        #    (which only sets username, password, and email, and leaves every other string attribute as an empty string)
+        #    works.
         if self.account_type and (self.account_type not in self.AccountTypes.ALL):
             raise CustomUser.NoSuchAccountType(
                 f"""self.account_type ("{self.account_type}") is not set to a valid value.
