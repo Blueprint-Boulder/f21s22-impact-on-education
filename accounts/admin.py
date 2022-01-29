@@ -5,7 +5,7 @@ from accounts.models import CustomUser
 
 
 class CustomUserAdmin(UserAdmin):
-    """Determines how CustomUsers are handled in the Django's auto-generated admin site."""
+    """Determines how CustomUsers are handled in Django's auto-generated admin site."""
 
     # Fields that are displayed when viewing a list of CustomUsers
     list_display = ['username', 'account_type', 'email', 'last_name', 'first_name']
