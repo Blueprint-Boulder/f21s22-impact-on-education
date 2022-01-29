@@ -2,6 +2,7 @@ import django.contrib.auth.views as django_auth_views
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views.generic import CreateView, FormView
 
 from accounts.forms import CustomUserCreationForm
 
@@ -55,23 +56,12 @@ class PasswordResetCompleteView(django_auth_views.PasswordResetCompleteView):
     template_name = "accounts/password_reset_complete.html"
 
 
-def register(request):
-    """View of the 'create account' page that the user sees."""
-    form: CustomUserCreationForm = CustomUserCreationForm()
-    return render(request, "accounts/register.html", {'form': form})
+class CustomUserCreationView(CreateView):
+    template_name = "accounts/register.html"
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy("accounts:user-saved")
 
 
-# TODO (medium priority): Deny access if URL is directly entered; only allow
-#  this to be run if it's called from another function. Not sure how to do this.
-def save_user(request):
-    """Saves the user into the database. Called after account info
-    is submitted in the "register" view."""
-
-    form: CustomUserCreationForm = CustomUserCreationForm(request.POST)
-    if form.is_valid():
-        form.save()
-        return render(request, "accounts/user_created.html")
-    else:
-        # TODO (high priority): Make this error into a full page
-        return HttpResponse("""The account could not be created. The data entered into the form was invalid
-        (for example, the passwords may not have matched, or the username was taken).""")
+def user_saved(request):
+    """Displays a success message after creating a user."""
+    return render(request, "accounts/user_created.html")

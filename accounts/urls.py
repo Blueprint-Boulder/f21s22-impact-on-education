@@ -22,8 +22,8 @@ urlpatterns = [
          name='password-reset-enter-new-password'),
     path('reset/done', views.PasswordResetCompleteView.as_view(), name='password-reset-complete'),
 
-    path('register/', views.register, name='register'),
-    path('save-user/', views.save_user, name='save-user'),
+    path('register/', views.CustomUserCreationView.as_view(), name='register'),
+    path('user-saved/', views.user_saved, name='user-saved'),
 
     # TODO (low priority): Move the homepage-redirect URL from django_root to here (along with its view)
 ]

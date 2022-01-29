@@ -7,7 +7,7 @@
     <title>Create Account</title>
 </head>
 <body>
-<form method="POST" action={% url "accounts:save-user" %}>
+<form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Submit">
