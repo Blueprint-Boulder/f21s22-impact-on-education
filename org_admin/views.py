@@ -30,5 +30,5 @@ def view_adduser(request):
 def save_user(request):
 	form: AdminUserCreationForm = AdminUserCreationForm(request.POST)
 	form.save()
-	return HttpResponse("user " + request.POST['username'] + " saved”)
+	return HttpResponse("user " + request.POST['username'] + " saved")
 
