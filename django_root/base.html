@@ -1,0 +1,23 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    //insert {{ page_title }} - title name should be passed in as page_title var
+    //menu bar, banner, logo, dropdown/nav menu/bar
+    //css
+    <link rel="stylesheet" href="/static/style.css">
+    <title>{% block title %}My amazing site{% endblock %}</title>
+</head>
+<body>
+//probably all different for wach page
+<div id="content">
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>
+
+//header and footer with website info and logo/banner
+
+//menu dropdown menu
+
+//css classes that other templatees that inherit from it can use
+
