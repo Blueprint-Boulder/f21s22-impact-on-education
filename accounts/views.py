@@ -1,9 +1,12 @@
 import django.contrib.auth.views as django_auth_views
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView, DetailView
 
 from accounts.forms import CustomUserCreationForm
+from accounts.models import CustomUser
 
 
 class LoginView(django_auth_views.LoginView):
@@ -24,6 +27,9 @@ class PasswordChangeView(django_auth_views.PasswordChangeView):
     success_url = reverse_lazy("accounts:password-change-done")
 
 
+# TODO (low priority): Figure out if changing the template to accounts/profile.html,
+#  and overriding get_context_data() to pass in password_changed=True, would break anything.
+#  If it wouldn't, do that (and edit accounts/profile.html accordingly).
 class PasswordChangeDoneView(django_auth_views.PasswordChangeDoneView):
     """Displays a message indicating that the password has been successfully changed."""
     template_name = "accounts/password_change_done.html"
@@ -60,6 +66,33 @@ class CustomUserCreateView(CreateView):
     template_name = "accounts/register.html"
     form_class = CustomUserCreationForm
     success_url = reverse_lazy("accounts:account-created")
+
+
+# TODO (low priority): Find out if subclassing DetailView is better for this
+@login_required
+def profile(request):
+    """A read-only view of the user's profile."""
+    return render(request, "accounts/profile.html", {'user': request.user})
+
+
+class ProfileEditView(UpdateView):
+    """View for a user to edit their profile."""
+    model = CustomUser
+    template_name = "accounts/profile_edit.html"
+    fields = ("username", "email", "first_name", "last_name")
+    # TODO (low priority): Find a way to make success_url "accounts:profile" and pass in the profile_updated context
+    success_url = reverse_lazy("accounts:profile-saved")
+
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+@login_required
+def profile_saved(request):
+    """A read-only view of the user's profile, which also displays a confirmation message
+     indicating the profile has been successfully updated.
+     This view should be accessed after a user edits their profile."""
+    return render(request, "accounts/profile.html", {'user': request.user, 'profile_updated': True})
 
 
 def account_created(request):

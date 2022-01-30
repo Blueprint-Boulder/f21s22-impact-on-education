@@ -13,6 +13,10 @@ urlpatterns = [
 
     path('logout/', views.LogoutView.as_view(), name='logout'),
 
+    path('profile/', views.profile, name='profile'),
+    path('profile/edit', views.ProfileEditView.as_view(), name='profile-edit'),
+    path('profile/saved', views.profile_saved, name='profile-saved'),
+
     path('password-change/', views.PasswordChangeView.as_view(), name='password-change'),
     path('password-change/done/', views.PasswordChangeDoneView.as_view(), name='password-change-done'),
 
