@@ -1,24 +1,22 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render
-from django.urls import reverse, reverse_lazy
-from django.http import HttpResponse
-
 from base_applicant.models import Application
 from accounts.models import CustomUser
+from django.db.models import QuerySet
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.urls import reverse, reverse_lazy
 
-from base_applicant.views import ApplicationCreateView, ApplicationUpdateView, ApplicationDeleteView, \
+from base_applicant.views import ApplicationCreateViewAdmin, ApplicationUpdateViewAdmin, ApplicationDeleteViewAdmin, \
     base_submit_application, base_confirm_submit_application, base_view_applications
 from org_admin.models import ScholarshipCreation
 
 
-
-
 # Below is all Creation of new scholarship application
 
-class ScholarshipApplicationCreateViewAdmin(ApplicationCreateView):
+class ScholarshipApplicationCreateViewAdmin(ApplicationCreateViewAdmin):
     model = ScholarshipCreation
-    fields = ApplicationCreateView.fields + ['high_school',
+    fields = ApplicationCreateViewAdmin.fields + ['high_school',
                                              'statement',
                                              'transcript',
                                              'recommendation_letter_1', 'recommendation_letter_2',
@@ -26,9 +24,9 @@ class ScholarshipApplicationCreateViewAdmin(ApplicationCreateView):
     template_name = "org_admin/application_form.html"
 
 
-class ScholarshipApplicationUpdateViewAdmin(ApplicationUpdateView):
+class ScholarshipApplicationUpdateViewAdmin(ApplicationUpdateViewAdmin):
     model = ScholarshipCreation
-    fields = ApplicationUpdateView.fields + ['high_school',
+    fields = ApplicationUpdateViewAdmin.fields + ['high_school',
                                              'statement',
                                              'transcript',
                                              'recommendation_letter_1', 'recommendation_letter_2',
@@ -36,9 +34,9 @@ class ScholarshipApplicationUpdateViewAdmin(ApplicationUpdateView):
     template_name = "org_admin/application_form.html"
 
 
-class ScholarshipApplicationDeleteViewAdmin(ApplicationDeleteView):
+class ScholarshipApplicationDeleteViewAdmin(ApplicationDeleteViewAdmin):
     model = ScholarshipCreation
-    success_url = reverse_lazy('student:view-apps')  # goes here after confirmation
+    success_url = reverse_lazy('org_admin:view-apps')  # goes here after confirmation
     template_name = "org_admin/application_confirm_delete.html"  # confirmation page
 
 
@@ -52,10 +50,6 @@ def is_admin(user: CustomUser):
 def users(request):
     """A view that is a table of every user on the website, and relevant info about them."""
     return render(request, "org_admin/users.html", {'users': CustomUser.objects.all()})
-
-def add_application(request):
-    return render(request, "org_admin/applicationadd.html")
-
 
 def home(request):
     """View for the student homepage."""

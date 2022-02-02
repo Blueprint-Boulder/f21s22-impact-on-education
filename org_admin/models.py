@@ -8,7 +8,7 @@ from base_applicant.models import Application, School
 
 
 class ScholarshipCreation(Application):
-    """Represents an org admin's creation of a scholarship."""
+    """Represents a student's application for a scholarship."""
     high_school = models.ForeignKey(School, on_delete=models.CASCADE)
     statement = models.FileField()  # TODO: figure out what happens when upload_to=None (which is the default)
     transcript = models.FileField()
@@ -16,6 +16,5 @@ class ScholarshipCreation(Application):
     recommendation_letter_2 = models.FileField()
     acknowledged = models.BooleanField(default=False)
 
-
     def get_absolute_url(self):
-        return reverse("student:orghome", kwargs={'pk': self.pk})
+        return reverse("org_admin:view-app", kwargs={'pk': self.pk})

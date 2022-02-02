@@ -1,8 +1,6 @@
 from django.urls import path
 
 from org_admin import views
-
-from org_admin import views
 from org_admin.views import ScholarshipApplicationCreateViewAdmin, ScholarshipApplicationUpdateViewAdmin, ScholarshipApplicationDeleteViewAdmin
 
 
@@ -12,7 +10,6 @@ app_name = 'org_admin'
 urlpatterns = [
     path('', views.home, name='home'),
     path('users', views.users, name='users'),
-    path('addapp', views.add_application, name='addapp'),
     path('apps/', views.view_applications, name='view-apps'),
     path('apps/new/', ScholarshipApplicationCreateViewAdmin.as_view(), name='new-app'),
     path('apps/<int:pk>/', views.view_application, name='view-app'),
