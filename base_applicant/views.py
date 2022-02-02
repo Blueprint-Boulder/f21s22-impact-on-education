@@ -86,6 +86,24 @@ class ApplicationDeleteView(DeleteView):
     Make sure to override this in subclasses."""
 
 
+class ApplicationDetailView(DetailView):
+    """Read-only view for applicants to view a single application."""
+
+    # Stops view from running if user is not an applicant
+    @method_decorator(user_passes_test(is_applicant))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    context_object_name = "application"
+    """Don't override this in subclasses"""
+
+    model = Application
+    """Make sure to override this in subclasses with the appropriate Application model (e.g. ScholarshipApplication)"""
+
+    template_name = "applicant/base_application_detail.html"
+    """Make sure to override this in subclasses"""
+
+
 def base_view_applications(request, application_class: type[Application], template_name: str):
     """Base view for applicants to see all of their applications, in a read-only format."""
     applications: QuerySet = application_class.objects.filter(author=request.user)

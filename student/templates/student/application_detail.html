@@ -1,0 +1,36 @@
+<!--views.ScholarshipApplicationDetailView uses this template-->
+
+{% extends "applicant/base_application_detail.html" %}
+
+{% load static %}
+
+{% block extra_fields %}
+    High School: {{ application.high_school }}
+
+    <!--TODO (high priority): When adding CSS, replace height, width, and the "couldn't display" message
+         with something better-->
+    Transcript:
+    <br>
+    <iframe src="{{ application.transcript.url }}" height="500px" width="500px">
+        We couldn't display the file. Try <a href="{{ application.transcript.url }}">this link</a>.
+    </iframe>
+    <br>
+    Statement:
+    <br>
+    <iframe src="{{ application.statement.url }}" height="500px" width="500px">
+        We couldn't display the file. Try <a href="{{ application.statement.url }}">this link</a>.
+    </iframe>
+    <br>
+    Recommendation letter 1:
+    <br>
+    <iframe src="{{ application.recommendation_letter_1.url }}" height="500px" width="500px">
+        We couldn't display the file. Try <a href="{{ application.recommendation_letter_1.url }}">this link</a>.
+    </iframe>
+    <br>
+    Recommendation letter 2:
+    <br>
+    <iframe src="{{ application.recommendation_letter_2.url }}" height="500px" width="500px">
+        We couldn't display the file. Try <a href="{{ application.recommendation_letter_2.url }}">this link</a>.
+    </iframe>
+    <br>
+{% endblock %}

@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 
 from base_applicant.views import ApplicationCreateView, ApplicationUpdateView, ApplicationDeleteView, \
-    base_submit_application, base_confirm_submit_application, base_view_applications
+    base_submit_application, base_confirm_submit_application, base_view_applications, ApplicationDetailView
 from student.models import ScholarshipApplication
 
 
@@ -37,6 +37,11 @@ class ScholarshipApplicationDeleteView(ApplicationDeleteView):
 def home(request):
     """View for the student homepage."""
     return render(request, "student/student_home.html", {'user': request.user})
+
+
+class ScholarshipApplicationDetailView(ApplicationDetailView):
+    model = ScholarshipApplication
+    template_name = "student/application_detail.html"
 
 
 def view_application(request, pk: int):
