@@ -9,11 +9,12 @@
     <title>Add User</title>
 </head>
 <body>
-<h1> Add User </h1>
+<h1> Scholarship Application </h1>
 <form method="POST" action={% url "student:submit_application" %}>
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" name="save" value="Submit">
 </form>
+<h4> Remember to also email your recommendation letters to (TODO: get email) </h4>
 </body>
 </html>
