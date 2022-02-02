@@ -64,3 +64,7 @@ def submit_application(request, pk: int):
     return base_submit_application(request, pk=pk,
                                    application_class=ScholarshipApplication,
                                    success_url=reverse("student:view-apps"))
+
+
+def academic_funding_form(request):
+    return render(request, "student/academic_funding_form.html")
