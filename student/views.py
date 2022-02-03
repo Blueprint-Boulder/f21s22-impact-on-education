@@ -3,9 +3,9 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 
-from base_applicant.views import ApplicationCreateView, ApplicationUpdateView, ApplicationDeleteView, \
+from base_applicant.views import ApplicationCreateView, ApplicationUpdateView, ApplicationDeleteView,\
     base_submit_application, base_confirm_submit_application, base_view_applications
-from student.models import ScholarshipApplication
+from student.models import ScholarshipApplication , AcademicFundingApplication
 
 
 class ScholarshipApplicationCreateView(ApplicationCreateView):
@@ -32,6 +32,27 @@ class ScholarshipApplicationDeleteView(ApplicationDeleteView):
     model = ScholarshipApplication
     success_url = reverse_lazy('student:view-apps')  # goes here after confirmation
     template_name = "student/application_confirm_delete.html"  # confirmation page
+
+
+class AcademicFundingApplicationCreateView(ApplicationCreateView):
+    model = AcademicFundingApplication
+    fields = ApplicationCreateView.fields + ['email',
+                                             'name',
+                                             'school',
+                                             'role',
+                                             'department',
+                                             'viability_and_usability',
+                                             'emergency_services',
+                                             'medical_needs',
+                                             'internet_needs',
+                                             'academic_needs',
+                                             'needs_assistance',
+                                             'funding_for',
+                                             'funding_need',
+                                             'funding_amount',
+                                             'students_impacted',
+                                             'agreement']
+    template_name = "student/academic_funding_form.html"
 
 
 def home(request):
@@ -66,5 +87,8 @@ def submit_application(request, pk: int):
                                    success_url=reverse("student:view-apps"))
 
 
-def academic_funding_form(request):
-    return render(request, "student/academic_funding_form.html")
+
+
+
+
+

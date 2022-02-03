@@ -16,3 +16,7 @@ def is_admin(user: CustomUser):
 def users(request):
     """A view that is a table of every user on the website, and relevant info about them."""
     return render(request, "org_admin/users.html", {'users': CustomUser.objects.all()})
+
+def view_applications(request):
+    return render(request, "org_admin/applications.html", {'applications': Application.objects.all()})
+

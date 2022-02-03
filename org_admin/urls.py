@@ -6,5 +6,6 @@ from org_admin import views
 #  (as opposed to site admins, i.e. the people that administer the website itself)
 app_name = 'org_admin'
 urlpatterns = [
-    path('users', views.users, name='users')
+    path('users', views.users, name='users'),
+    path('apps', views.view_applications , name='apps')
 ]
