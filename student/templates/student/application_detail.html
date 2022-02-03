@@ -6,14 +6,12 @@
 
 {% block extra_fields %}
     High School: {{ application.high_school }}
-
-    <!--TODO (high priority): When adding CSS, replace height, width, and the "couldn't display" message
-         with something better-->
+    <br>
     Transcript:
     <br>
-    <iframe src="{{ application.transcript.url }}" height="500px" width="500px">
-        We couldn't display the file. Try <a href="{{ application.transcript.url }}">this link</a>.
-    </iframe>
+    <!--TODO (high priority): When adding CSS, replace height and width with something better
+         (e.g. adjust to screen size)-->
+    {% include "pdf_embed_snippet.html" with pdf_url=application.transcript.url height="500px" width="500px" %}
     <br>
     Statement:
     <br>
