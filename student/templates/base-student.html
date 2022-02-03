@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block nav %}
+<ul id="nav">
+    <li>{% block nav-student-home %}<a href="{% url 'student:home' %}">Home</a>{% endblock %}</li>
+</ul>
+{% endblock %}
