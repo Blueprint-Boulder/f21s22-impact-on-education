@@ -15,20 +15,14 @@
     <br>
     Statement:
     <br>
-    <iframe src="{{ application.statement.url }}" height="500px" width="500px">
-        We couldn't display the file. Try <a href="{{ application.statement.url }}">this link</a>.
-    </iframe>
+    {% include "pdf_embed_snippet.html" with pdf_url=application.statement.url height="500px" width="500px" %}
     <br>
     Recommendation letter 1:
     <br>
-    <iframe src="{{ application.recommendation_letter_1.url }}" height="500px" width="500px">
-        We couldn't display the file. Try <a href="{{ application.recommendation_letter_1.url }}">this link</a>.
-    </iframe>
+    {% include "pdf_embed_snippet.html" with pdf_url=application.recommendation_letter_1.url height="500px" width="500px" %}
     <br>
     Recommendation letter 2:
     <br>
-    <iframe src="{{ application.recommendation_letter_2.url }}" height="500px" width="500px">
-        We couldn't display the file. Try <a href="{{ application.recommendation_letter_2.url }}">this link</a>.
-    </iframe>
+    {% include "pdf_embed_snippet.html" with pdf_url=application.recommendation_letter_2.url height="500px" width="500px" %}
     <br>
 {% endblock %}
