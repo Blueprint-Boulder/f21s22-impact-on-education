@@ -27,6 +27,11 @@ class AcademicFundingApplication(Application):
                ('no', 'no'),
                ('N/A', 'N/A')]
 
+    Roles = [('Principal', 'Principal'),
+             ('Principal_Assistant', 'Principal Assistant or Main Office Mgr'),
+             ('Assistant', 'Assistant Principal'),
+             ('Educator', 'Educator')]
+
     Academic_Requests = [('Fees', 'Class Fees'),
                          ('Technology', 'Technology'),
                          ('Supplies', 'Supplies'),
@@ -37,21 +42,21 @@ class AcademicFundingApplication(Application):
                          ('Other', 'Other')]
 
     email = models.EmailField()
-    name = models.TextField()
-    school = models.TextField()
-    role = models.BooleanField()
-    department = models.TextField()
-    viability_and_usability = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect())
-    emergency_services = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect())
-    medical_needs = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect())
-    internet_needs = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect())
-    academic_needs = forms.ChoiceField(choices=Academic_Requests, widget=forms.RadioSelect())
-    needs_assistance = models.TextField()
-    funding_for = models.TextField()
-    funding_need = models.TextField()
-    funding_amount = models.TextField()
-    students_impacted = models.TextField()
-    agreement = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect())
+    name = models.CharField(max_length=20)
+    school = models.CharField(max_length=40)
+    role = models.CharField(max_length=20, choices=Roles)
+    department = models.CharField(max_length=50)
+    viability_and_usability = models.CharField(max_length=30, choices=CHOICES)
+    emergency_services = models.CharField(max_length=30, choices=CHOICES)
+    medical_needs = models.CharField(max_length=30, choices=CHOICES)
+    internet_needs = models.CharField(max_length=30, choices=CHOICES)
+    academic_needs = models.CharField(max_length=30, choices=Academic_Requests)
+    needs_assistance = models.TextField(max_length=100)
+    funding_for = models.TextField(max_length=100)
+    funding_need = models.TextField(max_length=100)
+    funding_amount = models.CharField(max_length=100)
+    students_impacted = models.CharField(max_length=100)
+    agreement = models.BooleanField(choices=CHOICES)
 
 
 
