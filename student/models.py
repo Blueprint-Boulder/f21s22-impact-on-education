@@ -1,6 +1,10 @@
+from django.core.files import File
 from django.db import models
+from django.db.models import FileField
+from django.db.models.fields.files import FieldFile
 from django.urls import reverse
 
+from accounts.models import CustomUser
 from base_applicant.models import Application, School
 
 
@@ -15,3 +19,9 @@ class ScholarshipApplication(Application):
 
     def get_absolute_url(self):
         return reverse("student:view-app", kwargs={'pk': self.pk})
+
+
+class FileAndPerms(models.Model):
+    file = models.FileField()
+    name = models.CharField(max_length=255)
+    allowed_users = models.ManyToManyField(to=CustomUser)
