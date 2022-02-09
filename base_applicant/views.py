@@ -17,6 +17,9 @@ from base_applicant.models import Application
 def is_applicant(user: CustomUser):
     """Checks whether a user is an applicant."""
     return user.account_type == CustomUser.AccountTypes.STUDENT  # TODO: ...or TEACHER, when that's made
+def is_admin(user: CustomUser):
+    """Checks whether a user is an applicant."""
+    return user.account_type == CustomUser.AccountTypes.ORG_ADMIN  # TODO: ...or TEACHER, when that's made
 
 
 class ApplicationCreateView(CreateView):
@@ -76,6 +79,72 @@ class ApplicationDeleteView(DeleteView):
 
     # Stops view from running if user is not an applicant
     @method_decorator(user_passes_test(is_applicant))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    model = Application
+
+    template_name = "applicant/base_application_confirm_delete.html"
+    """The delete confirmation page ("are you sure you want to delete this?").
+    Make sure to override this in subclasses."""
+
+class ApplicationCreateViewAdmin(CreateView):
+    """Base view for applicants to create an application.
+    template_name is the template used for editing the application.
+    Goes to the URL specified in model.get_absolute_url() when the application has been saved."""
+
+    model = Application
+
+    fields = []
+    """The fields that the user can enter into the application.
+    Override this in subclasses like so:
+    fields = ApplicationCreateView.fields + ['some_field', 'another_field', ...]"""
+
+    template_name = "applicant/base_application_form.html"
+    """The template used for editing the application. Make sure to override this in subclasses."""
+
+    # Stops view from running if user is not an applicant
+    @method_decorator(user_passes_test(is_admin))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    # form_valid means "do this thing if the form is valid", not "return whether the form is valid"
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+# TODO (medium priority): Make it impossible to edit application once submitted
+# TODO (medium priority): Only let user edit their own applications
+class ApplicationUpdateViewAdmin(UpdateView):
+    """Base view for applicants to edit an application.
+    template_name is the template used for editing the application.
+    Goes to the URL specified in model.get_absolute_url() when the application has been saved."""
+
+    model = Application
+
+    fields = []
+    """The fields that the user can enter into the application.
+        Override this in subclasses like so:
+        fields = ApplicationUpdateView.fields + ['some_field', 'another_field', ...]"""
+
+    template_name = "applicant/base_application_form.html"
+    """The template used for editing the application. Make sure to override this in subclasses."""
+
+    # This decorator stops the view from running if the user is not an applicant
+    @method_decorator(user_passes_test(is_admin))
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+
+# TODO (medium priority): Make it impossible to delete application once submitted
+# TODO (medium priority): Only let user delete their own applications
+class ApplicationDeleteViewAdmin(DeleteView):
+    """Base view for applicants to delete an application.
+    template_name is the confirmation page (e.g. "are you sure you want to delete this?")"""
+
+    # Stops view from running if user is not an applicant
+    @method_decorator(user_passes_test(is_admin))
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 

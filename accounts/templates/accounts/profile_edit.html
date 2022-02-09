@@ -1,0 +1,19 @@
+<!--views.ProfileEditView uses this template-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+</head>
+<body>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    Password: Go <a href={% url "accounts:password-change" %}>here</a> to change your password.
+    Raw passwords aren't stored, so your password can't be displayed.
+    <br><br>
+    <input type="submit" value="Save">
+</form>
+</body>
+</html>

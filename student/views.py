@@ -11,7 +11,12 @@ from student.forms import AcademicFundingApplicationForm
 
 class ScholarshipApplicationCreateView(ApplicationCreateView):
     model = ScholarshipApplication
-    fields = ApplicationCreateView.fields + ['high_school',
+    fields = ApplicationCreateView.fields + ['first_name',
+					     'last_name',
+					     'email_address',
+					     'address',
+					     'phone_number',
+					     'school_choice',
                                              'statement',
                                              'transcript',
                                              'recommendation_letter_1', 'recommendation_letter_2',
@@ -21,7 +26,12 @@ class ScholarshipApplicationCreateView(ApplicationCreateView):
 
 class ScholarshipApplicationUpdateView(ApplicationUpdateView):
     model = ScholarshipApplication
-    fields = ApplicationUpdateView.fields + ['high_school',
+    fields = ApplicationUpdateView.fields + ['first_name',
+					     'last_name',
+					     'email_address',
+					     'address',
+					     'phone_number',
+					     'school_choice',
                                              'statement',
                                              'transcript',
                                              'recommendation_letter_1', 'recommendation_letter_2',

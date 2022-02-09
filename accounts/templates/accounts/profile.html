@@ -1,0 +1,26 @@
+<!--views.profile and views.profile_saved use this template-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My account</title>
+</head>
+<body>
+{% if profile_updated %}
+    <h2>Profile updated successfully!</h2>
+{% endif %}
+
+Account type: {{ user.account_type }}<br>
+Date joined: {{ user.date_joined }}<br>
+<br>
+Username: {{ user.username }}<br>
+Email: {{ user.email }}<br>
+First name: {{ user.first_name }}<br>
+Last name: {{ user.last_name }}<br>
+Password: Raw passwords aren't stored, so your password can't be displayed.
+If you want to change your password, go <a href={% url "accounts:password-change" %}>here</a>.<br>
+<h3><a href={% url "accounts:profile-edit" %}>Edit profile</a><br></h3>
+
+</body>
+</html>
