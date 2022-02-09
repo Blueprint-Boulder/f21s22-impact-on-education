@@ -8,9 +8,11 @@ from org_admin.views import ScholarshipApplicationCreateViewAdmin, ScholarshipAp
 #  (as opposed to site admins, i.e. the people that administer the website itself)
 app_name = 'org_admin'
 urlpatterns = [
-    path('', views.home, name='home'),
     path('users', views.users, name='users'),
     path('apps/', views.view_applications, name='view-apps'),
+    path('adduser', views.view_adduser, name='adduser'),
+    path('save_user/', views.save_user, name="save_user")
+    path('', views.home, name='home'),
     path('apps/new/', ScholarshipApplicationCreateViewAdmin.as_view(), name='new-app'),
     path('apps/<int:pk>/', views.view_application, name='view-app'),
     path('apps/<int:pk>/edit/', ScholarshipApplicationUpdateViewAdmin.as_view(), name='edit-app'),
