@@ -1,6 +1,5 @@
 from django.contrib import admin
 
-from student.models import ScholarshipApplication, FileAndPerms
+from student.models import ScholarshipApplication
 
 admin.site.register(ScholarshipApplication)
-admin.site.register(FileAndPerms)
