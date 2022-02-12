@@ -9,14 +9,12 @@ class CustomUser(AbstractUser):
     CustomUser inherits from AbstractUser, so it has all the functionality of the default User model,
     plus some extra."""
 
-    account_type = models.CharField(max_length=20)
 
     class AccountTypes:
         """
         The constants in this class are strings that are generally used to represent
         a user's account type (as in, whether a user is a student, volunteer, etc).
         For example, the account_type property of CustomUser will always be one of these values.
-
         As for what exactly these values represent:
         For background, users belong to a different group depending on their account type.
         The value of the STUDENT constant refers to the name of the group that all students belong to.
@@ -24,7 +22,6 @@ class CustomUser(AbstractUser):
         Etc.
         If you don't know what groups are, see:
         https://docs.djangoproject.com/en/3.2/topics/auth/default/#groups
-
         One of the reasons for doing this: It makes typos in group names less likely.
         For example, let's say you accidentally mistyped "site_admin" as "site-admin" at some point.
         Without the AccountTypes class, your IDE would likely not detect this. You would only catch
@@ -49,6 +46,11 @@ class CustomUser(AbstractUser):
         ALL: Final[tuple[str, ...]] = (STUDENT, VOLUNTEER, ORG_ADMIN, SITE_ADMIN)
         """A tuple of all possible account types that a user could be. 
         Each element is a string used to represent an account type."""
+
+    account_type = models.CharField(max_length=20, choices=((AccountTypes.STUDENT, "Student"),
+                                                            (AccountTypes.VOLUNTEER, "Volunteer"),
+                                                            (AccountTypes.ORG_ADMIN, "Org Admin"),
+                                                            (AccountTypes.SITE_ADMIN, "Site Admin")))
 
     class NoSuchAccountType(Exception):
         pass
