@@ -15,9 +15,20 @@ from student.models import ScholarshipApplication
 from student.views import ScholarshipApplicationCreateView, ScholarshipApplicationUpdateView, \
     ScholarshipApplicationDeleteView, ScholarshipApplicationDetailView
 
+
+def is_org_admin(user: CustomUser):
+    """Checks whether a user is an org admin"""
+    return user.account_type == CustomUser.AccountTypes.ORG_ADMIN
+
+
+@user_passes_test(is_org_admin)
+def home(request):
+    """View for the org admin homepage."""
+    return render(request, "org_admin/org_admin_home.html", {'user': request.user})
+
+
 # TODO (high priority): Implement actual namespacing instead of these weird long names
 #  (e.g. refer to ScholarshipApplicationCreateViewAdmin as org_admin.ScholarshipApplicationCreateView)
-
 
 class ScholarshipApplicationCreateViewAdmin(ScholarshipApplicationCreateView):
     template_name = "org_admin/application_form.html"
@@ -32,12 +43,6 @@ class ScholarshipApplicationDeleteViewAdmin(ScholarshipApplicationDeleteView):
     template_name = "org_admin/application_confirm_delete.html"
 
 
-def is_org_admin(user: CustomUser):
-    """Checks whether a user is an org admin"""
-    return user.account_type == CustomUser.AccountTypes.ORG_ADMIN
-
-
-# Users table
 @user_passes_test(is_org_admin)
 def users(request):
     """A view that is a table of every user on the website, and relevant info about them."""
@@ -51,11 +56,6 @@ class AdminCustomUserCreateView(CustomUserCreateView):
 
 def account_created(request):
     return render(request, "org_admin/account_created.html")
-
-
-def home(request):
-    """View for the org admin homepage."""
-    return render(request, "org_admin/org_admin_home.html", {'user': request.user})
 
 
 class ScholarshipApplicationDetailViewAdmin(ScholarshipApplicationDetailView):
