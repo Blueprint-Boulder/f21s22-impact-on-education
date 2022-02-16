@@ -25,5 +25,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('org-admin/', include('org_admin.urls')),
     path('student/', include('student.urls')),
+    path('volunteer/', include('volunteer.urls')),
     path('homepage-redirect/', views.homepage_redirect),
 ]
