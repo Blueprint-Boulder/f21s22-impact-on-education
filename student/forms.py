@@ -4,7 +4,7 @@ from django.forms import ModelForm
 from django.contrib.auth.models import Group
 
 from student.models import AcademicFundingApplication
-from students.models import ScholarshipApplication
+from student.models import ScholarshipApplication
 
 
 class AcademicFundingApplicationForm(ModelForm):
