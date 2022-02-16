@@ -9,7 +9,6 @@ class CustomUser(AbstractUser):
     CustomUser inherits from AbstractUser, so it has all the functionality of the default User model,
     plus some extra."""
 
-    account_type = models.CharField(max_length=20)
 
     class AccountTypes:
         """
@@ -47,6 +46,11 @@ class CustomUser(AbstractUser):
         ALL: Final[tuple[str, ...]] = (STUDENT, VOLUNTEER, ORG_ADMIN, SITE_ADMIN)
         """A tuple of all possible account types that a user could be. 
         Each element is a string used to represent an account type."""
+
+    account_type = models.CharField(max_length=20, choices=((AccountTypes.STUDENT, "Student"),
+                                                            (AccountTypes.VOLUNTEER, "Volunteer"),
+                                                            (AccountTypes.ORG_ADMIN, "Org Admin"),
+                                                            (AccountTypes.SITE_ADMIN, "Site Admin")))
 
     class NoSuchAccountType(Exception):
         pass

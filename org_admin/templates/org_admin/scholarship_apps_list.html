@@ -1,5 +1,6 @@
 <!--views.view_applications uses this template-->
 
+<!-- TODO (high priority): Make this extend a generic scholarship application template once that exists  -->
 {% extends "applicant/base_applications_list.html" %}
 
 {% block new_app_link %}
@@ -7,7 +8,8 @@
 {% endblock %}
 
 {% block extra_fields %}
-High School: {{ application.high_school }}
+    Author: {{ application.author }}<br>
+    High School: {{ application.high_school }}
 {% endblock %}
 
 {% block edit_app_url %}{% url "org_admin:edit-app" pk=application.pk %}{% endblock %}

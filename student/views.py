@@ -1,22 +1,17 @@
-from django.db.models import QuerySet
-from django.http import HttpResponse
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 
-from base_applicant.views import ApplicationCreateView, ApplicationUpdateView, ApplicationDeleteView,\
-    base_submit_application, base_confirm_submit_application, base_view_applications
-from student.models import ScholarshipApplication , AcademicFundingApplication
+from base_applicant.views import ApplicationCreateView, ApplicationUpdateView, ApplicationDeleteView, \
+    base_submit_application, base_confirm_submit_application, base_view_applications, ApplicationDetailView, \
+    is_applicant
 from student.forms import AcademicFundingApplicationForm
+from student.models import ScholarshipApplication, AcademicFundingApplication
 
 
 class ScholarshipApplicationCreateView(ApplicationCreateView):
     model = ScholarshipApplication
-    fields = ApplicationCreateView.fields + ['first_name',
-					     'last_name',
-					     'email_address',
-					     'address',
-					     'phone_number',
-					     'school_choice',
+    fields = ApplicationCreateView.fields + ['high_school',
                                              'statement',
                                              'transcript',
                                              'recommendation_letter_1', 'recommendation_letter_2',
@@ -26,12 +21,7 @@ class ScholarshipApplicationCreateView(ApplicationCreateView):
 
 class ScholarshipApplicationUpdateView(ApplicationUpdateView):
     model = ScholarshipApplication
-    fields = ApplicationUpdateView.fields + ['first_name',
-					     'last_name',
-					     'email_address',
-					     'address',
-					     'phone_number',
-					     'school_choice',
+    fields = ApplicationUpdateView.fields + ['high_school',
                                              'statement',
                                              'transcript',
                                              'recommendation_letter_1', 'recommendation_letter_2',
@@ -52,19 +42,18 @@ class AcademicFundingApplicationCreateView(ApplicationCreateView):
     template_name = "student/academic_funding_form.html"
 
 
+@user_passes_test(is_applicant)
 def home(request):
     """View for the student homepage."""
     return render(request, "student/student_home.html", {'user': request.user})
 
 
-def view_application(request, pk: int):
-    """View for students to see one of their applications, in a read-only format."""
-    application: ScholarshipApplication = ScholarshipApplication.objects.get(pk=pk)
-    # TODO (high priority): Make into actual page
-    return HttpResponse(f"SCHOLARSHIP APPLICATION<br>ID {application.pk}")
+class ScholarshipApplicationDetailView(ApplicationDetailView):
+    model = ScholarshipApplication
+    template_name = "student/application_detail.html"
 
 
-def view_applications(request):
+def my_applications(request):
     """View for students to see all of their applications, in a read-only format."""
     return base_view_applications(request,
                                   application_class=ScholarshipApplication,
@@ -82,10 +71,3 @@ def submit_application(request, pk: int):
     return base_submit_application(request, pk=pk,
                                    application_class=ScholarshipApplication,
                                    success_url=reverse("student:view-apps"))
-
-
-
-
-
-
-

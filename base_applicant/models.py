@@ -10,7 +10,8 @@ from accounts.models import CustomUser
 
 class Application(models.Model):
     """Represents all applications for any type of funding or scholarship."""
-
+    address = models.TextField(max_length=300)
+    phone_number = models.CharField(max_length=20)
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.CASCADE,
                                null=True)
