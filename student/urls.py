@@ -13,5 +13,5 @@ urlpatterns = [
     path('apps/<int:pk>/confirm-delete/', ScholarshipApplicationDeleteView.as_view(), name='confirm-delete-app'),
     path('apps/<int:pk>/confirm-submit/', views.confirm_submit_application, name='confirm-submit-app'),
     path('apps/<int:pk>/submit/', views.submit_application, name='submit-app'),
-    path('apps/profile/', views.profile, name='profile'),
+    path('profile/', views.profile, name='profile'),
 ]

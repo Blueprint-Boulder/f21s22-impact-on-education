@@ -2,6 +2,8 @@
 
 {% block nav %}
 <ul id="nav">
-    <li>{% block nav-student-home %}<a href="{% url 'student:home' %}">Home</a>{% endblock %}</li>
+    <li>{% block nav-applicant-home %}<a href="{% url 'student:home' %}">Home</a>{% endblock %}</li>
+    <li>{% block applicant-profile %}<a href="{% url 'student:profile' %}">Profile</a>{% endblock %}</li>
+ <!--   <li>{% block applicant-logout %}<a href="{% url 'student:logout' %}">Logout</a>{% endblock %}</li>  Logout -->
 </ul>
 {% endblock %}
