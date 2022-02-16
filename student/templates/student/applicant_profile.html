@@ -2,14 +2,13 @@
 user: The current user. An instance of CustomUser.
 -->
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Profile</title>
-</head>
-<body>
+{% extends "base-student.html" %}
+
+{% block title %}Profile Page{% endblock %}
+
+{% block content %}
 <h1>Welcome, {{ user }}!</h1>
 <!-- <a href={% block view_apps_url %}{% endblock %}><h2>My info</h2></a> -->
-</body>
-</html>
+
+{% endblock %}
+
