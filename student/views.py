@@ -64,3 +64,7 @@ def submit_application(request, pk: int):
     return base_submit_application(request, pk=pk,
                                    application_class=ScholarshipApplication,
                                    success_url=reverse("student:view-apps"))
+
+def profile(request):
+    return render(request, "student/applicant_profile.html", {'user': request.user})
+
