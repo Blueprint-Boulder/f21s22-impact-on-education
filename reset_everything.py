@@ -9,6 +9,8 @@ What it does:
 5. Creates all the groups that correspond to account types (everything in CustomUser.AccountTypes.ALL)
 6. Creates a test user for each account type
 """
+import shutil
+from sys import stderr
 
 import django
 import os
@@ -18,8 +20,6 @@ django.setup()
 
 from typing import Callable, Any
 
-import re
-
 from django.contrib.auth.models import Group, Permission
 
 from django_root.settings import BASE_DIR
@@ -27,6 +27,7 @@ from accounts.models import CustomUser
 from base_applicant.models import School
 
 from django.core import management
+from django.apps import apps
 
 ignored_dirnames = [".git", ".idea", "venv"]
 
@@ -42,9 +43,16 @@ def in_ignored_dir(dirpath: str) -> bool:
     return False
 
 
-def remove_with_msg(path: str):
-    os.remove(path)
-    print(f"Removed: {path}")
+def remove_with_msg(path: bytes):
+    if os.path.isfile(path):
+        os.remove(path)
+        print(f"Removed file: {path}")
+    elif os.path.isdir(path):
+        shutil.rmtree(path)
+        print(f"Removed directory: {path}")
+    else:
+        print(f"""Warning: "{path}" is not a file or folder, so I don't know what it is or how to remove it.
+Because of this, it will not be removed.""", file=stderr)
 
 
 def django_command_with_msg(command: str):
@@ -78,11 +86,22 @@ def create_test_user(*args, **kwargs):
 
 def remove_migrations_files():
     print("Removing migrations files...")
+
+    # Gets list of migrations folders
+    migrations_dirs: list[bytes] = []
     for dirpath, dirnames, filenames in os.walk(BASE_DIR):
-        if re.match(f".*{BASE_DIR}/[^/]*/migrations", dirpath) and not in_ignored_dir(dirpath):
-            for filename in filenames:
-                if filename != "__init__.py":
-                    remove_with_msg(os.path.join(dirpath, filename))
+        app_dirs = [app.path for app in apps.get_app_configs()]
+        if dirpath in app_dirs and not in_ignored_dir(dirpath):
+            for dirname in dirnames:
+                if dirname == "migrations":
+                    migrations_dirs.append(os.path.join(dirpath, dirname))
+
+    # Removes migrations files
+    for migrations_dir in migrations_dirs:
+        for dir_entry in os.listdir(migrations_dir):
+            if dir_entry != "__init__.py":
+                remove_with_msg(os.path.join(migrations_dir, dir_entry))
+
     print("Migrations files removed.", end='\n\n')
 
 
@@ -134,6 +153,7 @@ def add_example_school():
     School.objects.create(name="Example School")
     print("Example school added.")
 
+
 # ----------------------
 # INPUT/PRINTING HELPERS
 # ----------------------
@@ -150,10 +170,11 @@ Would you like this to be done automatically? (y/n) (q to quit) """)
         print("If you answer yes, you will be given instructions for how to manually do this, "
               "and this program will pause until you confirm that you have finished.")
         if required:
-            print("If you answer no, this program will terminate, since this step is necessary for everything after it to work.")
+            print(
+                "If you answer no, this program will terminate, since this step is necessary for everything after it to work.")
         else:
             print("If you answer no, this step will be skipped.")
-        proceed_manually = input("(y/n) (q to quit)")
+        proceed_manually = input("(y/n) (q to quit) ")
         if proceed_manually == 'q' or proceed_manually == "quit":
             print("Terminating program...")
             exit(0)
@@ -225,13 +246,13 @@ elif everything_automatic == 'n':
                      "For each possible account type (e.g. site admin, volunteer), a group will be created that corresponds to that account type.",
                      manual_instructions=
                      f"""You can do this programmatically, or using Django's auto-generated admin page.
-                
+
                 PROGRAMMATICALLY:
                     To run Django's Python shell:
                     {generate_managedotpy_manual_instructions("shell")}
-                    
+
                     Then, run the following code in the shell (or anything with equivalent functionality if you want to change it for whatever reason):
-                    
+
                     from accounts.models import CustomUser
                     from django.contrib.auth.models import Group, Permission
                     for account_type in CustomUser.AccountTypes.ALL:
@@ -240,12 +261,12 @@ elif everything_automatic == 'n':
                             # Gives the site admin group all permissions
                             for permission in Permission.objects.all():
                                 group.permissions.add(permission)
-                    
+
                 USING THE ADMIN PAGE:
                     First, you'll need to create a superuser that can access the admin site:
                     {generate_managedotpy_manual_instructions("createsuperuser")}
                     It doesn't matter what you enter for the prompts, as long as you remember them.
-                    
+
                     Then, run the server and go to /admin. Log in as the user you just created.
                     In the left bar, where it says "Groups", click "Add". For each account type in CustomUser.AccountTypes.ALL
                     (currently: {CustomUser.AccountTypes.ALL}), add a group with that name. (After you add the first group,
