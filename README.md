@@ -58,7 +58,7 @@ For each view you create, put a comment saying which template it uses, unless it
 
 ### Setting up the database again
 
-1. Make sure you're in the project's root directory. Run `python manage.py makemigrations`, then run `python manage.py migrate`. If `python manage.py makemigrations` doesn't work, then something is wrong with your code, not just the database or migrations files. If `python manage.py migrate` doesn't work, you likely didn't follow the steps in *Removing the problem files*.
+1. Make sure you're in the project's root directory. Run `python manage.py makemigrations`, then run `python manage.py create_database`. If `python manage.py makemigrations` doesn't work, then something is wrong with your code, not just the database or migrations files. If `python manage.py create_database` doesn't work, you likely didn't follow the steps in *Removing the problem files*.
 2. Run `python manage.py createsuperuser` and follow the prompts. This will create a user that can access Django's admin site.
 3. Run your project and go to Django's admin site (located in `/admin`). Login as the user you just created.
 4. Add the following groups: *student, volunteer, org_admin,* and *site_admin*. Give *site_admin* all permissions. It doesn't matter (for testing purposes) which permissions the other groups have.
