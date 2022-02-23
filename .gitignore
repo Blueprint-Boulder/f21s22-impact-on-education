@@ -4,9 +4,13 @@
 venv/
 # Python binary files (.pyc); not needed in project
 __pycache__/
-# Security issue if made public
-django_root/settings.py
 # Website database; security issue if made public
 db.sqlite3
+# Migrations files; not needed because reset_everything.py generates them for us.
+# We'll need them in production, since at that point we can't wipe the database every time something goes wrong,
+#  but in development we don't need them.
+**/migrations/**
+# Make sure __init__.py stays
+!**/migrations/__init__.py
 # Config file for macOS Finder; security issue if made public + not needed in project
 .DS_Store
