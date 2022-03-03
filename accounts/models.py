@@ -9,15 +9,14 @@ class CustomUser(AbstractUser):
     CustomUser inherits from AbstractUser, so it has all the functionality of the default User model,
     plus some extra."""
 
-
     class AccountTypes:
         """
         The constants in this class are strings that are generally used to represent
-        a user's account type (as in, whether a user is a student, volunteer, etc).
+        a user's account type (as in, whether a user is an applicant, volunteer, etc).
         For example, the account_type property of CustomUser will always be one of these values.
         As for what exactly these values represent:
         For background, users belong to a different group depending on their account type.
-        The value of the STUDENT constant refers to the name of the group that all students belong to.
+        The value of the APPLICANT constant refers to the name of the group that all applicants belong to.
         The value of the SITE_ADMIN constant refers to the name of the group that all site admins belong to.
         Etc.
         If you don't know what groups are, see:
@@ -32,7 +31,7 @@ class CustomUser(AbstractUser):
         the list of options if you just type "CustomUser.AccountTypes.".
         """
 
-        STUDENT: Final[str] = "student"
+        APPLICANT: Final[str] = "applicant"
 
         VOLUNTEER: Final[str] = "volunteer"
         """Refers to volunteers that review applications."""
@@ -43,11 +42,11 @@ class CustomUser(AbstractUser):
         SITE_ADMIN: Final[str] = "site_admin"
         """Refers to the admins of the website itself"""
 
-        ALL: Final[tuple[str, ...]] = (STUDENT, VOLUNTEER, ORG_ADMIN, SITE_ADMIN)
+        ALL: Final[tuple[str, ...]] = (APPLICANT, VOLUNTEER, ORG_ADMIN, SITE_ADMIN)
         """A tuple of all possible account types that a user could be. 
         Each element is a string used to represent an account type."""
 
-    account_type = models.CharField(max_length=20, choices=((AccountTypes.STUDENT, "Student"),
+    account_type = models.CharField(max_length=20, choices=((AccountTypes.APPLICANT, "Student"),
                                                             (AccountTypes.VOLUNTEER, "Volunteer"),
                                                             (AccountTypes.ORG_ADMIN, "Org Admin"),
                                                             (AccountTypes.SITE_ADMIN, "Site Admin")))

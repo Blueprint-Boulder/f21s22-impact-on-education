@@ -1,0 +1,14 @@
+{% extends "org_admin/base/applications_list.html" %}
+
+{% block title %}All academic funding applications{% endblock %}
+
+{% block new_app_link %}
+    <a href={% url "org_admin:new-academic-funding-app" %}>Create new academic funding application</a>
+{% endblock %}
+
+{% block extra_fields %}
+<!--TODO (high priority): Add extra fields-->
+{% endblock %}
+
+{% block view_app_url %}{% url "org_admin:view-academic-funding-app" pk=application.pk %}{% endblock %}
+{% block delete_app_url %}{% url "org_admin:confirm-delete-academic-funding-app" pk=application.pk %}{% endblock %}

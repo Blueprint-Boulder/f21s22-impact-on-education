@@ -25,8 +25,8 @@ def homepage_redirect(request):
     assert isinstance(request.user, CustomUser), "homepage_redirect() was called while the user was not logged in"
 
     match request.user.account_type:
-        case CustomUser.AccountTypes.STUDENT:
-            return redirect(reverse("student:home"))
+        case CustomUser.AccountTypes.APPLICANT:
+            return redirect(reverse("applicant:home"))
         case CustomUser.AccountTypes.VOLUNTEER:
             # TODO (high priority): Make volunteer app
             return redirect(reverse("volunteer:home"))

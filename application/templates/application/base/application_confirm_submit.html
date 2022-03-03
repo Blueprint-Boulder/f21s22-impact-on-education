@@ -1,0 +1,22 @@
+<!--VARIABLES:
+application: The application that will be submitted. An instance of a subclass of Application.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Are you sure you want to submit the application?</h2>
+<form method="POST" action={% block submit_app_url %}{% endblock %}>
+    {% csrf_token %}
+    <button type="submit">Yes, submit now</button>
+</form>
+<form action={% block go_back_url %}{% endblock %}>
+    {% csrf_token %}
+    <button type="submit">{% block go_back_link_text %}{% endblock %}</button>
+</form>
+</body>
+</html>

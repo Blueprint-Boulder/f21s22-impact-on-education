@@ -1,0 +1,39 @@
+<!--VARIABLES:
+applications: A set of applications, representing every application of some type.
+    Each application is an instance of a subclass of Application.
+    The set itself is an instance of QuerySet.
+    You can iterate through it with a standard for loop.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+{% if not applications.exists %}
+    <h2>No applications of this type have been submitted yet.</h2>
+{% endif %}
+
+{% block new_app_link %}{% endblock %}
+<br>
+<br>
+
+<!--TODO (low priority): Maybe move part of this to something like application/applications_list.html-->
+{% for application in applications %}
+    ID: {{ application.pk }}
+    <br>
+    Author: {{ application.author }}
+    <br>
+    {% block extra_fields %}{% endblock %}
+    <br>
+
+    <a href={% block view_app_url %}{% endblock %}>[View]</a>
+    <a href={% block delete_app_url %}{% endblock %}>[Delete]</a>
+    <br><br>
+{% endfor %}
+<br>
+
+</body>
+</html>

@@ -3,17 +3,16 @@ from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 
-from accounts.views import CustomUserCreateView
-from base_applicant.models import Application
-from org_admin.forms import AdminCustomUserCreationForm
+import accounts.views
+from application.models import Application, AcademicFundingApplication
+import org_admin.forms
 from accounts.models import CustomUser
 
 
-from base_applicant.views import base_submit_application, base_confirm_submit_application
-from student.models import ScholarshipApplication
+from application.views import base_submit_application
+from application.models import ScholarshipApplication
 
-from student.views import ScholarshipApplicationCreateView, ScholarshipApplicationUpdateView, \
-    ScholarshipApplicationDeleteView, ScholarshipApplicationDetailView
+import application.views
 
 
 def is_org_admin(user: CustomUser):
@@ -24,23 +23,37 @@ def is_org_admin(user: CustomUser):
 @user_passes_test(is_org_admin)
 def home(request):
     """View for the org admin homepage."""
-    return render(request, "org_admin/org_admin_home.html", {'user': request.user})
+    return render(request, "org_admin/home.html", {'user': request.user})
 
 
-# TODO (high priority): Implement actual namespacing instead of these weird long names
-#  (e.g. refer to ScholarshipApplicationCreateViewAdmin as org_admin.ScholarshipApplicationCreateView)
-
-class ScholarshipApplicationCreateViewAdmin(ScholarshipApplicationCreateView):
-    template_name = "org_admin/application_form.html"
+def create_application(request):
+    return render(request, "org_admin/create_application.html")
 
 
-class ScholarshipApplicationUpdateViewAdmin(ScholarshipApplicationUpdateView):
-    template_name = "org_admin/application_form.html"
+class ScholarshipApplicationCreateView(application.views.ScholarshipApplicationCreateView):
+    template_name = "org_admin/scholarship/application_form.html"
 
 
-class ScholarshipApplicationDeleteViewAdmin(ScholarshipApplicationDeleteView):
-    success_url = reverse_lazy('org_admin:view-apps')
-    template_name = "org_admin/application_confirm_delete.html"
+class ScholarshipApplicationDeleteView(application.views.ScholarshipApplicationDeleteView):
+    success_url = reverse_lazy('org_admin:all-scholarship-apps')
+    template_name = "org_admin/scholarship/application_confirm_delete.html"
+
+
+class ScholarshipApplicationDetailView(application.views.ScholarshipApplicationDetailView):
+    template_name = "org_admin/scholarship/application_detail.html"
+
+
+class AcademicFundingApplicationCreateView(application.views.AcademicFundingApplicationCreateView):
+    template_name = "org_admin/academic_funding/application_form.html"
+
+
+class AcademicFundingApplicationDeleteView(application.views.AcademicFundingApplicationDeleteView):
+    success_url = reverse_lazy("org_admin:all-academic-funding-apps")
+    template_name = "org_admin/academic_funding/application_confirm_delete.html"
+
+
+class AcademicFundingApplicationDetailView(application.views.AcademicFundingApplicationDetailView):
+    template_name = "org_admin/academic_funding/application_detail.html"
 
 
 @user_passes_test(is_org_admin)
@@ -49,41 +62,31 @@ def users(request):
     return render(request, "org_admin/users.html", {'users': CustomUser.objects.all()})
 
 
-class AdminCustomUserCreateView(CustomUserCreateView):
-    form_class = AdminCustomUserCreationForm
-    success_url = reverse_lazy("org-admin:account-created")
+class CustomUserCreateView(accounts.views.CustomUserCreateView):
+    form_class = org_admin.forms.CustomUserCreationForm
+    success_url = reverse_lazy("org_admin:account-created")
 
 
 def account_created(request):
     return render(request, "org_admin/account_created.html")
 
 
-class ScholarshipApplicationDetailViewAdmin(ScholarshipApplicationDetailView):
-    pass
+def all_apps(request):
+    return render(request, "org_admin/all_applications.html")
 
 
-def all_apps(request, application_class: type[Application], template_name: str):
-    """View for org admins to see every application by anyone, in a read-only format."""
-    return render(request, template_name, {'applications': application_class.objects.all()})
+def all_apps_of_type(request, application_class: type[Application], template_name: str):
+    """Base view for org admins to see every submitted application of a certain type, in a read-only format."""
+    return render(request, template_name, {'applications': application_class.objects.filter(submitted=True)})
 
 
 def all_scholarship_apps(request):
-    return all_apps(request,
-                    application_class=ScholarshipApplication,
-                    template_name="org_admin/scholarship_apps_list.html")
+    return all_apps_of_type(request,
+                            application_class=ScholarshipApplication,
+                            template_name="org_admin/scholarship/applications_list.html")
 
 
-# TODO (high priority): Add all_academic_funding_apps()
-
-
-def confirm_submit_application(request, pk: int):
-    """Confirmation page before submitting an application."""
-    return base_confirm_submit_application(request, pk=pk,
-                                           application_class=ScholarshipApplication,
-                                           template_name="org_admin/application_confirm_submit.html")
-
-
-def submit_application(request, pk: int):
-    return base_submit_application(request, pk=pk,
-                                   application_class=ScholarshipApplication,
-                                   success_url=reverse("org_admin:view-apps"))
+def all_academic_funding_apps(request):
+    return all_apps_of_type(request,
+                            application_class=AcademicFundingApplication,
+                            template_name="org_admin/academic_funding/applications_list.html")

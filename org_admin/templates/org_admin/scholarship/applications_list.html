@@ -1,0 +1,13 @@
+{% extends "org_admin/base/applications_list.html" %}
+
+{% block title %}All scholarship applications{% endblock %}
+
+{% block new_app_link %}
+    <a href={% url "org_admin:new-scholarship-app" %}>Create new scholarship application</a>
+{% endblock %}
+
+{% block extra_fields %}
+{% endblock %}
+
+{% block view_app_url %}{% url "org_admin:view-scholarship-app" pk=application.pk %}{% endblock %}
+{% block delete_app_url %}{% url "org_admin:confirm-delete-scholarship-app" pk=application.pk %}{% endblock %}
