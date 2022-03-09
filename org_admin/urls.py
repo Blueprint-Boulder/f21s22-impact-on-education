@@ -9,9 +9,6 @@ from org_admin.views import ScholarshipApplicationCreateViewAdmin, ScholarshipAp
 app_name = 'org_admin'
 urlpatterns = [
     path('users', views.users, name='users'),
-    path('apps/', views.view_applications, name='view-apps'),
-    path('adduser', views.view_adduser, name='adduser'),
-    path('save_user/', views.save_user, name="save_user"),
     path('', views.home, name='home'),
     path('users', views.users, name='users'),
     path('apps/', views.all_scholarship_apps, name='view-apps'),
