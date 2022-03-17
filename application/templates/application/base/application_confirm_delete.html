@@ -1,0 +1,24 @@
+<!--VARIABLES:
+form - The form for deleting the application.  An instance of ModelForm.
+    form.as_p - Put this inside a <form> tag to display the form.
+    form.instance - The application to be deleted.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Are you sure?</title>
+</head>
+<body>
+<h2>Are you sure you want to delete the application?</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Yes, delete</button>
+</form>
+<form action={% block go_back_url %}{% endblock %}>
+    <button type="submit">{% block go_back_link_text %}{% endblock %}</button>
+</form>
+</body>
+</html>
