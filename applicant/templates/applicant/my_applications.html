@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +6,7 @@
     <title>My applications</title>
 </head>
 <body>
+{% include "navbar_applicant.html" %}
 <h3><a href={% url "applicant:my-scholarship-apps" %}>View my scholarship applications</a></h3>
 <br>
 <h3><a href={% url "applicant:my-academic-funding-apps" %}>View my internship applications</a></h3>

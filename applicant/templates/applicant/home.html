@@ -9,6 +9,7 @@ user: The current user. An instance of CustomUser.
     <title>Home</title>
 </head>
 <body>
+{% include "navbar_applicant.html" %}
 <h1>Welcome, {{ user }}!</h1>
 <a href={% url "applicant:my-apps" %}><h2>My applications</h2></a>
 </body>
