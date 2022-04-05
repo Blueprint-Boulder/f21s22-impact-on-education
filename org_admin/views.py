@@ -90,3 +90,5 @@ def all_academic_funding_apps(request):
     return all_apps_of_type(request,
                             application_class=AcademicFundingApplication,
                             template_name="org_admin/academic_funding/applications_list.html")
+
+

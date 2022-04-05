@@ -1,6 +1,7 @@
 from django.urls import path
 
 from applicant import views
+from application.views import VolunteerApplicationCreateView, CollegeApplicationCreateView
 
 app_name = 'applicant'
 urlpatterns = [
@@ -32,4 +33,16 @@ urlpatterns = [
          name='confirm-submit-academic-funding-app'),
     path('apps/academic-funding/<int:pk>/submit/', views.submit_academic_funding_application,
          name='submit-academic-funding-app'),
+    path('apps/volunteer-app/new', VolunteerApplicationCreateView.as_view(),
+         name='new-volunteer-app'),
+    # path('apps/volunteer-app/<int:pk>/', views.VolunteerApplicationDetailView.as_view(),
+    #      name='view-volunteer-app'),
+    # path('apps/volunteer-app/<int:pk>/confirm-delete/', views.VolunteerApplicationDeleteView.as_view(),
+    #      name='confirm-delete-volunteer-app'),
+    path('apps/college-app/new', CollegeApplicationCreateView.as_view(),
+         name='new-college-app'),
+    # path('apps/college-app/<int:pk>/', views.CollegeApplicationDetailView.as_view(),
+    #      name='view-college-app'),
+    # path('apps/college-app/<int:pk>/confirm-delete/', views.CollegeApplicationDeleteView.as_view(),
+    #      name='confirm-delete-college-app'),
 ]

@@ -1,14 +1,39 @@
 from django.forms import ModelForm
 
-from application.models import AcademicFundingApplication, ScholarshipApplication
+from application.models import AcademicFundingApplication, ScholarshipApplication, VolunteerApplication, \
+    CollegeApplication, PersonalInfo
 from application.models import Application
 
 
 class ApplicationForm(ModelForm):
     class Meta:
         model = Application
-        fields = []  # TODO (high priority): Add relevant fields (not sure what yet)
+        fields = []
 
+class PersonalInfo(ModelForm):
+    class Meta:
+        model = PersonalInfo
+        fields = ApplicationForm.Meta.fields + ['work_employer', 'work_position', 'work_description', 'work_years',
+                  'work_hours', 'volunteer_employer', 'volunteer_position', 'volunteer_description',
+                  'volunteer_years', 'volunteer_hours', 'org_name', 'org_role', 'org_description',
+                  'org_years', 'org_hours']
+        labels = {
+                    'work_employer': 'Enter the name of the company.',
+                    'work_position': 'Enter your position at that company.',
+                    'work_description': 'Enter a description of your work at the company.',
+                    'work_years': 'Enter your start and end date at that company. (MM/DD/YYYY-MM/DD/YYYY)',
+                    'work_hours': 'Approximately how many hours did you work at this company each week?',
+                    'volunteer_employer': 'Enter the name of the organization',
+                    'volunteer_position': 'Enter your position at this organization.',
+                    'volunteer_description': 'Describe the club or organization, and how you contributed.',
+                    'volunteer_years': 'Enter your start and end date at this organization. (MM/DD/YYYY-MM/DD/YYYY)',
+                    'volunteer_hours': 'Approximately how many hours did you volunteer at this organization each week?'
+                    'org_name: Enter the name of the organization',
+                    'org_role': 'Enter your position at this organization.',
+                    'org_description': 'Describe the club or organization, and how you contributed.',
+                    'org_years': 'Enter your start and end date at this organization. (MM/DD/YYYY-MM/DD/YYYY)',
+                    'org_hours': 'Approximately how many hours did you work for this club or organization each week?',
+                }
 
 class AcademicFundingApplicationForm(ApplicationForm):
     class Meta:
@@ -35,6 +60,30 @@ class AcademicFundingApplicationForm(ApplicationForm):
             'funding_amount': 'How much funding are you requesting?',
             'students_impacted': 'Approximately how many students does your request impact?',
             'agreement': 'Do you agree to provide quantitative, qualitative, and/or anecdotal post-data should your Academic Opportunity Fund request be approved?'
+        }
+
+class VolunteerApplicationForm(ApplicationForm):
+    class Meta:
+        model = VolunteerApplication
+        fields = ApplicationForm.Meta.fields + ['position', 'availability', 'community_service', 'alignment', 'soft_skills']
+        labels = {
+           # 'personal_info': 'Enter your personal Information',
+            'position': 'What position are you applying for?',
+            'availability': 'Enter your expected weekly availability.',
+            'community_service': 'Are you applying for this position to complete court-ordered community service?',
+            'alignment': 'Describe how volunteering with this organization aligns with your passions, values and/or goals.',
+            'soft_skills': 'Describe the soft skills you possess that apply to this role.'
+        }
+
+class CollegeApplicationForm(ApplicationForm):
+    class Meta:
+        model = CollegeApplication
+        fields = ApplicationForm.Meta.fields + ['major', 'challenge', 'extracurricular', 'passions']
+        labels = {
+            'major': 'Enter the major you are applying for.',
+            'challenge': 'Describe a time where you had to try and overcome a challenge. Were you successful? What did you gain from the experience?',
+            'extracurricular': 'Describe any extracurricular activities you have been involved with during high school. Please describe your role and the hours spent per week.',
+            'passions': 'Describe one of your passions.'
         }
 
 

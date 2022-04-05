@@ -51,6 +51,14 @@ class AcademicFundingApplicationDeleteView(application.views.AcademicFundingAppl
 class AcademicFundingApplicationDetailView(application.views.AcademicFundingApplicationDetailView):
     template_name = "applicant/educator/application_detail.html"
 
+#Volunteer Application
+# class VolunteerApplicationDeleteView(application.views.VolunteerApplicationDeleteView):
+#     success_url = reverse_lazy('applicant:my-academic-funding-apps')
+#     template_name = "applicant/educator/application_confirm_delete.html"
+#
+# class VolunteerApplicationDetailView(application.views.VolunteerApplicationDetailView):
+#     template_name = "applicant/educator/application_detail.html"
+
 
 @user_passes_test(is_applicant)
 def home(request):
@@ -100,3 +108,5 @@ def submit_academic_funding_application(request, pk: int):
     return base_submit_application(request, pk=pk,
                                    application_class=AcademicFundingApplication,
                                    success_url=reverse("applicant:my-academic-funding-apps"))
+
+
