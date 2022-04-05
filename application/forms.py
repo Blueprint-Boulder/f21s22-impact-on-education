@@ -1,10 +1,31 @@
-from django.forms import ModelForm
+from django.db.models import TextField
+from django.forms import ModelForm, CharField, Textarea, HiddenInput
+from django.forms.models import ModelFormMetaclass
+from django.forms.utils import ErrorList
 
-from application.models import AcademicFundingApplication, ScholarshipApplication
+from application.models import AcademicFundingApplication, ScholarshipApplication, CustomizableApplication, \
+    CustomizableApplicationType
 from application.models import Application
 
 
+class CustomizableApplicationForm(ModelForm):
+    class Meta:
+        model = CustomizableApplication
+        fields = ["text0", "text1", "text2", "text3", "text4"]
+
+    def __init__(self, *args, app_type: CustomizableApplicationType = None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.app_type = app_type
+        for i in reversed(range(app_type.num_text_fields, CustomizableApplication.MAX_TEXT_FIELDS)):
+            self.fields[f"text{i}"] = CharField(max_length=5000, widget=HiddenInput, required=False)
+
+    def save(self, commit=True):
+        self.instance.type = self.app_type
+        return super().save(commit)
+
+
 class ApplicationForm(ModelForm):
+
     class Meta:
         model = Application
         fields = []  # TODO (high priority): Add relevant fields (not sure what yet)

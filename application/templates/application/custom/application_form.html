@@ -1,0 +1,19 @@
+<!--VARIABLES:
+form - The form for editing the application. A ModelForm.
+  form.as_p - Put this inside a <form> tag to display the form.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Application</title>
+</head>
+<body>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>

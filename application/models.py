@@ -16,6 +16,20 @@ class Application(models.Model):
     submitted = models.BooleanField(default=False)
 
 
+class CustomizableApplicationType(models.Model):
+    num_text_fields = models.IntegerField()
+
+
+class CustomizableApplication(models.Model):
+    MAX_TEXT_FIELDS = 5
+    text0 = models.TextField(max_length=5000, null=True)
+    text1 = models.TextField(max_length=5000, null=True)
+    text2 = models.TextField(max_length=5000, null=True)
+    text3 = models.TextField(max_length=5000, null=True)
+    text4 = models.TextField(max_length=5000, null=True)
+    type = models.ForeignKey(to=CustomizableApplicationType, on_delete=models.CASCADE, null=True)
+
+
 class School(models.Model):
     """Represents a school that an applicant is associated with.
     The reason this is a model is so that schools can be entered into the database

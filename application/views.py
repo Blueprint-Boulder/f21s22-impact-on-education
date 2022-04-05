@@ -1,10 +1,32 @@
 from django.db.models import QuerySet
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 
-from application.models import ScholarshipApplication, AcademicFundingApplication
-from application.forms import ApplicationForm, ScholarshipApplicationForm, AcademicFundingApplicationForm
+from application.models import ScholarshipApplication, AcademicFundingApplication, CustomizableApplication, \
+    CustomizableApplicationType
+from application.forms import ApplicationForm, ScholarshipApplicationForm, AcademicFundingApplicationForm, \
+    CustomizableApplicationForm
 from application.models import Application
+
+
+class CustomizableApplicationCreateView(CreateView):
+    model = CustomizableApplication
+    form_class = CustomizableApplicationForm
+    success_url = reverse_lazy("applicant:home")
+    template_name = "application/custom/application_form.html"
+
+    def get_form_kwargs(self):
+        form_kwargs = super(CustomizableApplicationCreateView, self).get_form_kwargs()
+        form_kwargs["app_type"] = CustomizableApplicationType.objects.get(pk=self.kwargs["app_type_pk"])
+        return form_kwargs
+
+
+class CustomizableApplicationTypeCreateView(CreateView):
+    model = CustomizableApplicationType
+    fields = "__all__"
+    success_url = reverse_lazy("applicant:home")  # TODO (high priority): Move to override in org_admin
+    template_name = "application/custom/application_type_form.html"
 
 
 class ApplicationCreateView(CreateView):
