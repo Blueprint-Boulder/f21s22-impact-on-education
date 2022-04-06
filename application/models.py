@@ -10,22 +10,6 @@ class Application(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE,
                                 null=True)
-
-
-    submitted = models.BooleanField(default=False)
-
-#class WorkExperience(models.Model):
-  #  """Represents questions about work experience."""
-
-
-#class VolunteerExperience(Application):
- #   """Represents questions about work experience."""
-
-
-#class ClubExperience(Application):
-   # """Represents questions about work experience."""
-
-class PersonalInfo(Application):
     work_employer = models.CharField(max_length=100)
     work_position = models.CharField(max_length=20)
     work_description = models.TextField(max_length=100)
@@ -43,6 +27,20 @@ class PersonalInfo(Application):
     org_description = models.TextField(max_length=100)
     org_years = models.CharField(max_length=20)
     org_hours = models.CharField(max_length=20)
+
+    submitted = models.BooleanField(default=False)
+
+#class WorkExperience(models.Model):
+  #  """Represents questions about work experience."""
+
+
+#class VolunteerExperience(Application):
+ #   """Represents questions about work experience."""
+
+
+#class ClubExperience(Application):
+   # """Represents questions about work experience."""
+
 
    # work_experience = models.ManyToManyField(to=WorkExperience)
    #volunteer_experience = models.ManyToManyField(to=VolunteerExperience)
@@ -107,7 +105,7 @@ class AcademicFundingApplication(Application):
     agreement = models.BooleanField()
 
 class VolunteerApplication(Application):
-    personal_info = models.ForeignKey(PersonalInfo, on_delete=models.CASCADE)
+    #personal_info = models.ForeignKey(PersonalInfo, on_delete=models.CASCADE)
     position = models.CharField(max_length=100)
     availability = models.CharField(max_length=100)
     community_service = models.CharField(max_length=100)
@@ -115,7 +113,7 @@ class VolunteerApplication(Application):
     soft_skills = models.CharField(max_length=100)
 
 class CollegeApplication(Application):
-    personal_info = models.ForeignKey(PersonalInfo, on_delete=models.CASCADE)
+    #personal_info = models.ForeignKey(PersonalInfo, on_delete=models.CASCADE)
     major = models.CharField(max_length=100)
     challenge = models.CharField(max_length=100)
     extracurricular = models.CharField(max_length=100)

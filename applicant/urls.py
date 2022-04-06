@@ -33,16 +33,24 @@ urlpatterns = [
          name='confirm-submit-academic-funding-app'),
     path('apps/academic-funding/<int:pk>/submit/', views.submit_academic_funding_application,
          name='submit-academic-funding-app'),
+
+    #Volunteer Application Urls
     path('apps/volunteer-app/new', VolunteerApplicationCreateView.as_view(),
          name='new-volunteer-app'),
-    # path('apps/volunteer-app/<int:pk>/', views.VolunteerApplicationDetailView.as_view(),
-    #      name='view-volunteer-app'),
-    # path('apps/volunteer-app/<int:pk>/confirm-delete/', views.VolunteerApplicationDeleteView.as_view(),
-    #      name='confirm-delete-volunteer-app'),
+    path('apps/volunteer-app/<int:pk>/', views.VolunteerApplicationDetailView.as_view(),
+         name='view-volunteer-app'),
+    path('apps/volunteer/<int:pk>/edit/', views.VolunteerApplicationUpdateView.as_view(),
+             name='edit-volunteer-app'),
+    path('apps/volunteer-app/<int:pk>/confirm-delete/', views.VolunteerApplicationDeleteView.as_view(),
+         name='confirm-delete-volunteer-app'),
+
+    #College Application Urls
     path('apps/college-app/new', CollegeApplicationCreateView.as_view(),
          name='new-college-app'),
-    # path('apps/college-app/<int:pk>/', views.CollegeApplicationDetailView.as_view(),
-    #      name='view-college-app'),
-    # path('apps/college-app/<int:pk>/confirm-delete/', views.CollegeApplicationDeleteView.as_view(),
-    #      name='confirm-delete-college-app'),
+    path('apps/college-app/<int:pk>/', views.CollegeApplicationDetailView.as_view(),
+         name='view-college-app'),
+    path('apps/college/<int:pk>/edit/', views.CollegeApplicationUpdateView.as_view(),
+             name='edit-college-app'),
+    path('apps/college-app/<int:pk>/confirm-delete/', views.CollegeApplicationDeleteView.as_view(),
+         name='confirm-delete-college-app'),
 ]

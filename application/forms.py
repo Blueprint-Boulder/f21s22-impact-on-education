@@ -1,22 +1,17 @@
 from django.forms import ModelForm
 
 from application.models import AcademicFundingApplication, ScholarshipApplication, VolunteerApplication, \
-    CollegeApplication, PersonalInfo
+    CollegeApplication#, PersonalInfo
 from application.models import Application
 
 
 class ApplicationForm(ModelForm):
     class Meta:
         model = Application
-        fields = []
-
-class PersonalInfo(ModelForm):
-    class Meta:
-        model = PersonalInfo
-        fields = ApplicationForm.Meta.fields + ['work_employer', 'work_position', 'work_description', 'work_years',
-                  'work_hours', 'volunteer_employer', 'volunteer_position', 'volunteer_description',
-                  'volunteer_years', 'volunteer_hours', 'org_name', 'org_role', 'org_description',
-                  'org_years', 'org_hours']
+        fields = ['work_employer', 'work_position', 'work_description', 'work_years',
+                          'work_hours', 'volunteer_employer', 'volunteer_position', 'volunteer_description',
+                          'volunteer_years', 'volunteer_hours', 'org_name', 'org_role', 'org_description',
+                          'org_years', 'org_hours']
         labels = {
                     'work_employer': 'Enter the name of the company.',
                     'work_position': 'Enter your position at that company.',
@@ -34,6 +29,7 @@ class PersonalInfo(ModelForm):
                     'org_years': 'Enter your start and end date at this organization. (MM/DD/YYYY-MM/DD/YYYY)',
                     'org_hours': 'Approximately how many hours did you work for this club or organization each week?',
                 }
+
 
 class AcademicFundingApplicationForm(ApplicationForm):
     class Meta:

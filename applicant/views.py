@@ -52,12 +52,38 @@ class AcademicFundingApplicationDetailView(application.views.AcademicFundingAppl
     template_name = "applicant/educator/application_detail.html"
 
 #Volunteer Application
-# class VolunteerApplicationDeleteView(application.views.VolunteerApplicationDeleteView):
-#     success_url = reverse_lazy('applicant:my-academic-funding-apps')
-#     template_name = "applicant/educator/application_confirm_delete.html"
-#
-# class VolunteerApplicationDetailView(application.views.VolunteerApplicationDetailView):
-#     template_name = "applicant/educator/application_detail.html"
+class VolunteerApplicationCreateView(application.views.VolunteerApplicationCreateView):
+    template_name = "applicant/student/application_form.html"
+
+
+class VolunteerApplicationUpdateView(application.views.VolunteerApplicationUpdateView):
+    template_name = "applicant/student/application_form.html"
+
+
+class VolunteerApplicationDeleteView(application.views.VolunteerApplicationDeleteView):
+    success_url = reverse_lazy('applicant:my-scholarship-apps')
+    template_name = "applicant/student/application_confirm_delete.html"
+
+
+class VolunteerApplicationDetailView(application.views.VolunteerApplicationDetailView):
+    template_name = "applicant/student/application_detail.html"
+
+#College Application
+class CollegeApplicationCreateView(application.views.CollegeApplicationCreateView):
+    template_name = "applicant/student/application_form.html"
+
+
+class CollegeApplicationUpdateView(application.views.CollegeApplicationUpdateView):
+    template_name = "applicant/student/application_form.html"
+
+
+class CollegeApplicationDeleteView(application.views.CollegeApplicationDeleteView):
+    success_url = reverse_lazy('applicant:my-scholarship-apps')
+    template_name = "applicant/student/application_confirm_delete.html"
+
+
+class CollegeApplicationDetailView(application.views.CollegeApplicationDetailView):
+    template_name = "applicant/student/application_detail.html"
 
 
 @user_passes_test(is_applicant)
