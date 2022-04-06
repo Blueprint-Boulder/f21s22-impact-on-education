@@ -24,7 +24,7 @@ from django.contrib.auth.models import Group, Permission
 
 from django_root.settings import BASE_DIR
 from accounts.models import CustomUser
-from base_applicant.models import School
+from application.models import School
 
 from django.core import management
 from django.apps import apps

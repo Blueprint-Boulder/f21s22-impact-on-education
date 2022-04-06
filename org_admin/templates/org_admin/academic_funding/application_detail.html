@@ -1,0 +1,6 @@
+{% extends "application/academic_funding/application_detail.html" %}
+
+{% block extra_fields %}
+{{ block.super }}
+{% include "org_admin/extra_app_display_fields_snippet.html" %}
+{% endblock %}

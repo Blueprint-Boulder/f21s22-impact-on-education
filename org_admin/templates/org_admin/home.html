@@ -1,0 +1,18 @@
+<!--VARIABLES:
+user: The current user. An instance of CustomUser.
+-->
+
+<!--TODO (medium priority): Make this extend something like base_user_home.html once that's created-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h1>Welcome, {{ user }}!</h1>
+<h2><a href={% url "org_admin:all-apps" %}>View submitted applications</a></h2>
+<h2><a href={% url "org_admin:users" %}>See a list of users of the site</a></h2>
+</body>
+</html>
