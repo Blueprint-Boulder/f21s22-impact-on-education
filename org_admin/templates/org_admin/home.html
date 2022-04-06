@@ -11,6 +11,7 @@ user: The current user. An instance of CustomUser.
     <title>Home</title>
 </head>
 <body>
+{% include "navbar_hiring_manager.html" %}
 <h1>Welcome, {{ user }}!</h1>
 <h2><a href={% url "org_admin:all-apps" %}>View submitted applications</a></h2>
 <h2><a href={% url "org_admin:users" %}>See a list of users of the site</a></h2>

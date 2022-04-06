@@ -7,34 +7,30 @@ from application.models import Application
 class ApplicationForm(ModelForm):
     class Meta:
         model = Application
-        fields = []  # TODO (high priority): Add relevant fields (not sure what yet)
+        fields = ['address', 'phone_number', 'author', 'submitted']
+        # TODO (high priority): Add relevant fields (not sure what yet)
 
 
 class AcademicFundingApplicationForm(ApplicationForm):
     class Meta:
         model = AcademicFundingApplication
-        fields = ApplicationForm.Meta.fields + ['email', 'name', 'school', 'role', 'department',
-                                                'viability_and_usability', 'emergency_services', 'medical_needs',
-                                                'internet_needs', 'academic_needs', 'needs_assistance', 'funding_for',
-                                                'funding_need', 'funding_amount', 'students_impacted', 'agreement']
+        fields = ApplicationForm.Meta.fields + ['email', 'name', 'institution', 'degree',
+                                                'field_of_study', 'minors', 'date', 'prompt1',
+                                                'prompt2', 'prompt3', 'prompt4']
         labels = {
             'email': 'Enter Your Email',
             'name': 'Enter Your Name',
-            'school': 'Enter Your School',
-            'role': 'What is your role in your BVSD school?',
-            'department': 'If you answered Educator or Other in the previous question, what department and/or grade level are you a member of?',
-            'viability_and_usability': 'If you answered "Educator" or "Other" in the previous question, have you confirmed the viability and usability of your request with your supervisor or principal?',
-            'emergency_services': 'If your student(s) need involves emergency services, such as food, housing, clothing, or health, have you already reviewed the English Community Resources document here: https://www.bvsd.org/parents-students/student-help/mckinney-vento/community-resources? And, if appropriate, have you reached out to the most aligned organizations on that document?',
-            'medical_needs': 'If your student(s) need is medical in nature, have you contacted Kristina Hyde at 720-561-5571 or kristina.hyde@bvsd.org or Maggie Salgado at 720-561-5474 or maggie.salgado@bvsd.org with the BVSD Medicaid Health Program?',
-            'internet_needs': 'If your student(s) need involves internet access, technology or computers, have you contacted BVSD IT for assistance?',
-            'academic_needs': 'What area of academic need does your request involve?',
-            'needs_assistance': 'Who needs the assistance you are requesting (no student names please)?',
-            # TODO (high priority): Handle "uploading any documentation" for 'funding_for'
-            'funding_for': 'What are you requesting funding for? Please be as specific as you can, and if you need to upload any documentation, please do so. If a purchase is being made, please include a link to the item being purchased.',
-            'funding_need': 'What is the need your request is addressing? Why is the funding needed?',
-            'funding_amount': 'How much funding are you requesting?',
-            'students_impacted': 'Approximately how many students does your request impact?',
-            'agreement': 'Do you agree to provide quantitative, qualitative, and/or anecdotal post-data should your Academic Opportunity Fund request be approved?'
+            'institution': 'Name of Institution',
+            'degree': 'Enter Degree Type',
+            'field_of_study': 'Enter Your Field of Study',
+            'minors': 'Enter Your Minors',
+            'date': 'Enter Your Expected Year of Graduation',
+            'prompt1': 'Describe a time when you worked on a team, and had a struggle. '
+                    'How did you overcome this, and what would you do if you faced the same situation again?' ,
+            'prompt2': 'Describe a time you worked on a team, and it went smoothly. What aspects of your teamwork made'
+                      'this group successful?',
+            'prompt3': 'Describe one of your strengths and one of your weaknesses.',
+            'prompt4': 'Why are you interested in this company and position?'
         }
 
 
@@ -42,5 +38,15 @@ class ScholarshipApplicationForm(ApplicationForm):
     class Meta:
         model = ScholarshipApplication
         # TODO (low priority): Make this a call to super() somehow instead of explicitly referencing ApplicationForm
-        fields = ApplicationForm.Meta.fields + ["high_school", "statement", "transcript", "recommendation_letter_1",
-                                                "recommendation_letter_2", "acknowledged"]
+        fields = ApplicationForm.Meta.fields + ["email", "institution", "degree",
+                                                "field_of_study", "minors", "grad_year", "prompt1", "prompt2"]
+        labels = {
+            'institution': 'Name of institution',
+            'degree': 'Degree Type',
+            'grad_year': 'Expected Graduation Year',
+            'prompt1': 'What is a struggle you have recently overcome or are dealing with now? What steps did you'
+                       ' take/are you taking to handle this issue?',
+            'prompt2': 'Are you involved in any activities in school or in your community? If so, please describe them'
+                       ' and what your role in them looks like.'
+        }
+
