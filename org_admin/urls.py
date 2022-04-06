@@ -1,5 +1,6 @@
 from django.urls import path
 
+import application.views
 from org_admin import views
 
 # org_admin refers to admins of the Impact on Education organization
@@ -13,6 +14,7 @@ urlpatterns = [
 
     path('apps/', views.all_apps, name='all-apps'),
     path('apps/new/', views.create_application, name='new-app'),
+    path('apps/type/new/', views.CustomizableApplicationTypeCreateView.as_view()),
 
     path('apps/scholarship/', views.all_scholarship_apps, name='all-scholarship-apps'),
     path('apps/scholarship/new', views.ScholarshipApplicationCreateView.as_view(), name='new-scholarship-app'),

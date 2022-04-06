@@ -13,20 +13,30 @@ from application.models import Application
 class CustomizableApplicationCreateView(CreateView):
     model = CustomizableApplication
     form_class = CustomizableApplicationForm
-    success_url = reverse_lazy("applicant:home")
-    template_name = "application/custom/application_form.html"
 
     def get_form_kwargs(self):
         form_kwargs = super(CustomizableApplicationCreateView, self).get_form_kwargs()
         form_kwargs["app_type"] = CustomizableApplicationType.objects.get(pk=self.kwargs["app_type_pk"])
         return form_kwargs
 
+    def form_valid(self, form):
+        form.instance.type = form.app_type
+        return super().form_valid(form)
+
+
+class CustomizableApplicationUpdateView(UpdateView):
+    model = CustomizableApplication
+    form_class = CustomizableApplicationForm
+
+    def get_form_kwargs(self):
+        form_kwargs = super(CustomizableApplicationUpdateView, self).get_form_kwargs()
+        form_kwargs["app_type"] = self.object.type
+        return form_kwargs
+
 
 class CustomizableApplicationTypeCreateView(CreateView):
     model = CustomizableApplicationType
     fields = "__all__"
-    success_url = reverse_lazy("applicant:home")  # TODO (high priority): Move to override in org_admin
-    template_name = "application/custom/application_type_form.html"
 
 
 class ApplicationCreateView(CreateView):

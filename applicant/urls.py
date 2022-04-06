@@ -8,8 +8,8 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('apps/', views.my_applications, name='my-apps'),
     path('apps/new/', views.create_application, name='new-app'),
-    path('apps/new/<int:app_type_pk>/', application.views.CustomizableApplicationCreateView.as_view()),
-    path('apps/new/type/', application.views.CustomizableApplicationTypeCreateView.as_view()),
+    path('apps/new/<int:app_type_pk>/', views.CustomizableApplicationCreateView.as_view()),
+    path('apps/edit/<int:pk>/', views.CustomizableApplicationUpdateView.as_view()),
 
     path('apps/scholarship/', views.my_scholarship_applications, name='my-scholarship-apps'),
     path('apps/scholarship/new/', views.ScholarshipApplicationCreateView.as_view(), name='new-scholarship-app'),

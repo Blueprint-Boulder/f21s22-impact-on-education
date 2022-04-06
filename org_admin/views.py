@@ -31,6 +31,11 @@ def create_application(request):
     return render(request, "org_admin/create_application.html")
 
 
+class CustomizableApplicationTypeCreateView(application.views.CustomizableApplicationTypeCreateView):
+    success_url = reverse_lazy("org_admin:home")
+    template_name = "application/custom/application_type_form.html"
+
+
 class ScholarshipApplicationCreateView(application.views.ScholarshipApplicationCreateView):
     template_name = "org_admin/scholarship/application_form.html"
 

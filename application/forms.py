@@ -16,8 +16,10 @@ class CustomizableApplicationForm(ModelForm):
     def __init__(self, *args, app_type: CustomizableApplicationType = None, **kwargs):
         super().__init__(*args, **kwargs)
         self.app_type = app_type
-        for i in reversed(range(app_type.num_text_fields, CustomizableApplication.MAX_TEXT_FIELDS)):
-            self.fields[f"text{i}"] = CharField(max_length=5000, widget=HiddenInput, required=False)
+        field_names_to_display: list[str] = [f"text{i}" for i in range(0, app_type.num_text_fields)]
+        for field_name, field in self.fields.items():
+            if field_name not in field_names_to_display:
+                self.fields[field_name] = CharField(max_length=5000, widget=HiddenInput, required=False)
 
     def save(self, commit=True):
         self.instance.type = self.app_type

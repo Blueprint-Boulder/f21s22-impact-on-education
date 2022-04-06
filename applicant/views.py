@@ -18,6 +18,20 @@ def create_application(request):
     return render(request, "applicant/create_application.html")
 
 
+class CustomizableApplicationCreateView(application.views.CustomizableApplicationCreateView):
+    template_name = "application/custom/application_form.html"
+    # TODO (medium priority): Delete success_url (thereby making it CustomizableApplication.get_absolute_url())
+    #  once CustomizableApplicationDetailView is created
+    success_url = reverse_lazy("applicant:home")
+
+
+class CustomizableApplicationUpdateView(application.views.CustomizableApplicationUpdateView):
+    template_name = "application/custom/application_form.html"
+    # TODO (medium priority): Delete success_url (thereby making it CustomizableApplication.get_absolute_url())
+    #  once CustomizableApplicationDetailView is created
+    success_url = reverse_lazy("applicant:home")
+
+
 class ScholarshipApplicationCreateView(application.views.ScholarshipApplicationCreateView):
     template_name = "applicant/student/application_form.html"
 
