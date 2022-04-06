@@ -1,0 +1,24 @@
+<!--VARIABLES:
+application - The application to be viewed. Will be a subclass of Application.
+    application.id - An int, representing the ID of the application.
+    application.author - A CustomUser, representing the applicant who wrote the application.
+    application.submitted - A boolean, representing whether the application has been submitted.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Application</title>
+</head>
+<body>
+{% if application.submitted %}
+    <h3>[Submitted]</h3>
+{% else %}
+    <h3>[Not submitted]</h3>
+{% endif %}
+<br>
+ID: {{ application.id }}<br>
+{% block extra_fields %}{% endblock %}
+</body>
+</html>

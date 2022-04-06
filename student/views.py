@@ -1,11 +1,12 @@
-from django.db.models import QuerySet
-from django.http import HttpResponse
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 
 from base_applicant.views import ApplicationCreateView, ApplicationUpdateView, ApplicationDeleteView, \
-    base_submit_application, base_confirm_submit_application, base_view_applications
-from student.models import ScholarshipApplication
+    base_submit_application, base_confirm_submit_application, base_view_applications, ApplicationDetailView, \
+    is_applicant
+from student.forms import AcademicFundingApplicationForm
+from student.models import ScholarshipApplication, AcademicFundingApplication
 
 
 class ScholarshipApplicationCreateView(ApplicationCreateView):
@@ -34,19 +35,25 @@ class ScholarshipApplicationDeleteView(ApplicationDeleteView):
     template_name = "student/application_confirm_delete.html"  # confirmation page
 
 
+class AcademicFundingApplicationCreateView(ApplicationCreateView):
+    model = AcademicFundingApplication
+    fields = None
+    form_class = AcademicFundingApplicationForm
+    template_name = "student/academic_funding_form.html"
+
+
+@user_passes_test(is_applicant)
 def home(request):
     """View for the student homepage."""
     return render(request, "student/student_home.html", {'user': request.user})
 
 
-def view_application(request, pk: int):
-    """View for students to see one of their applications, in a read-only format."""
-    application: ScholarshipApplication = ScholarshipApplication.objects.get(pk=pk)
-    # TODO (high priority): Make into actual page
-    return HttpResponse(f"SCHOLARSHIP APPLICATION<br>ID {application.pk}")
+class ScholarshipApplicationDetailView(ApplicationDetailView):
+    model = ScholarshipApplication
+    template_name = "student/application_detail.html"
 
 
-def view_applications(request):
+def my_applications(request):
     """View for students to see all of their applications, in a read-only format."""
     return base_view_applications(request,
                                   application_class=ScholarshipApplication,

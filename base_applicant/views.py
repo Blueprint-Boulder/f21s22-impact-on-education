@@ -17,6 +17,9 @@ from base_applicant.models import Application
 def is_applicant(user: CustomUser):
     """Checks whether a user is an applicant."""
     return user.account_type == CustomUser.AccountTypes.STUDENT  # TODO: ...or TEACHER, when that's made
+def is_admin(user: CustomUser):
+    """Checks whether a user is an applicant."""
+    return user.account_type == CustomUser.AccountTypes.ORG_ADMIN  # TODO: ...or TEACHER, when that's made
 
 
 class ApplicationCreateView(CreateView):
@@ -33,11 +36,6 @@ class ApplicationCreateView(CreateView):
 
     template_name = "applicant/base_application_form.html"
     """The template used for editing the application. Make sure to override this in subclasses."""
-
-    # Stops view from running if user is not an applicant
-    @method_decorator(user_passes_test(is_applicant))
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
 
     # form_valid means "do this thing if the form is valid", not "return whether the form is valid"
     def form_valid(self, form):
@@ -62,11 +60,6 @@ class ApplicationUpdateView(UpdateView):
     template_name = "applicant/base_application_form.html"
     """The template used for editing the application. Make sure to override this in subclasses."""
 
-    # This decorator stops the view from running if the user is not an applicant
-    @method_decorator(user_passes_test(is_applicant))
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
 
 # TODO (medium priority): Make it impossible to delete application once submitted
 # TODO (medium priority): Only let user delete their own applications
@@ -74,16 +67,24 @@ class ApplicationDeleteView(DeleteView):
     """Base view for applicants to delete an application.
     template_name is the confirmation page (e.g. "are you sure you want to delete this?")"""
 
-    # Stops view from running if user is not an applicant
-    @method_decorator(user_passes_test(is_applicant))
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
     model = Application
 
     template_name = "applicant/base_application_confirm_delete.html"
     """The delete confirmation page ("are you sure you want to delete this?").
     Make sure to override this in subclasses."""
+
+
+class ApplicationDetailView(DetailView):
+    """Read-only view for applicants to view a single application."""
+
+    context_object_name = "application"
+    """Don't override this in subclasses"""
+
+    model = Application
+    """Make sure to override this in subclasses with the appropriate Application model (e.g. ScholarshipApplication)"""
+
+    template_name = "applicant/base_application_detail.html"
+    """Make sure to override this in subclasses"""
 
 
 def base_view_applications(request, application_class: type[Application], template_name: str):

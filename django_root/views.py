@@ -1,5 +1,3 @@
-from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -31,11 +29,11 @@ def homepage_redirect(request):
             return redirect(reverse("student:home"))
         case CustomUser.AccountTypes.VOLUNTEER:
             # TODO (high priority): Make volunteer app
-            return HttpResponse("<h1>Volunteer section has not been created yet.</h1>")
+            return redirect(reverse("volunteer:home"))
         case CustomUser.AccountTypes.ORG_ADMIN:
             # TODO (high priority): Make rest of org admin app
             # TODO (medium priority): Redirect to org_admin:home instead once that's created
-            return redirect(reverse("org_admin:users"))
+            return redirect(reverse("org_admin:home"))
         case CustomUser.AccountTypes.SITE_ADMIN:
             return redirect(reverse("admin:index"))
         case _:
