@@ -66,7 +66,7 @@ class VolunteerApplicationDeleteView(application.views.VolunteerApplicationDelet
 
 
 class VolunteerApplicationDetailView(application.views.VolunteerApplicationDetailView):
-    template_name = "applicant/student/application_detail.html"
+    pass
 
 #College Application
 class CollegeApplicationCreateView(application.views.CollegeApplicationCreateView):

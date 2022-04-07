@@ -127,7 +127,8 @@ class VolunteerApplicationDeleteView(ApplicationDeleteView):
 
 class VolunteerApplicationDetailView(ApplicationDetailView):
     model = VolunteerApplication
-    template_name = "application/base/application_detail.html"
+    template_name = "application/volunteer/application_detail.html"
+
 
 #College Application
 class CollegeApplicationCreateView(ApplicationCreateView):
