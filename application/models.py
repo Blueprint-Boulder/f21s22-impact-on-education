@@ -112,11 +112,17 @@ class VolunteerApplication(Application):
     alignment = models.CharField(max_length=100)
     soft_skills = models.CharField(max_length=100)
 
+    def get_absolute_url(self):
+            return reverse("applicant:view-volunteer-app", kwargs={'pk': self.pk})
+
 class CollegeApplication(Application):
     #personal_info = models.ForeignKey(PersonalInfo, on_delete=models.CASCADE)
     major = models.CharField(max_length=100)
     challenge = models.CharField(max_length=100)
     extracurricular = models.CharField(max_length=100)
     passions = models.CharField(max_length=100)
+
+    def get_absolute_url(self):
+            return reverse("applicant:view-college-app", kwargs={'pk': self.pk})
 
 
