@@ -4,9 +4,10 @@ from django.urls import reverse, reverse_lazy
 
 import application.views
 from accounts.models import CustomUser
-from application.views import base_submit_application, base_confirm_submit_application, base_view_applications
+from application.views import base_submit_application, base_confirm_submit_application, base_view_applications, \
+    base_create_customizable_application, base_edit_customizable_application, base_new_customizable_application_field
 
-from application.models import ScholarshipApplication, AcademicFundingApplication
+from application.models import ScholarshipApplication, AcademicFundingApplication, Application
 
 
 def is_applicant(user: CustomUser):
@@ -23,6 +24,20 @@ class CustomizableApplicationCreateView(application.views.CustomizableApplicatio
     # TODO (medium priority): Delete success_url (thereby making it CustomizableApplication.get_absolute_url())
     #  once CustomizableApplicationDetailView is created
     success_url = reverse_lazy("applicant:home")
+
+
+def create_customizable_application(request, app_type_pk: int):
+    return base_create_customizable_application(request, app_type_pk,
+                                                template_name="applicant/custom/application_form.html")
+
+
+def edit_customizable_application(request, pk: int, num_text_fields: int):
+    return base_edit_customizable_application(request, pk, num_text_fields,
+                                              template_name="applicant/custom/application_form.html")
+
+
+def new_customizable_application_field(request):
+    return base_new_customizable_application_field(request, edit_view=edit_customizable_application)
 
 
 class CustomizableApplicationUpdateView(application.views.CustomizableApplicationUpdateView):

@@ -1,4 +1,7 @@
+from typing import Callable, Any
+
 from django.db.models import QuerySet
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
@@ -22,6 +25,30 @@ class CustomizableApplicationCreateView(CreateView):
     def form_valid(self, form):
         form.instance.type = form.app_type
         return super().form_valid(form)
+
+
+def base_create_customizable_application(request, app_type_pk: int, template_name: str):
+    app_type = CustomizableApplicationType.objects.get(pk=app_type_pk)
+    app = CustomizableApplication.objects.create()
+    app.save()
+    form = CustomizableApplicationForm(instance=app, app_type=app_type,
+                                       num_text_fields=1)
+    return render(request, template_name, {'form': form, 'num_text_fields': 1})
+
+
+def base_edit_customizable_application(request, pk: int, num_text_fields: int, template_name: str):
+    app = CustomizableApplication.objects.get(pk=pk)
+    form = CustomizableApplicationForm(instance=app, app_type=app.type, num_text_fields=num_text_fields)
+    return render(request, template_name, {'form': form})
+
+
+def base_new_customizable_application_field(request, edit_view: Callable[..., HttpResponse]):
+    app_pk: int = int(request.POST["app_pk"])
+    old_form = CustomizableApplicationForm(request.POST, instance=CustomizableApplication.objects.get(pk=app_pk))
+    if old_form.is_valid():
+        old_form.save()
+    num_text_fields = int(request.POST["num_text_fields"])+1
+    return edit_view(request, pk=app_pk, num_text_fields=num_text_fields)
 
 
 class CustomizableApplicationUpdateView(UpdateView):

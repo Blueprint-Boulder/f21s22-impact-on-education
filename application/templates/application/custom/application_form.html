@@ -10,10 +10,12 @@ form - The form for editing the application. A ModelForm.
     <title>Create Application</title>
 </head>
 <body>
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" action={% block add_field_url %}{% endblock %}>
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Save</button>
+    <input type="hidden" value="{{ form.num_text_fields }}" name="num_text_fields">
+    <input type="hidden" value="{{ form.instance.pk }}" name="app_pk">
+    <button type="submit">Add Field</button>
 </form>
 </body>
 </html>
