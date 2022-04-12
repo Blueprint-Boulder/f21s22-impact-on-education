@@ -7,6 +7,7 @@
     <title>User Info</title>
 </head>
 <body>
+{% include "navbar_hiring_manager.html" %}
 {% for user in users %}
     <h2>{{ user }}</h2>
     <h3>Type: {{ user.account_type }}</h3>

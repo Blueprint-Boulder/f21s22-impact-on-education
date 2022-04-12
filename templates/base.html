@@ -1,0 +1,31 @@
+{% load static %}
+
+<!--Things to add:
+ //menu bar, banner, logo, dropdown/nav menu/bar, header
+    //css
+    base - This page
+        - base - (logged in) - profile - logout, change pass
+            base - student
+            base - admin
+            base - volunteer
+
+ -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href={% static "style.css" %}>
+    <title>{% block title %}Impact On Education{% endblock %}</title>
+</head>
+<body>
+
+<div id="nav">
+    {% block nav %} {% endblock %}
+</div>
+
+<div id="content">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>
