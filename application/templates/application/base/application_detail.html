@@ -18,8 +18,12 @@ application - The application to be viewed. Will be a subclass of Application.
     <h3>[Not submitted]</h3>
 {% endif %}
 <br>
-ID: {{ application.id }}<br>
-
+ID: {{ application.id }}
+<br>
+Applicant Name: {{ application.author }}
+    <br>Address: {{ application.address }}
+    <br>Phone Number: {{ application.phone_number }}
+    <br>
     Work Employer: {{ application.work_employer }}
     <br>
     Work Position: {{ application.work_position }}
