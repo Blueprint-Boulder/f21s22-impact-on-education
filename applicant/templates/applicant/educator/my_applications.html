@@ -1,8 +1,11 @@
 {% extends "applicant/base/my_applications.html" %}
 
 {% block new_app_link %}
-    <a href={% url "applicant:new-academic-funding-app" %}><h3>Create new academic funding application</h3></a>
+
+    <a href={% url "applicant:new-academic-funding-app" %}><h3>Create new internship application</h3></a>
+
 {% endblock %}
+
 
 {% block extra_fields %}
 High School: {{ application.high_school }}

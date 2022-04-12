@@ -12,12 +12,16 @@ applications: A set of applications, representing every application the user has
     <title>{% block title %}My Applications{% endblock %}</title>
 </head>
 <body>
-{% if not applications.exists %}
+{% include "navbar_applicant.html" %}
+<div class="jumbotron text-center">
+    {% if not applications.exists %}
     <h2>You don't have any applications of this type yet.</h2>
 {% endif %}
 
-{% block new_app_link %}{% endblock %}
 
+
+{% block new_app_link %}{% endblock %}
+</div>
 <!--TODO (low priority): Maybe move part of this to something like application/applications_list.html-->
 {% for application in applications %}
     ID: {{ application.pk }}
