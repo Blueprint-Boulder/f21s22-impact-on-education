@@ -2,8 +2,9 @@ from django.db.models import QuerySet
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 
-from application.models import ScholarshipApplication, AcademicFundingApplication, CollegeApplication
-from application.forms import ApplicationForm, ScholarshipApplicationForm, AcademicFundingApplicationForm, VolunteerApplicationForm, CollegeApplicationForm
+from application.models import ScholarshipApplication, CollegeApplication, InternshipApplication
+from application.forms import ApplicationForm, ScholarshipApplicationForm, VolunteerApplicationForm, \
+    CollegeApplicationForm, InternshipApplicationForm
 from application.models import Application, VolunteerApplication
 
 class ApplicationCreateView(CreateView):
@@ -66,7 +67,7 @@ class ApplicationDetailView(DetailView):
     template_name = "application/base/application_detail.html"
     """Make sure to override this in subclasses"""
 
-
+#Scholarship
 class ScholarshipApplicationCreateView(ApplicationCreateView):
     form_class = ScholarshipApplicationForm
     template_name = "application/scholarship/application_form.html"
@@ -86,27 +87,27 @@ class ScholarshipApplicationDetailView(ApplicationDetailView):
     model = ScholarshipApplication
     template_name = "application/scholarship/application_detail.html"
 
-
-class AcademicFundingApplicationCreateView(ApplicationCreateView):
-    model = AcademicFundingApplication
-    form_class = AcademicFundingApplicationForm
-    template_name = "application/academic_funding/application_form.html"
-
-
-class AcademicFundingApplicationUpdateView(ApplicationUpdateView):
-    model = AcademicFundingApplication
-    form_class = AcademicFundingApplicationForm
-    template_name = "application/academic_funding/application_form.html"
+#Internship Application
+class InternshipApplicationCreateView(ApplicationCreateView):
+    model = InternshipApplication
+    form_class = InternshipApplicationForm
+    template_name = "application/internship/application_form.html"
 
 
-class AcademicFundingApplicationDeleteView(ApplicationDeleteView):
-    model = AcademicFundingApplication
-    template_name = "application/academic_funding/application_confirm_delete.html"
+class InternshipApplicationUpdateView(ApplicationUpdateView):
+    model = InternshipApplication
+    form_class = InternshipApplicationForm
+    template_name = "application/internship/application_form.html"
 
 
-class AcademicFundingApplicationDetailView(ApplicationDetailView):
-    model = AcademicFundingApplication
-    template_name = "application/academic_funding/application_detail.html"
+class InternshipApplicationDeleteView(ApplicationDeleteView):
+    model = InternshipApplication
+    template_name = "application/internship/application_confirm_delete.html"
+
+
+class InternshipApplicationDetailView(ApplicationDetailView):
+    model = InternshipApplication
+    template_name = "application/internship/application_detail.html"
 
 #Volunteer Application
 class VolunteerApplicationCreateView(ApplicationCreateView):

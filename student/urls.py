@@ -4,7 +4,7 @@ from student import views
 from student.views import ScholarshipApplicationCreateView, ScholarshipApplicationUpdateView,\
     ScholarshipApplicationDeleteView, AcademicFundingApplicationCreateView
 
-app_name = 'student'
+app_name = 'scholarship'
 urlpatterns = [
     path('', views.home, name='home'),
     path('apps/', views.my_applications, name='view-apps'),

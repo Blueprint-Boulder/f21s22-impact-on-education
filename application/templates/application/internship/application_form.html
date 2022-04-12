@@ -1,0 +1,15 @@
+{% extends "application/base/application_detail.html" %}
+
+{% block extra_fields %}
+    <br>
+    Enter the major you are applying for.: {{ application.major }}
+    <br>
+    Describe a time when you had to try and overcome a challenge. Were you successful? What did you gain from the experience?: {{ application.challenge }}
+    <br>
+    Describe any extracurricular activities you have been involved with during high school. Please describe your role and the hours spent per week.: {{ application.extracurricular }}
+    <br>
+    Describe one of your passions.: {{ application.passions }}
+{% endblock %}
+
+{% block go_back_url %}{% url "applicant:my-college-apps" %}{% endblock %}
+{% block go_back_link_text %}Go back to my applications{% endblock %}

@@ -20,9 +20,23 @@ application - The application to be viewed. Will be a subclass of Application.
 <br>
 ID: {{ application.id }}
 <br>
-Applicant Name: {{ application.author }}
+Applicant Type: {{ application.author }}
+<br>
+Applicant Name: {{ application.name }}
     <br>Address: {{ application.address }}
     <br>Phone Number: {{ application.phone_number }}
+    <br>
+    Email: {{ application.email }}
+    <br>
+    Institution: {{ application.institution }}
+    <br>
+    Degree: {{ application.degree }}
+    <br>
+    Field of Study: {{ application.field_of_study }}
+    <br>
+    Minors: {{ application.minors }}
+    <br>
+    Graduation Date: {{ application.grad_year }}
     <br>
     Work Employer: {{ application.work_employer }}
     <br>

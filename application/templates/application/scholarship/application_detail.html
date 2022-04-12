@@ -5,7 +5,12 @@
 {% load static %}
 
 {% block extra_fields %}
-    High School: {{ application.high_school }}
+    <br>
+    What is a struggle you have recently overcome or are dealing with now? What steps did you
+                       take/are you taking to handle this issue?: {{ application.prompt1 }}
+    <br>
+    Are you involved in any activities in school or in your community? If so, please describe them
+                       and what your role in them looks like.: {{ application.prompt2 }}
     <br>
     Transcript:
     <br>
@@ -26,3 +31,5 @@
     {% include "pdf_embed_snippet.html" with pdf_url=application.recommendation_letter_2.url height="500px" width="500px" %}
     <br>
 {% endblock %}
+{% block go_back_url %}{% url "applicant:my-scholarship-apps" %}{% endblock %}
+{% block go_back_link_text %}Go back to my applications{% endblock %}

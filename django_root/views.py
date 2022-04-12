@@ -16,7 +16,7 @@ def index(request):
 
 def homepage_redirect(request):
     """Redirects the user to their appropriate homepage depending on
-    whether they're a student, volunteer, org admin, or site admin."""
+    whether they're a scholarship, volunteer, org admin, or site admin."""
 
     # This assertion is needed for IDEs to recognize that request.user is a CustomUser.
     #  It theoretically could be an AnonymousUser if the user is not logged in, but

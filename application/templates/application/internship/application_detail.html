@@ -1,0 +1,17 @@
+{% extends "application/base/application_detail.html" %}
+
+{% block extra_fields %}
+    <br>
+    Describe a time when you worked on a team, and had a struggle.
+                    How did you overcome this, and what would you do if you faced the same situation again?: {{ application.intprompt1 }}
+    <br>
+    Describe a time you worked on a team, and it went smoothly. What aspects of your teamwork made
+                      this group successful?: {{ application.intprompt2 }}
+    <br>
+    Describe one of your strengths and one of your weaknesses.: {{ application.intprompt3 }}
+    <br>
+    Why are you interested in this company and position?: {{ application.intprompt4 }}
+{% endblock %}
+
+{% block go_back_url %}{% url "applicant:my-internship-apps" %}{% endblock %}
+{% block go_back_link_text %}Go back to my applications{% endblock %}
