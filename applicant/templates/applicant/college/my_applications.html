@@ -1,0 +1,14 @@
+{% extends "applicant/base/my_applications.html" %}
+
+{% block new_app_link %}
+    <a href={% url "applicant:new-college-app" %}><h3>Create new college application</h3></a>
+{% endblock %}
+
+{% block extra_fields %}
+High School: {{ application.high_school }}
+{% endblock %}
+
+{% block view_app_url %}{% url "applicant:view-college-app" pk=application.pk %}{% endblock %}
+{% block edit_app_url %}{% url "applicant:edit-college-app" pk=application.pk %}{% endblock %}
+{% block delete_app_url %}{% url "applicant:confirm-delete-college-app" pk=application.pk %}{% endblock %}
+{% block confirm_submit_url %}{% url "applicant:confirm-submit-college-app" pk=application.pk %}{% endblock %}

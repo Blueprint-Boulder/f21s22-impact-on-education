@@ -19,6 +19,37 @@ application - The application to be viewed. Will be a subclass of Application.
 {% endif %}
 <br>
 ID: {{ application.id }}<br>
-{% block extra_fields %}{% endblock %}
+
+    Work Employer: {{ application.work_employer }}
+    <br>
+    Work Position: {{ application.work_position }}
+    <br>
+    Work Description: {{ application.work_description }}
+    <br>
+    Work Years: {{ application.work_years }}
+    <br>
+    Work Hours: {{ application.work_hours }}
+    <br>
+    Volunteer Employer: {{ application.volunteer_employer }}
+    <br>
+    Volunteer Position: {{ application.volunteer_position }}
+    <br>
+    Volunteer Description: {{ application.volunteer_description }}
+    <br>
+    Volunteer Years: {{ application.volunteer_years }}
+    <br>
+    Volunteer Hours: {{ application.volunteer_hours }}
+    <br>
+    Organization Name: {{ application.org_name}}
+    <br>
+    Organization Position: {{ application.org_role }}
+    <br>
+    Organization Description: {{ application.org_description }}
+    <br>
+    Organization Years: {{ application.org_years }}
+    <br>
+    Organization Hours: {{ application.org_hours }}
+{% block extra_fields %}
+{% endblock %}
 </body>
 </html>

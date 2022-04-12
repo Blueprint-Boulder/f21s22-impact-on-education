@@ -112,17 +112,17 @@ class AcademicFundingApplicationDetailView(ApplicationDetailView):
 class VolunteerApplicationCreateView(ApplicationCreateView):
     model = VolunteerApplication
     form_class = VolunteerApplicationForm
-    template_name = "application/base/application_form.html"
+    template_name = "application/volunteer/application_form.html"
 
 class VolunteerApplicationUpdateView(ApplicationUpdateView):
     model = VolunteerApplication
     form_class = VolunteerApplicationForm
-    template_name = "application/base/application_form.html"
+    template_name = "application/volunteer/application_form.html"
 
 
 class VolunteerApplicationDeleteView(ApplicationDeleteView):
     model = VolunteerApplication
-    template_name = "application/base/application_confirm_delete.html"
+    template_name = "application/volunteer/application_confirm_delete.html"
 
 
 class VolunteerApplicationDetailView(ApplicationDetailView):
@@ -134,22 +134,22 @@ class VolunteerApplicationDetailView(ApplicationDetailView):
 class CollegeApplicationCreateView(ApplicationCreateView):
     model = CollegeApplication
     form_class = CollegeApplicationForm
-    template_name = "application/base/application_form.html"
+    template_name = "application/college/application_form.html"
 
 class CollegeApplicationUpdateView(ApplicationUpdateView):
     model = CollegeApplication
     form_class = CollegeApplicationForm
-    template_name = "application/base/application_form.html"
+    template_name = "application/college/application_form.html"
 
 
 class CollegeApplicationDeleteView(ApplicationDeleteView):
     model = CollegeApplication
-    template_name = "application/base/application_confirm_delete.html"
+    template_name = "application/college/application_confirm_delete.html"
 
 
 class CollegeApplicationDetailView(ApplicationDetailView):
     model = CollegeApplication
-    template_name = "application/base/application_detail.html"
+    template_name = "application/college/application_detail.html"
 
 def base_view_applications(request, application_class: type[Application], template_name: str):
     """Base view for applicants to see all of their applications, in a read-only format."""

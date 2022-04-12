@@ -1,5 +1,14 @@
 {% extends "application/base/application_detail.html" %}
 
 {% block extra_fields %}
-<!-- TODO (high priority): Add these extra fields-->
+    <br>
+    What position are you applying for?: {{ application.position }}
+    <br>
+    Enter your expected weekly availability.: {{ application.availability }}
+    <br>
+    Are you applying for this position to complete court-ordered community service?: {{ application.community_service }}
+    <br>
+    Describe how volunteering with this organization aligns with your passions, values and/or goals.: {{ application.alignment }}
+    <br>
+    Describe the soft skills you possess that apply to this role.: {{ application.soft_skills }}
 {% endblock %}
