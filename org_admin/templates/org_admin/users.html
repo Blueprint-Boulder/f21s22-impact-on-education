@@ -9,7 +9,8 @@
 <body>
 {% include "navbar_hiring_manager.html" %}
 {% for user in users %}
-    <h2>{{ user }}</h2>
+    <div class ="jumbotron" id="users_list">
+        <h2>{{ user }}</h2>
     <h3>Type: {{ user.account_type }}</h3>
     <h3>Applications:</h3>
     {% if not user.application_set.all.exists %}
@@ -24,6 +25,8 @@
 
     {% endfor %}
     <br>
+    </div>
+
 {% endfor %}
 </body>
 </html>

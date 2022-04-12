@@ -1,16 +1,144 @@
-#nav_bar
+/*
+// Navbar styling
+*/
+.navbar.navbar-expand-lg
 {
-background-color: #e3f2fd;
+    background-color: #203239;
+}
+.dropdown-menu
+{
+    background-color: #203239;
 }
 
+.navbar-nav li a
+{
+color:#EEEDDE;
+}
 
+/*
+// Text styling
+*/
 h1
 {
-    font-family:'Poppins',sans-serif;
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
     text-color: #141E27;
     text-align: center;
+    line-height: 1.6;
 
 }
+h2
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+
+}
+h3
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+
+}
+a h2
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color:#141E27;
+}
+
+a#view_apps_intern{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+a#view_apps_scholar
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+a#create_apps_scholar
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+a#create_apps_intern
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+a#create_account
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+#login
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+h2 a{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+h3 a{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+
+/*
+// Body of the website styling
+*/
+body
+{
+    background-color: #EEEDDE;
+}
+.jumbotron.text-center
+{
+background-color: #E0DDAA;
+}
+.jumbotron
+{
+background-color: #E0DDAA;
+}
+
+#login_fields
+{
+  font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+  color: #141E27;
+}
+#registration_text
+{
+text-align: center;
+}
+#header
+{
+text-align: center;
+line-height: 1.6;
+}
+/*
+//Buttons styling
+*/
+#login_submit
+{
+background-color: #203239;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+#create_submit{
+  background-color: #203239;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+
 
 
 /*
@@ -25,68 +153,11 @@ h1.hey = h1 tag wih class hey
 */
 
 
-/* changed the background color for the navigation bar */
-.navbar{
-    background-color: #096593;
-}
 
-/* Headers have to be poppins font, bold, all caps and 80% grey*/
-/* h1
-{
-    font-family:'Poppins',sans-serif;
-    font-weight: bold;
-    color:#3a3a3a;
-    text-align: center;
 
-} */
-/* This is in case we want a header with the rainbow background*/
-.header {
-    padding: 60px;
-    text-align: center;
-    background: url(gradient_header.png);
-    color: white;
-  }
-
-/* Body font has to be poppins regular, 80% grey, line height should be 1.4x the font size */
-p1
-{
-    font-family:'Poppins',sans-serif;
-    color:#3a3a3a;
-    font-size: 12pt;
-    line-height: 1.4;
-}
 
 /* These are for the buttons on the admin page but we can add these properties to other buttons and change their colors */
-.scholarship{
-    background-color:#db0d3c;
-    border: none;
-    color: white;
-    padding: 50px 50px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-}
-.academic {
-    background-color:#f8542b;
-    border: none;
-    color: white;
-    padding: 50px 50px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-}
-.new{
-    background-color:#fdac13;
-    border: none;
-    color: white;
-    padding: 50px 50px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-}
+.
 
 /* These are for the forms */
 .input{

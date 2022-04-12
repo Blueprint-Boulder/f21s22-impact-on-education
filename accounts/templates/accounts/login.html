@@ -7,13 +7,20 @@
     <title>Login | Impact on Education</title>
 </head>
 <body>
-<h2>Log In</h2>
-<h2>... or <a href={% url "accounts:register" %}>Create Account</a></h2>
-<form method="post">
+{% include "navbar_applicant.html" %}
+<div class="jumbotron text-center">
+  <h2 id="login">Log In</h2>
+
+<form id="login_fields" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Log In</button>
+    <button id ="login_submit" type="submit">Log In</button>
 </form>
+    <br>
+    <h3>Don't Have An Account?</h3>
+<h3 > <a id="create_account" href={% url "accounts:register" %}>Create Account</a></h3>
+
+</div>
 
 <h3>(For testing) You can log in as any of these users, or create one:</h3>
 username: test_applicant, password: blueprinttesting

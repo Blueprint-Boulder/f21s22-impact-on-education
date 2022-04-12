@@ -7,9 +7,14 @@
 </head>
 <body>
 {% include "navbar_applicant.html" %}
-<h3><a href={% url "applicant:my-scholarship-apps" %}>View my scholarship applications</a></h3>
-<br>
-<h3><a href={% url "applicant:my-academic-funding-apps" %}>View my internship applications</a></h3>
-<br>
+<h1>Manage All Applications</h1>
+<div class="jumbotron text-center">
+      <div class="container">
+          <h3><a id="view_apps_scholar" href={% url "applicant:my-scholarship-apps" %}>View my scholarship applications</a></h3>
+          <br>
+          <h3 ><a id="view_apps_intern"href={% url "applicant:my-academic-funding-apps" %}>View my internship applications</a></h3>
+      </div>
+</div>
+
 </body>
 </html>
