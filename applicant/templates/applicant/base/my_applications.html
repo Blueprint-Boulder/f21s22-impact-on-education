@@ -37,6 +37,9 @@ applications: A set of applications, representing every application the user has
     <br><br>
 {% endfor %}
 <br>
-
+<form action={% block go_back_url %}{% endblock %}>
+    {% csrf_token %}
+    <button type="submit">{% block go_back_link_text %}{% endblock %}</button>
+</form>
 </body>
 </html>

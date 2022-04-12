@@ -12,3 +12,6 @@
     <br>
     Describe the soft skills you possess that apply to this role.: {{ application.soft_skills }}
 {% endblock %}
+
+{% block go_back_url %}{% url "applicant:my-volunteer-apps" %}{% endblock %}
+{% block go_back_link_text %}Go back to my applications{% endblock %}

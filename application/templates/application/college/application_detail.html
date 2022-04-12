@@ -10,3 +10,6 @@
     <br>
     Describe one of your passions.: {{ application.passions }}
 {% endblock %}
+
+{% block go_back_url %}{% url "applicant:my-college-apps" %}{% endblock %}
+{% block go_back_link_text %}Go back to my applications{% endblock %}

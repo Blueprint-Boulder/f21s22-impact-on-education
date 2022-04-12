@@ -12,3 +12,5 @@ High School: {{ application.high_school }}
 {% block edit_app_url %}{% url "applicant:edit-volunteer-app" pk=application.pk %}{% endblock %}
 {% block delete_app_url %}{% url "applicant:confirm-delete-volunteer-app" pk=application.pk %}{% endblock %}
 {% block confirm_submit_url %}{% url "applicant:confirm-submit-volunteer-app" pk=application.pk %}{% endblock %}
+{% block go_back_url %}{% url "applicant:my-apps" %}{% endblock %}
+{% block go_back_link_text %}Go back to my applications{% endblock %}

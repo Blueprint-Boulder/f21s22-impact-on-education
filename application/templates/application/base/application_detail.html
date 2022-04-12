@@ -51,5 +51,9 @@ ID: {{ application.id }}<br>
     Organization Hours: {{ application.org_hours }}
 {% block extra_fields %}
 {% endblock %}
+<form action={% block go_back_url %}{% endblock %}>
+    {% csrf_token %}
+    <button type="submit">{% block go_back_link_text %}{% endblock %}</button>
+</form>
 </body>
 </html>
