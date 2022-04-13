@@ -74,6 +74,7 @@ class ScholarshipApplicationCreateView(ApplicationCreateView):
 
 
 class ScholarshipApplicationUpdateView(ApplicationUpdateView):
+    model = ScholarshipApplication
     form_class = ScholarshipApplicationForm
     template_name = "application/scholarship/application_form.html"
 
