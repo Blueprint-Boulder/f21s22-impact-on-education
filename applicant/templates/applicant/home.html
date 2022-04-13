@@ -5,12 +5,22 @@ user: The current user. An instance of CustomUser.
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <title>Home</title>
 </head>
-<body>
+<body id="users_body">
 {% include "navbar_applicant.html" %}
 <h1>Welcome, {{ user }}!</h1>
-<a href={% url "applicant:my-apps" %}><h2>My applications</h2></a>
+
+<div class="jumbotron text-center">
+      <div class="container">
+        <h1>Check out your applications below </h1>
+        <p></p>
+          <a href={% url "applicant:my-apps" %}><h2>My applications</h2></a>
+      </div>
+</div>
+
+
 </body>
 </html>
