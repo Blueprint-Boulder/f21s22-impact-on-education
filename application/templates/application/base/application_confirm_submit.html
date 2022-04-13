@@ -16,7 +16,7 @@ application: The application that will be submitted. An instance of a subclass o
 </form>
 <form action={% block go_back_url %}{% endblock %}>
     {% csrf_token %}
-    <button type="submit">{% block go_back_link_text %}{% endblock %}</button>
+    <button type="submit">{% block go_back_link_text %}No, go back to my applications{% endblock %}</button>
 </form>
 </body>
 </html>

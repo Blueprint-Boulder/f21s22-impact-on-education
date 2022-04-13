@@ -6,7 +6,8 @@ import application.views
 from accounts.models import CustomUser
 from application.views import base_submit_application, base_confirm_submit_application, base_view_applications
 
-from application.models import ScholarshipApplication, AcademicFundingApplication
+from application.models import ScholarshipApplication, InternshipApplication, VolunteerApplication, \
+    CollegeApplication
 
 
 def is_applicant(user: CustomUser):
@@ -19,37 +20,142 @@ def create_application(request):
 
 
 class ScholarshipApplicationCreateView(application.views.ScholarshipApplicationCreateView):
-    template_name = "applicant/student/application_form.html"
+    template_name = "applicant/scholarship/application_form.html"
 
 
 class ScholarshipApplicationUpdateView(application.views.ScholarshipApplicationUpdateView):
-    template_name = "applicant/student/application_form.html"
+    template_name = "applicant/scholarship/application_form.html"
 
 
 class ScholarshipApplicationDeleteView(application.views.ScholarshipApplicationDeleteView):
     success_url = reverse_lazy('applicant:my-scholarship-apps')
-    template_name = "applicant/student/application_confirm_delete.html"
+    template_name = "applicant/scholarship/application_confirm_delete.html"
 
 
 class ScholarshipApplicationDetailView(application.views.ScholarshipApplicationDetailView):
-    template_name = "applicant/student/application_detail.html"
+    template_name = "applicant/scholarship/application_detail.html"
+
+def my_scholarship_applications(request):
+    return base_view_applications(request,
+                                  application_class=ScholarshipApplication,
+                                  template_name="applicant/scholarship/my_applications.html")
+
+# TODO (medium priority): Make this inaccessible by users who don't own the application
+def confirm_submit_scholarship_application(request, pk: int):
+    """Confirmation page before submitting an application."""
+    return base_confirm_submit_application(request, pk=pk,
+                                           application_class=ScholarshipApplication,
+                                           template_name="applicant/scholarship/application_confirm_submit.html")
+
+# TODO (medium priority): Make this inaccessible by users who don't own the application
+def submit_scholarship_application(request, pk: int):
+    return base_submit_application(request, pk=pk,
+                                   application_class=ScholarshipApplication,
+                                   success_url=reverse("applicant:my-scholarship-apps"))
 
 
-class AcademicFundingApplicationCreateView(application.views.AcademicFundingApplicationCreateView):
-    template_name = "applicant/educator/application_form.html"
+class InternshipApplicationCreateView(application.views.InternshipApplicationCreateView):
+    template_name = "applicant/internship/application_form.html"
 
 
-class AcademicFundingApplicationUpdateView(application.views.AcademicFundingApplicationUpdateView):
-    template_name = "applicant/educator/application_form.html"
+class InternshipApplicationUpdateView(application.views.InternshipApplicationUpdateView):
+    template_name = "applicant/internship/application_form.html"
 
 
-class AcademicFundingApplicationDeleteView(application.views.AcademicFundingApplicationDeleteView):
-    success_url = reverse_lazy('applicant:my-academic-funding-apps')
-    template_name = "applicant/educator/application_confirm_delete.html"
+class InternshipApplicationDeleteView(application.views.InternshipApplicationDeleteView):
+    success_url = reverse_lazy('applicant:my-internship-apps')
+    template_name = "applicant/internship/application_confirm_delete.html"
 
 
-class AcademicFundingApplicationDetailView(application.views.AcademicFundingApplicationDetailView):
-    template_name = "applicant/educator/application_detail.html"
+class InternshipApplicationDetailView(application.views.InternshipApplicationDetailView):
+    template_name = "applicant/internship/application_detail.html"
+
+def my_internship_applications(request):
+    return base_view_applications(request,
+                                  application_class=InternshipApplication,
+                                  template_name="applicant/internship/my_applications.html")
+
+# TODO (medium priority): Make this inaccessible by users who don't own the application
+def confirm_submit_internship_application(request, pk: int):
+    """Confirmation page before submitting an application."""
+    return base_confirm_submit_application(request, pk=pk,
+                                           application_class=InternshipApplication,
+                                           template_name="applicant/internship/application_confirm_submit.html")
+
+# TODO (medium priority): Make this inaccessible by users who don't own the application
+def submit_internship_application(request, pk: int):
+    return base_submit_application(request, pk=pk,
+                                   application_class=InternshipApplication,
+                                   success_url=reverse("applicant:my-internship-apps"))
+
+#Volunteer Application
+class VolunteerApplicationCreateView(application.views.VolunteerApplicationCreateView):
+    template_name = "applicant/volunteer/application_form.html"
+
+
+class VolunteerApplicationUpdateView(application.views.VolunteerApplicationUpdateView):
+    template_name = "applicant/volunteer/application_form.html"
+
+
+class VolunteerApplicationDeleteView(application.views.VolunteerApplicationDeleteView):
+    success_url = reverse_lazy('applicant:my-volunteer-apps')
+    template_name = "application/volunteer/application_confirm_delete.html"
+
+class VolunteerApplicationDetailView(application.views.VolunteerApplicationDetailView):
+    pass
+
+def my_volunteer_applications(request):
+    return base_view_applications(request,
+                                  application_class=VolunteerApplication,
+                                  template_name="applicant/volunteer/my_applications.html")
+
+# TODO (medium priority): Make this inaccessible by users who don't own the application
+def confirm_submit_volunteer_application(request, pk: int):
+    """Confirmation page before submitting an application."""
+    return base_confirm_submit_application(request, pk=pk,
+                                           application_class=VolunteerApplication,
+                                           template_name="applicant/volunteer/application_confirm_submit.html")
+
+# TODO (medium priority): Make this inaccessible by users who don't own the application
+def submit_volunteer_application(request, pk: int):
+    return base_submit_application(request, pk=pk,
+                                   application_class=VolunteerApplication,
+                                   success_url=reverse("applicant:my-volunteer-apps"))
+
+#College Application
+class CollegeApplicationCreateView(application.views.CollegeApplicationCreateView):
+    template_name = "applicant/college/application_form.html"
+
+
+class CollegeApplicationUpdateView(application.views.CollegeApplicationUpdateView):
+    template_name = "applicant/college/application_form.html"
+
+
+class CollegeApplicationDeleteView(application.views.CollegeApplicationDeleteView):
+    success_url = reverse_lazy('applicant:my-college-apps')
+    template_name = "applicant/college/application_confirm_delete.html"
+
+
+class CollegeApplicationDetailView(application.views.CollegeApplicationDetailView):
+    template_name = "applicant/college/application_detail.html"
+
+def my_college_applications(request):
+    return base_view_applications(request,
+                                  application_class=CollegeApplication,
+                                  template_name="applicant/college/my_applications.html")
+
+# TODO (medium priority): Make this inaccessible by users who don't own the application
+def confirm_submit_college_application(request, pk: int):
+    """Confirmation page before submitting an application."""
+    return base_confirm_submit_application(request, pk=pk,
+                                           application_class=CollegeApplication,
+                                           template_name="applicant/college/application_confirm_submit.html")
+
+# TODO (medium priority): Make this inaccessible by users who don't own the application
+def submit_college_application(request, pk: int):
+    return base_submit_application(request, pk=pk,
+                                   application_class=CollegeApplication,
+                                   success_url=reverse("applicant:my-college-apps"))
 
 
 @user_passes_test(is_applicant)
@@ -63,40 +169,3 @@ def my_applications(request):
     return render(request, "applicant/my_applications.html")
 
 
-def my_scholarship_applications(request):
-    return base_view_applications(request,
-                                  application_class=ScholarshipApplication,
-                                  template_name="applicant/student/my_applications.html")
-
-
-def my_academic_funding_applications(request):
-    return base_view_applications(request,
-                                  application_class=AcademicFundingApplication,
-                                  template_name="applicant/educator/my_applications.html")
-
-
-# TODO (medium priority): Make this inaccessible by users who don't own the application
-def confirm_submit_scholarship_application(request, pk: int):
-    """Confirmation page before submitting an application."""
-    return base_confirm_submit_application(request, pk=pk,
-                                           application_class=ScholarshipApplication,
-                                           template_name="applicant/student/application_confirm_submit.html")
-
-
-def confirm_submit_academic_funding_application(request, pk: int):
-    return base_confirm_submit_application(request, pk=pk,
-                                           application_class=AcademicFundingApplication,
-                                           template_name="applicant/educator/application_confirm_submit.html")
-
-
-# TODO (medium priority): Make this inaccessible by users who don't own the application
-def submit_scholarship_application(request, pk: int):
-    return base_submit_application(request, pk=pk,
-                                   application_class=ScholarshipApplication,
-                                   success_url=reverse("applicant:my-scholarship-apps"))
-
-
-def submit_academic_funding_application(request, pk: int):
-    return base_submit_application(request, pk=pk,
-                                   application_class=AcademicFundingApplication,
-                                   success_url=reverse("applicant:my-academic-funding-apps"))

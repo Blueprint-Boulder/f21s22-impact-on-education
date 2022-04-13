@@ -24,10 +24,10 @@
             Applications
           </a>
           <ul class="dropdown-menu " >
-            <li><a class="dropdown-item" href={% url "applicant:my-academic-funding-apps" %}>New Internship Application</a></li>
+            <li><a class="dropdown-item" href={% url "applicant:my-internship-apps" %}>New Internship Application</a></li>
             <li><a class="dropdown-item" href={% url "applicant:my-scholarship-apps" %}>New Scholarship Application</a></li>
-            <li><a class="dropdown-item" href="#">New Volunteer Application</a></li>
-            <li><a class="dropdown-item" href="#">New College Application</a></li>
+            <li><a class="dropdown-item" href={% url "applicant:my-volunteer-apps" %}>New Volunteer Application</a></li>
+            <li><a class="dropdown-item" href={% url "applicant:my-college-apps" %}>New College Application</a></li>
             <li><a class="dropdown-item" href={% url "applicant:my-apps" %}>Manage All Applications</a></li>
           </ul>
         </li>
