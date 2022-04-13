@@ -12,11 +12,14 @@ applications: A set of applications, representing every application of some type
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+{% include "navbar_hiring_manager.html" %}
+<div class="jumbotron text-center">
 {% if not applications.exists %}
     <h2>No applications of this type have been submitted yet.</h2>
 {% endif %}
 
 {% block new_app_link %}{% endblock %}
+</div>
 <br>
 <br>
 
