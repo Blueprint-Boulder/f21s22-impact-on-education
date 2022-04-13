@@ -243,7 +243,7 @@ elif everything_automatic == 'n':
 
     make_interactive(function=create_account_type_groups,
                      what_happens=
-                     "For each possible account type (e.g. site admin, volunteer), a group will be created that corresponds to that account type.",
+                     "For each possible account type (e.g. site admin, applicant), a group will be created that corresponds to that account type.",
                      manual_instructions=
                      f"""You can do this programmatically, or using Django's auto-generated admin page.
 

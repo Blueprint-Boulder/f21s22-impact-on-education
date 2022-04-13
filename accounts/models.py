@@ -12,7 +12,7 @@ class CustomUser(AbstractUser):
     class AccountTypes:
         """
         The constants in this class are strings that are generally used to represent
-        a user's account type (as in, whether a user is an applicant, volunteer, etc).
+        a user's account type (as in, whether a user is an applicant, org admin, etc).
         For example, the account_type property of CustomUser will always be one of these values.
         As for what exactly these values represent:
         For background, users belong to a different group depending on their account type.
@@ -33,21 +33,17 @@ class CustomUser(AbstractUser):
 
         APPLICANT: Final[str] = "applicant"
 
-        VOLUNTEER: Final[str] = "volunteer"
-        """Refers to volunteers that review applications."""
-
         ORG_ADMIN: Final[str] = "org_admin"
-        """Refers to the admins of the Impact on Education organization"""
+        """Refers to the admins of the organization that's hiring people"""
 
         SITE_ADMIN: Final[str] = "site_admin"
         """Refers to the admins of the website itself"""
 
-        ALL: Final[tuple[str, ...]] = (APPLICANT, VOLUNTEER, ORG_ADMIN, SITE_ADMIN)
+        ALL: Final[tuple[str, ...]] = (APPLICANT, ORG_ADMIN, SITE_ADMIN)
         """A tuple of all possible account types that a user could be. 
         Each element is a string used to represent an account type."""
 
     account_type = models.CharField(max_length=20, choices=((AccountTypes.APPLICANT, "Student"),
-                                                            (AccountTypes.VOLUNTEER, "Volunteer"),
                                                             (AccountTypes.ORG_ADMIN, "Org Admin"),
                                                             (AccountTypes.SITE_ADMIN, "Site Admin")))
 

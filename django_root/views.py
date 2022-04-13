@@ -16,7 +16,7 @@ def index(request):
 
 def homepage_redirect(request):
     """Redirects the user to their appropriate homepage depending on
-    whether they're a student, volunteer, org admin, or site admin."""
+    whether they're a student, org admin, or site admin."""
 
     # This assertion is needed for IDEs to recognize that request.user is a CustomUser.
     #  It theoretically could be an AnonymousUser if the user is not logged in, but
@@ -27,9 +27,6 @@ def homepage_redirect(request):
     match request.user.account_type:
         case CustomUser.AccountTypes.APPLICANT:
             return redirect(reverse("applicant:home"))
-        case CustomUser.AccountTypes.VOLUNTEER:
-            # TODO (high priority): Make volunteer app
-            return redirect(reverse("volunteer:home"))
         case CustomUser.AccountTypes.ORG_ADMIN:
             # TODO (high priority): Make rest of org admin app
             # TODO (medium priority): Redirect to org_admin:home instead once that's created

@@ -13,23 +13,10 @@ from application.forms import ApplicationForm, ScholarshipApplicationForm, Acade
 from application.models import Application
 
 
-class CustomizableApplicationCreateView(CreateView):
-    model = CustomizableApplication
-    form_class = CustomizableApplicationForm
-
-    def get_form_kwargs(self):
-        form_kwargs = super(CustomizableApplicationCreateView, self).get_form_kwargs()
-        form_kwargs["app_type"] = CustomizableApplicationType.objects.get(pk=self.kwargs["app_type_pk"])
-        return form_kwargs
-
-    def form_valid(self, form):
-        form.instance.type = form.app_type
-        return super().form_valid(form)
-
-
 def base_create_customizable_application(request, app_type_pk: int, template_name: str):
     app_type = CustomizableApplicationType.objects.get(pk=app_type_pk)
     app = CustomizableApplication.objects.create()
+    app.type = app_type
     app.save()
     form = CustomizableApplicationForm(instance=app, app_type=app_type,
                                        num_text_fields=1)
@@ -38,27 +25,18 @@ def base_create_customizable_application(request, app_type_pk: int, template_nam
 
 def base_edit_customizable_application(request, pk: int, num_text_fields: int, template_name: str):
     app = CustomizableApplication.objects.get(pk=pk)
-    form = CustomizableApplicationForm(instance=app, app_type=app.type, num_text_fields=num_text_fields)
+    form = CustomizableApplicationForm(instance=app, app_type=app.type,
+                                       num_text_fields=min(num_text_fields, app.type.num_text_fields))
     return render(request, template_name, {'form': form})
 
 
-def base_new_customizable_application_field(request, edit_view: Callable[..., HttpResponse]):
+def base_new_customizable_application_field(request, edit_app_urlname):
     app_pk: int = int(request.POST["app_pk"])
     old_form = CustomizableApplicationForm(request.POST, instance=CustomizableApplication.objects.get(pk=app_pk))
     if old_form.is_valid():
         old_form.save()
     num_text_fields = int(request.POST["num_text_fields"])+1
-    return edit_view(request, pk=app_pk, num_text_fields=num_text_fields)
-
-
-class CustomizableApplicationUpdateView(UpdateView):
-    model = CustomizableApplication
-    form_class = CustomizableApplicationForm
-
-    def get_form_kwargs(self):
-        form_kwargs = super(CustomizableApplicationUpdateView, self).get_form_kwargs()
-        form_kwargs["app_type"] = self.object.type
-        return form_kwargs
+    return redirect(edit_app_urlname, pk=app_pk, num_text_fields=num_text_fields)
 
 
 class CustomizableApplicationTypeCreateView(CreateView):

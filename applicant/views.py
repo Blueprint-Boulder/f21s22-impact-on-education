@@ -19,13 +19,6 @@ def create_application(request):
     return render(request, "applicant/create_application.html")
 
 
-class CustomizableApplicationCreateView(application.views.CustomizableApplicationCreateView):
-    template_name = "application/custom/application_form.html"
-    # TODO (medium priority): Delete success_url (thereby making it CustomizableApplication.get_absolute_url())
-    #  once CustomizableApplicationDetailView is created
-    success_url = reverse_lazy("applicant:home")
-
-
 def create_customizable_application(request, app_type_pk: int):
     return base_create_customizable_application(request, app_type_pk,
                                                 template_name="applicant/custom/application_form.html")
@@ -37,14 +30,7 @@ def edit_customizable_application(request, pk: int, num_text_fields: int):
 
 
 def new_customizable_application_field(request):
-    return base_new_customizable_application_field(request, edit_view=edit_customizable_application)
-
-
-class CustomizableApplicationUpdateView(application.views.CustomizableApplicationUpdateView):
-    template_name = "application/custom/application_form.html"
-    # TODO (medium priority): Delete success_url (thereby making it CustomizableApplication.get_absolute_url())
-    #  once CustomizableApplicationDetailView is created
-    success_url = reverse_lazy("applicant:home")
+    return base_new_customizable_application_field(request, edit_app_urlname="applicant:edit-custom-app")
 
 
 class ScholarshipApplicationCreateView(application.views.ScholarshipApplicationCreateView):
