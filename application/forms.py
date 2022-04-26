@@ -1,7 +1,7 @@
 from django.db.models import TextField
 from django.forms import ModelForm, CharField, Textarea, HiddenInput
 from django.forms.utils import ErrorList
-
+from application.redact import core_nlp
 
 from application.models import Application, ScholarshipApplication, VolunteerApplication, CollegeApplication, \
     InternshipApplication, CustomizableApplication, CustomizableApplicationType
@@ -61,6 +61,15 @@ class ApplicationForm(ModelForm):
             'org_years': 'Enter your start and end date at this organization. (MM/DD/YYYY-MM/DD/YYYY)',
             'org_hours': 'Approximately how many hours did you work for this club or organization each week?',
         }
+
+    def save(self, commit=True):
+        for field_name, field in self.fields.items():
+            # TODO (high priority): Make fields have a "redact" boolean attribute instead of this length check
+            if isinstance(field, CharField) and field.max_length > 50:
+                field_data: str = getattr(self.instance, field_name)
+                setattr(self.instance, field_name, core_nlp(field_data))
+        return super().save(commit)
+
 
 class InternshipApplicationForm(ApplicationForm):
     class Meta:
