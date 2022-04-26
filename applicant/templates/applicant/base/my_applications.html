@@ -21,6 +21,12 @@ applications: A set of applications, representing every application the user has
 
 
 {% block new_app_link %}{% endblock %}
+<br>
+    <form action={% block go_back_url %}{% endblock %}>
+    {% csrf_token %}
+        <button id="back_button" type="submit">{% block go_back_link_text %}{% endblock %}</button>
+</form>
+
 </div>
 <!--TODO (low priority): Maybe move part of this to something like application/applications_list.html-->
 {% for application in applications %}
@@ -41,9 +47,6 @@ applications: A set of applications, representing every application the user has
     <br><br>
 {% endfor %}
 <br>
-<form action={% block go_back_url %}{% endblock %}>
-    {% csrf_token %}
-    <button type="submit">{% block go_back_link_text %}{% endblock %}</button>
-</form>
+
 </body>
 </html>

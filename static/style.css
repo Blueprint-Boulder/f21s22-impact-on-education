@@ -47,26 +47,31 @@ a h2
 a#view_apps_intern{
     font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
     color: #141E27;
+    text-decoration: underline;
 }
 a#view_apps_scholar
 {
     font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
     color: #141E27;
+    text-decoration: underline;
 }
 a#create_apps_scholar
 {
     font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
     color: #141E27;
+    text-decoration: underline;
 }
 a#create_apps_intern
 {
     font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
     color: #141E27;
+    text-decoration: underline;
 }
 a#create_account
 {
     font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
     color: #141E27;
+    text-decoration: underline;
 }
 #login
 {
@@ -80,6 +85,23 @@ h2 a{
 h3 a{
     font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
     color: #141E27;
+}
+#vol_app{
+text-decoration: underline;
+}
+#college_app{
+text-decoration: underline;
+}
+#scholar_app{
+text-decoration: underline;
+}
+#intern_app{
+text-decoration: underline;
+}
+#create_new_app
+{
+text-decoration: underline;
+color: #203239;
 }
 
 /*
@@ -112,6 +134,19 @@ text-align: center;
 text-align: center;
 line-height: 1.6;
 }
+#back_button{
+background-color: #203239;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+
+
+}
+
 
 
 /*
