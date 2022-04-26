@@ -5,24 +5,13 @@
 {% load static %}
 
 {% block extra_fields %}
-    High School: {{ application.high_school }}
     <br>
-    Transcript:
+    What is a struggle you have recently overcome or are dealing with now? What steps did you
+                       take/are you taking to handle this issue?: {{ application.prompt1 }}
     <br>
-    <!--TODO (high priority): When adding CSS, replace height and width with something better
-         (e.g. adjust to screen size)-->
-    {% include "pdf_embed_snippet.html" with pdf_url=application.transcript.url height="500px" width="500px" %}
-    <br>
-    Statement:
-    <br>
-    {% include "pdf_embed_snippet.html" with pdf_url=application.statement.url height="500px" width="500px" %}
-    <br>
-    Recommendation letter 1:
-    <br>
-    {% include "pdf_embed_snippet.html" with pdf_url=application.recommendation_letter_1.url height="500px" width="500px" %}
-    <br>
-    Recommendation letter 2:
-    <br>
-    {% include "pdf_embed_snippet.html" with pdf_url=application.recommendation_letter_2.url height="500px" width="500px" %}
+    Are you involved in any activities in school or in your community? If so, please describe them
+                       and what your role in them looks like.: {{ application.prompt2 }}
     <br>
 {% endblock %}
+{% block go_back_url %}{% url "applicant:my-scholarship-apps" %}{% endblock %}
+{% block go_back_link_text %}Go back to my applications{% endblock %}

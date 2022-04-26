@@ -18,7 +18,60 @@ application - The application to be viewed. Will be a subclass of Application.
     <h3>[Not submitted]</h3>
 {% endif %}
 <br>
-ID: {{ application.id }}<br>
-{% block extra_fields %}{% endblock %}
+ID: {{ application.id }}
+<br>
+Applicant Type: {{ application.author }}
+<br>
+Applicant Name: {{ application.name }}
+    <br>Address: {{ application.address }}
+    <br>Phone Number: {{ application.phone_number }}
+    <br>
+    Email: {{ application.email }}
+    <br>
+    Institution: {{ application.institution }}
+    <br>
+    Degree: {{ application.degree }}
+    <br>
+    Field of Study: {{ application.field_of_study }}
+    <br>
+    Minors: {{ application.minors }}
+    <br>
+    Graduation Date: {{ application.grad_year }}
+    <br>
+    Work Employer: {{ application.work_employer }}
+    <br>
+    Work Position: {{ application.work_position }}
+    <br>
+    Work Description: {{ application.work_description }}
+    <br>
+    Work Years: {{ application.work_years }}
+    <br>
+    Work Hours: {{ application.work_hours }}
+    <br>
+    Volunteer Employer: {{ application.volunteer_employer }}
+    <br>
+    Volunteer Position: {{ application.volunteer_position }}
+    <br>
+    Volunteer Description: {{ application.volunteer_description }}
+    <br>
+    Volunteer Years: {{ application.volunteer_years }}
+    <br>
+    Volunteer Hours: {{ application.volunteer_hours }}
+    <br>
+    Organization Name: {{ application.org_name}}
+    <br>
+    Organization Position: {{ application.org_role }}
+    <br>
+    Organization Description: {{ application.org_description }}
+    <br>
+    Organization Years: {{ application.org_years }}
+    <br>
+    Organization Hours: {{ application.org_hours }}
+{% block extra_fields %}
+{% endblock %}
+<form action={% block go_back_url %}{% endblock %}>
+    {% csrf_token %}
+    <button type="submit">{% block go_back_link_text %}{% endblock %}</button>
+</form>
 </body>
 </html>

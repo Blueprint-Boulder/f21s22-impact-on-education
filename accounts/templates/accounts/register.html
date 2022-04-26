@@ -7,10 +7,18 @@
     <title>Create Account</title>
 </head>
 <body>
-<form method="POST">
+{% include "navbar_logged_out.html" %}
+<h1>Create An Account!</h1>
+<div class="jumbotron">
+    <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Submit">
+    <input id="create_submit" type="submit" value="Submit">
 </form>
+
+</div>
+
+
+
 </body>
 </html>

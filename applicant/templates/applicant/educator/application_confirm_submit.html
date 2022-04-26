@@ -1,5 +1,0 @@
-{% extends "application/academic_funding/application_confirm_submit.html" %}
-
-{% block submit_app_url %}{% url "applicant:submit-academic-funding-app" pk=application.pk %}{% endblock %}
-{% block go_back_url %}{% url "applicant:my-academic-funding-apps" %}{% endblock %}
-{% block go_back_link_text %}No, go back to my applications{% endblock %}

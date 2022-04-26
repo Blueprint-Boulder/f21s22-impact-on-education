@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
 import accounts.views
-from application.models import Application, AcademicFundingApplication
+from application.models import Application, InternshipApplication
 import org_admin.forms
 from accounts.models import CustomUser
 
@@ -49,16 +49,16 @@ class ScholarshipApplicationDetailView(application.views.ScholarshipApplicationD
     template_name = "org_admin/scholarship/application_detail.html"
 
 
-class AcademicFundingApplicationCreateView(application.views.AcademicFundingApplicationCreateView):
+class AcademicFundingApplicationCreateView(application.views.InternshipApplicationCreateView):
     template_name = "org_admin/academic_funding/application_form.html"
 
 
-class AcademicFundingApplicationDeleteView(application.views.AcademicFundingApplicationDeleteView):
+class AcademicFundingApplicationDeleteView(application.views.InternshipApplicationDeleteView):
     success_url = reverse_lazy("org_admin:all-academic-funding-apps")
     template_name = "org_admin/academic_funding/application_confirm_delete.html"
 
 
-class AcademicFundingApplicationDetailView(application.views.AcademicFundingApplicationDetailView):
+class AcademicFundingApplicationDetailView(application.views.InternshipApplicationDetailView):
     template_name = "org_admin/academic_funding/application_detail.html"
 
 
@@ -90,9 +90,3 @@ def all_scholarship_apps(request):
     return all_apps_of_type(request,
                             application_class=ScholarshipApplication,
                             template_name="org_admin/scholarship/applications_list.html")
-
-
-def all_academic_funding_apps(request):
-    return all_apps_of_type(request,
-                            application_class=AcademicFundingApplication,
-                            template_name="org_admin/academic_funding/applications_list.html")

@@ -1,0 +1,202 @@
+/*
+// Navbar styling
+*/
+.navbar.navbar-expand-lg
+{
+    background-color: #203239;
+}
+.dropdown-menu
+{
+    background-color: #203239;
+}
+
+.navbar-nav li a
+{
+color:#EEEDDE;
+}
+
+/*
+// Text styling
+*/
+h1
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    text-color: #141E27;
+    text-align: center;
+    line-height: 1.6;
+
+}
+h2
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+
+}
+h3
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+
+}
+a h2
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color:#141E27;
+}
+
+a#view_apps_intern{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+a#view_apps_scholar
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+a#create_apps_scholar
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+a#create_apps_intern
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+a#create_account
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+#login
+{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+h2 a{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+h3 a{
+    font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+    color: #141E27;
+}
+
+/*
+// Body of the website styling
+*/
+body
+{
+    background-color: #EEEDDE;
+}
+.jumbotron.text-center
+{
+background-color: #E0DDAA;
+}
+.jumbotron
+{
+background-color: #E0DDAA;
+}
+
+#login_fields
+{
+  font-family: Bodoni MT,Didot,Didot LT STD,Hoefler Text,Garamond,Times New Roman,serif;
+  color: #141E27;
+}
+#registration_text
+{
+text-align: center;
+}
+#header
+{
+text-align: center;
+line-height: 1.6;
+}
+
+
+/*
+//Buttons styling
+*/
+#login_submit
+{
+background-color: #203239;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+#create_submit{
+  background-color: #203239;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+
+
+
+/*
+//font
+//button - colors, font, button size, font size
+//font sizes - for different headers
+//look at old style sheet
+
+Notes on CSS - h1 = h1 tag, .h1 = class, #h1 = id
+
+h1.hey = h1 tag wih class hey
+*/
+
+
+
+
+
+/* These are for the buttons on the admin page but we can add these properties to other buttons and change their colors */
+.
+
+/* These are for the forms */
+.input{
+    /* These can also be used for the sign up and login pages */
+    width:25%;
+    padding: 12px 20px;
+    margin:8px 0;
+    box-sizing: border-box;
+    border:2px solid #7a1364;
+
+}
+.submitButton
+{
+    background-color: white;
+    color:#157077;
+
+}
+.saveButton
+{
+    background-color: white;
+    color:#096593;
+}
+
+.dropbtn {
+    background-color:white;
+    color: black;
+    padding: 15px;
+    font-size: 16px;
+    border: none; /*might change this */
+    cursor: pointer;
+  }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
