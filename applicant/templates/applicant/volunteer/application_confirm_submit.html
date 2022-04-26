@@ -1,7 +1,7 @@
 <!--views.confirm_submit_application uses this template-->
 
 {% extends "application/volunteer/application_confirm_submit.html" %}
-
+{% include "navbar_applicant.html" %}
 {% block submit_app_url %}{% url "applicant:submit-volunteer-app" pk=application.pk %}{% endblock %}
 {% block go_back_url %}{% url "applicant:my-volunteer-apps" %}{% endblock %}
 {% block go_back_link_text %}No, go back to my applications{% endblock %}

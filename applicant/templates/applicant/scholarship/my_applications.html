@@ -3,7 +3,7 @@
 {% extends "applicant/base/my_applications.html" %}
 
 {% block new_app_link %}
-    <a href={% url "applicant:new-scholarship-app" %}><h3>Create new scholarship application</h3></a>
+    <a id="create_new_app" href={% url "applicant:new-scholarship-app" %}><h3>Create new scholarship application</h3></a>
 {% endblock %}
 
 {% block extra_fields %}

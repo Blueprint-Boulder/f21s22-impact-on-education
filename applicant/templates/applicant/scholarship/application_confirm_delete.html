@@ -1,6 +1,6 @@
 <!--ScholarshipApplicationDeleteView uses this template-->
 
 {% extends "application/scholarship/application_confirm_delete.html" %}
-
+{% include "navbar_applicant.html" %}
 {% block go_back_url %}{% url "applicant:my-scholarship-apps" %}{% endblock %}
 {% block go_back_link_text %}No, go back to my applications{% endblock %}
